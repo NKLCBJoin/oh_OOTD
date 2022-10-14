@@ -1,6 +1,5 @@
 # oh_OOTD
 
-=======
 ![캡처](https://user-images.githubusercontent.com/60930743/195562657-02aa82f8-2714-4a0d-8245-e0ca39cfd403.PNG)
 
 ## 👨‍👦‍👦팀원
