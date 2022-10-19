@@ -1,57 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
-void main() {runApp(const MyApp());}
+void main() {
+  KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({ Key? key }) : super(key: key);
+
+  void _get_user_info() async {
+    try {
+      User user = await UserApi.instance.me();
+      print('사용자 정보 요청 성공'
+          '\n회원번호: ${user.id}'
+          '\n닉네임: ${user.kakaoAccount?.profile?.nickname}');
+    } catch (error) {
+      print('사용자 정보 요청 실패 $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'oh_ootd',
-      theme: ThemeData(primarySwatch: Colors.blue,),
-      home: const MyHomePage(title: 'oh_ootd'),
-    );
-  }
-}
+        home: Container(
+            color: Colors.white,
+            child: Center(
+                child: ElevatedButton(
+                    child: Text("카카오 로그인"),
+                    onPressed: () async {
+                      if (await isKakaoTalkInstalled()) {
+                        try {
+                          await UserApi.instance.loginWithKakaoTalk();
+                          print('카카오톡으로 로그인 성공');
+                          _get_user_info();
+                        } catch (error) {
+                          print('카카오톡으로 로그인 실패 $error');
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title),),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:',),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+                          // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
+                          try {
+                            await UserApi.instance.loginWithKakaoAccount();
+                            print('카카오계정으로 로그인 성공');
+                            _get_user_info();
+                          } catch (error) {
+                            print('카카오계정으로 로그인 실패 $error');
+                          }
+                        }
+                      } else {
+                        try {
+                          await UserApi.instance.loginWithKakaoAccount();
+                          print('카카오계정으로 로그인 성공');
+                          _get_user_info();
+                        } catch (error) {
+                          print('카카오계정으로 로그인 실패 $error');
+                        }
+                      }
+                    }
+                )
+            )
+        )
     );
   }
 }
