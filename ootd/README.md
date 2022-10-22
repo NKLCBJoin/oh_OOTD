@@ -12,7 +12,7 @@
 - 11월 8일 : 진행 상황 확인
 - 11월 10일 : 진행 상황 확인
 
-### 폴더 구조
+### 📂폴더 구조
 - API폴더-각 API파일넣는곳
 - screen폴더- 화면 UI들 보관폴더
 - mainscreen.dart,loadingscreen.dart등등)
