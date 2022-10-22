@@ -14,8 +14,7 @@
 
 ### 📂폴더 구조
 - API폴더-각 API파일넣는곳
-- screen폴더- 화면 UI들 보관폴더
-- mainscreen.dart,loadingscreen.dart등등)
+- screen폴더- 화면 UI들 보관폴더(mainscreen.dart,loadingscreen.dart등등)
 - widget폴더-이것도 UI를 담당하는 위젯들을 모아두는 폴더
                [screens 폴더와의 차이라고 한다면, screens폴더가 화면 전반을 담당한다면, 
                widgets은 그 화면의 부분부분의 요소들 중 재사용되는 UI들을 모아둔 곳]
