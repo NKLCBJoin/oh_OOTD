@@ -1,18 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
-class secondpage extends StatefulWidget {
-  const secondpage({Key? key}) : super(key: key);
+class secondpage extends StatelessWidget {
+  User user;
+  secondpage(this.user, {Key? key}) : super(key: key);
 
-  @override
-  State<secondpage> createState() => _secondpageState();
-}
-
-class _secondpageState extends State<secondpage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('로그인 성공'),
+    return Scaffold(
+        body:  Container(
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(height: 300,),
+
+                Text(
+                  '해당 유저의 정보를 읽어옵니다.'
+                  '\n회원번호: ${user.id}'
+                  '\n성별: ${user.kakaoAccount?.gender}'
+                  '\n닉네임: ${user.kakaoAccount?.profile?.nickname}'),
+              ],
+            ),
+          ),
+        )
     );
   }
 }
