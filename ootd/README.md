@@ -1,16 +1,24 @@
-# ootd
+## OOTD
+### ⌛현재 진행 상황
+#API 테스트 단계
+- 카카오톡 로그인, 공유
+- 날씨 API
+- 지역 API
 
-A new Flutter project.
 
-## Getting Started
+### 📆일정 진행
+~ 11월 2일 : 자유 개발 진행
+- 11월 4일 : 진행 상황 확인
+- 11월 8일 : 진행 상황 확인
+- 11월 10일 : 진행 상황 확인
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 폴더 구조
+- API폴더-각 API파일넣는곳
+- screen폴더- 화면 UI들 보관폴더
+- mainscreen.dart,loadingscreen.dart등등)
+- widget폴더-이것도 UI를 담당하는 위젯들을 모아두는 폴더
+               [screens 폴더와의 차이라고 한다면, screens폴더가 화면 전반을 담당한다면, 
+               widgets은 그 화면의 부분부분의 요소들 중 재사용되는 UI들을 모아둔 곳]
+- assest폴더-fonts, images, logo 등 담아두는 폴더
+- util-앱에서 여러번 재사용되는 함수나 로직 모아두는 폴더
+- model-DB와 연결된 전역변수나 앱 전체에 연결되는 전역변수 모아두는 폴더(회원아이디,성별 등등)
