@@ -40,7 +40,6 @@ dependencies:
   kakao_flutter_sdk_user: ^1.2.2
   http: ^0.13.4
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
