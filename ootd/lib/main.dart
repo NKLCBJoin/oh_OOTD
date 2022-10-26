@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:ootd/temp.dart';
+import 'widget/temp.dart';
 
 //신근재
-
 void main() {
   KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
   runApp(const MyApp());

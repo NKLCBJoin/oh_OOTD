@@ -185,7 +185,7 @@ packages:
     source: hosted
     version: "1.2.2"
   kakao_flutter_sdk_share:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: kakao_flutter_sdk_share
       url: "https://pub.dartlang.org"
