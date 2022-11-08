@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'widget/temp.dart';
+import 'model/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
 import 'package:flutter/services.dart';
+import 'screen/mainScreen.dart';
+import 'screen/startScreen.dart';
+import 'dart:async';
+import 'package:flutter/widgets.dart';
 
-//신근재
+//신근재,최지철
 void main() async
 {
   await GoogleSheestApi.init();//DB구글시트연결
@@ -21,12 +25,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                Kakao()
-              ],
-            )
+         decoration: BoxDecoration(
+           color: Colors.transparent,
+          image: DecorationImage(
+          image: AssetImage('assets/anifirst.gif'),
+         ),
+        ),
         )
     );
   }
