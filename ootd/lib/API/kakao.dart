@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import '../widget/temp.dart';
+import '../model/temp.dart';
 import '../API/gsheets.dart';
 import 'package:flutter/services.dart';
 //신근재
