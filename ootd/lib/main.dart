@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:ootd/screen/loading.dart';
 import 'widget/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
@@ -19,15 +20,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                Kakao()
-              ],
-            )
-        )
+        // debugShowCheckedModeBanner: false,
+        // home: Container(
+        //     color: Colors.white,
+        //     child: Column(
+        //       children: [
+        //         Loading(),Kakao(),
+        //       ],
+        //     )
+        // )
+      initialRoute: '/',
+      routes: {
+        '/' : (context) => Loading(),
+        '/b' : (context) => Kakao(),
+      },
     );
   }
 }
