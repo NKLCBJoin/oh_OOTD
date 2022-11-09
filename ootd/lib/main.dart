@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/loading.dart';
-import 'widget/temp.dart';
+import 'model/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
 import 'package:flutter/services.dart';
