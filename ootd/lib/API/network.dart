@@ -1,3 +1,4 @@
+// 네트워크 연결 및 응답
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

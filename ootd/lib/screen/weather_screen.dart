@@ -1,3 +1,4 @@
+// 이재민 메인화면 (날씨정보 및 아이콘 등이 나옴)
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
