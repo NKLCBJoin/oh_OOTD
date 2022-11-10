@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/loading.dart';
+import 'package:ootd/screen/weather_screen.dart';
 import 'model/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         // )
       initialRoute: '/',
       routes: {
-        '/' : (context) => Loading(),
+        '/' : (context) => Loading(),//초기화면
         '/b' : (context) => Kakao(),
       },
     );

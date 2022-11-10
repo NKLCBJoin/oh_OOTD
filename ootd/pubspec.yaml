@@ -41,7 +41,10 @@ dependencies:
   http: ^0.13.4
   flutter_weather_bg_null_safety: ^1.0.0
   flutter_gif:
-
+  google_fonts: ^2.0.0
+  flutter_svg: ^1.1.6
+  intl: ^0.17.0
+  timer_builder: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

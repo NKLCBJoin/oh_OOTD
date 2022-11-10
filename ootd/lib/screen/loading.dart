@@ -25,7 +25,7 @@ class _LoadingState extends State<Loading> {
     print(location.latitude2);
 
     Network network = Network('https://api.openweathermap.org/data/2.5/weather?'
-        'lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&units=metric');
+        'lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&lang=kr&units=metric');
     var weatherData = await network.getJsonData();
     print(weatherData);
     Navigator.push(context, MaterialPageRoute(builder: (context){
@@ -37,6 +37,7 @@ class _LoadingState extends State<Loading> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getLocation();
   }
   @override
   Widget build(BuildContext context) {
@@ -45,34 +46,8 @@ class _LoadingState extends State<Loading> {
         body: Center(
           child: Column(
             children: <Widget>[
-              PopupMenuButton<RGB>(
-                onSelected: (RGB result){
-                  setState(() {
-                    if(result ==RGB.red)
-                      Navigator.pushNamed(context, '/b');
-                    else if(result==RGB.blue)
-                      getLocation();
-                  });
-                },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry <RGB>>[
-                  const PopupMenuItem<RGB>(
-                    value: RGB.red,
-                    child: Text('카카오톡 로그인'),
-                  ),
-                  const PopupMenuItem<RGB>(
-                    value: RGB.green,
-                    child: Text('지도'),
-                  ),
-                  const PopupMenuItem<RGB>(
-                    value: RGB.blue,
-                    child: Text('위치 받기'),
-                  ),
-                ],
-              ),
-              Padding(
-                  padding: EdgeInsets.all(10),
-              ),
-            ],
+              CircularProgressIndicator()
+              ],
           )
         )
     );
