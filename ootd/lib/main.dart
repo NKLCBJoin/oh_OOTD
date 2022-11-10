@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/loading.dart';
-import 'package:ootd/screen/weather_screen.dart';
+import 'package:ootd/screen/mainScreen.dart';
 import 'model/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // debugShowCheckedModeBanner: false,
+         debugShowCheckedModeBanner: false,//이거 지우지말것 디버그리본없애는거 특히 재민(from지철)
         // home: Container(
         //     color: Colors.white,
         //     child: Column(
@@ -32,8 +32,7 @@ class MyApp extends StatelessWidget {
         // )
       initialRoute: '/',
       routes: {
-        '/' : (context) => Loading(),//초기화면
-        '/b' : (context) => Kakao(),
+        '/' : (context) => HomePageWidget(),
       },
     );
   }
