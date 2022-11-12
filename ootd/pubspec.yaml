@@ -43,6 +43,9 @@ dependencies:
   flutter_gif:
   flutter_animated_icons: ^1.0.1
   settings_ui: ^2.0.2
+  google_fonts: ^3.0.1
+  timer_builder: ^2.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
