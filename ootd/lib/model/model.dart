@@ -27,4 +27,69 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
       );
     }
   }
+  Widget ?getAirIcon(int index)
+  {
+    if(index==1){
+      return Image.asset('dust/good.png',
+          width: 37.0,
+          height: 35.0,
+      );
+    }else if(index==2||index==3){
+      return Image.asset('dust/normal.png',
+        width: 37.0,
+        height: 35.0,
+      );
+    }else if(index==4||index==5){
+      return Image.asset('dust/bad.png',
+        width: 37.0,
+        height: 35.0,
+      );
+    }
+  }
+  Widget ?getAirCondition(int index)
+  {
+    if(index==1){
+      return Text(
+        '매우좋음',
+        style: TextStyle(
+          color: Colors.lightGreenAccent,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }else if(index==2){
+      return Text(
+        '좋음',
+        style: TextStyle(
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }else if(index==3){
+      return Text(
+        '보통',
+        style: TextStyle(
+          color: Colors.white60,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+    else if(index==4){
+      return Text(
+        '나쁨',
+        style: TextStyle(
+          color: Colors.deepOrangeAccent,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+    else if(index==5){
+      return Text(
+        '매우나쁨',
+        style: TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
 }

@@ -9,8 +9,9 @@ import 'package:ootd/model/model.dart';
 const List<String> list = <String>['카카오톡 로그인','주간OOTD','알람'];
 
 class WeatherScreen extends StatefulWidget {
-  WeatherScreen({this.parseWeatherData});
+  WeatherScreen({this.parseWeatherData, this.parseAirPollution});
   final dynamic parseWeatherData;
+  final dynamic parseAirPollution;
 
   @override
   State<WeatherScreen> createState() => _WeatherScreenState();
@@ -32,18 +33,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
   double wind_speed = 1;
   double feel_temp = 10;
 
+  Widget? airIcon;
+  Widget? airCondition;
+  double pm2_5 = 0;
+  double pm10 = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    UpdateData(widget.parseWeatherData);
+    UpdateData(widget.parseWeatherData, widget.parseAirPollution);
   }
   String ?getSystemTime(){
     var now = DateTime.now();
     return DateFormat("h:mm a").format(now);
   }
-  void UpdateData(dynamic weatherData){
+  void UpdateData(dynamic weatherData, dynamic airData){
     int condition = weatherData['weather'][0]['id'];
     temp = weatherData['main']['temp'];
     min_temp = weatherData['main']['temp_min'];
@@ -55,7 +60,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
     weather = weatherData['weather'][0]['description'];
     cityName = weatherData['name'];
 
-    icon = model.getWeatherIcon(condition);
+    int index =airData['list'][0]['main']['aqi'];  // 미세먼지 AQI(인덱스값)
+    icon = model.getWeatherIcon(condition); // 날씨 아이콘 가져오기
+    airCondition = model.getAirCondition(index);
+    airIcon= model.getAirIcon(index);
+
+    pm2_5 = airData['list'][0]['components']['pm2_5']; //초미세먼지
+    pm10 = airData['list'][0]['components']['pm10']; //미세먼지
+
   }
   @override
   Widget build(BuildContext context) {
@@ -245,17 +257,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            Image.asset('dust/bad.png',
-                              width: 20,
-                              height: 26,
-                            ),
-                            Text(
-                              '매우나쁨',
-                              style: GoogleFonts.lato(
-                                fontSize: 16.0,
-                                color: Colors.white,
-                              ),
-                            ),
+                            airIcon!,
+                            airCondition!,
                           ],
                         ),
                         Column(
@@ -268,7 +271,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                             ),
                             Text(
-                              '10.0',
+                              '$pm10',
                               style: GoogleFonts.lato(
                                 fontSize: 16.0,
                                 color: Colors.white,
@@ -293,7 +296,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                             ),
                             Text(
-                              '29.24',
+                              '$pm2_5',
                               style: GoogleFonts.lato(
                                 fontSize: 16.0,
                                 color: Colors.white,

@@ -5,16 +5,25 @@ import 'dart:convert';
 
 class Network {
   late final String url;
+  late final String url2;
 
-  Network(this.url);
+  Network(this.url,this.url2);
 
   Future <dynamic> getJsonData() async {
     http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       String jsonData = response.body;
       var parsingData = jsonDecode(jsonData);
-      var id = parsingData['id'];
-      print(id);
+      // var id = parsingData['id'];
+      // print(id);
+      return parsingData;
+    }
+  }
+  Future <dynamic> getAirData() async {
+    http.Response response = await http.get(Uri.parse(url2));
+    if (response.statusCode == 200) {
+      String jsonData = response.body;
+      var parsingData = jsonDecode(jsonData);
       return parsingData;
     }
   }
