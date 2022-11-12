@@ -1,4 +1,5 @@
 # oh_OOTD
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/114370871/201268381-918ed781-3eb1-476a-bc02-6e9715693348.gif)
 
 ![캡처](https://user-images.githubusercontent.com/60930743/195562657-02aa82f8-2714-4a0d-8245-e0ca39cfd403.PNG)
 
@@ -22,6 +23,6 @@
 5. 설정 시간대에 알림 기능 
 
 
-## 🗓계획
+## 🗓계획 및 일정 진행사항
 ![간트](https://user-images.githubusercontent.com/60930743/195562691-4726919f-90f8-47b8-94b5-5bbf58015534.PNG)
 

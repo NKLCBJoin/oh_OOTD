@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-
+//신근재
 class secondpage extends StatelessWidget {
   User user;
   secondpage(this.user, {Key? key}) : super(key: key);

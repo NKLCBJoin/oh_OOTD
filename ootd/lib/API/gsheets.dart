@@ -1,4 +1,4 @@
-//최지철
+//최지철. 구글시트 API
 import 'package:gsheets/gsheets.dart';
 import 'package:flutter/material.dart';
 import 'package:ootd/model/model.dart';
