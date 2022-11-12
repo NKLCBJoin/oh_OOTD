@@ -8,6 +8,7 @@ import 'package:flutter_animated_icons/useanimations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart';
 import 'package:ootd/screen/loading.dart';
+import 'package:ootd/screen/settingScreen.dart';
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
 
@@ -20,11 +21,11 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   late AnimationController _menuController;
   late AnimationController _bellController;
 
-  void initState(){
+  void initState(){//메뉴바에 관한변수. 최지철
     _menuController = AnimationController(vsync: this , duration: const Duration(seconds: 1));
     _bellController= AnimationController(vsync: this , duration: const Duration(seconds: 1));
   }
-  void dispose(){
+  void dispose(){//메뉴바에 관한함수. 최지철
     _menuController.dispose();
     _bellController.dispose();
     super.dispose();
@@ -69,6 +70,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           ),
         ],
       ),
+      //---------------Drawer메뉴(메뉴 클릭시 나타나는 사이드페이지)-----------------------
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -107,7 +109,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                   controller: _bellController,
                   height: 20,
                   fit: BoxFit.cover
-
               ),
               title: Text("알림 설정"),
               onTap: (){ //알람 기능 선택시
@@ -146,7 +147,8 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 size: 20,
               ),
               title: Text("설정"),
-              onTap: (){//메인화면으로 돌아가기
+              onTap: (){//설정창
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingsWidget()));
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
                     AnimationStatus.dismissed) {

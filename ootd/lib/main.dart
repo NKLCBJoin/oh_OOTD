@@ -6,7 +6,7 @@ import 'model/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
 import 'package:flutter/services.dart';
-
+import 'screen/settingScreen.dart';
 //신근재
 void main() async
 {

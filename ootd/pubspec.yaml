@@ -43,6 +43,7 @@ dependencies:
   flutter_gif:
   flutter_animated_icons: ^1.0.1
   settings_ui: ^2.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
