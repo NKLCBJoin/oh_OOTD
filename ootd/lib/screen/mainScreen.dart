@@ -130,6 +130,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               title: Text("주간OOTD"),
               onTap: (){//메인화면으로 돌아가기
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading())); // weather_screen에 정상적으로 화면이 나오는지 실험중
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
                     AnimationStatus.dismissed) {

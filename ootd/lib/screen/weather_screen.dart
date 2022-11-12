@@ -30,6 +30,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   double pressure= 1000;
   double humidity= 50;
   double wind_speed = 1;
+  double feel_temp = 10;
 
 
   @override
@@ -47,10 +48,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
     temp = weatherData['main']['temp'];
     min_temp = weatherData['main']['temp_min'];
     max_temp = weatherData['main']['temp_max'];
+    feel_temp = weatherData['main']['feels_like'];
     pressure = weatherData['main']['pressure'];
     humidity = weatherData['main']['humidity'];
     wind_speed = weatherData['wind']['speed'];
-    weather = weatherData['weather'][0]['main'];
+    weather = weatherData['weather'][0]['description'];
     cityName = weatherData['name'];
 
     icon = model.getWeatherIcon(condition);
@@ -66,8 +68,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
         leading: PopupMenuButton<RGB>(
           onSelected: (RGB result){
             setState(() {
-              if(result ==RGB.a)
-                Navigator.pushNamed(context, '/b');
+             // if(result ==RGB.a)
+               // Navigator.pushNamed(context, '/b');
             });
           },
           itemBuilder: (BuildContext context) => <PopupMenuEntry <RGB>>[
@@ -87,7 +89,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ),
         actions:[
           IconButton(
-            icon: Icon(Icons.near_me),
+            icon: Icon(Icons.arrow_back),
             onPressed: (){
               Navigator.pushNamed(context, '/');
             },
@@ -154,13 +156,61 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             ),
                           ],
                         ),
-                        Text(
+                        Text  (
                           '$temp°C',
                           style: GoogleFonts.lato(
                               fontSize: 85.0,
                               fontWeight: FontWeight.w300,
                               color: Colors.white),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text  (
+                              '최대기온:',
+                              style: GoogleFonts.lato(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                            ),
+                            Text  (
+                              '$max_temp°C',
+                              style: GoogleFonts.lato(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                            ),
+                            Text  (
+                              '최저기온:',
+                              style: GoogleFonts.lato(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                            ),
+                            Text  (
+                              '$min_temp°C',
+                              style: GoogleFonts.lato(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                            ),
+                            Text  (
+                              '체감기온:',
+                              style: GoogleFonts.lato(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                            ),
+                            Text  (
+                              '$feel_temp°C',
+                              style: GoogleFonts.lato(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+
                       ]
                     ),
                     Row(
@@ -170,7 +220,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           width: 10.0,
                         ),
                         Text(
-                         'Clear sky',
+                         '$weather',
                           style: GoogleFonts.lato(
                             fontSize: 25.0,
                             color: Colors.white,
@@ -182,6 +232,83 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       height: 15.0,
                       thickness: 2.0,
                       color: Colors.white30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'SQI(대기질지수)',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Image.asset('dust/bad.png',
+                              width: 20,
+                              height: 26,
+                            ),
+                            Text(
+                              '매우나쁨',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              '미세먼지',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '10.0',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '㎍/m³',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              '초미세먼지',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '29.24',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '㎍/m³',
+                              style: GoogleFonts.lato(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     Image.asset('kakao_login_medium.png',
                       fit: BoxFit.cover,
