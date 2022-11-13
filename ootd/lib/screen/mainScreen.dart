@@ -171,7 +171,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           },
           child: Stack(
             children: [
-              WeatherBg(weatherType: WeatherType.thunder,width: 540,height: 815,),
+              WeatherBg(weatherType: WeatherType.thunder,width: 540,height: 845,),
               Align(
                 alignment: AlignmentDirectional(-0.05, -0.25),
                 child: Padding(
@@ -190,12 +190,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0.95),
+                alignment: AlignmentDirectional(0, 0.85),
                 child: Padding(//실시간날씨
                   padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
                   child: Container(
                     width: double.infinity,
-                    height: 220,
+                    height: 300,
                     decoration: BoxDecoration(
                       color: Colors.black12.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(10),

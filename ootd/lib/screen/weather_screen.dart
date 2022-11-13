@@ -32,7 +32,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
   double humidity= 50;
   double wind_speed = 1;
   double feel_temp = 10;
-
   Widget? airIcon;
   Widget? airCondition;
   double pm2_5 = 0;
