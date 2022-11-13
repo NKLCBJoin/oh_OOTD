@@ -9,6 +9,10 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/screen/settingScreen.dart';
+import 'package:ootd/screen/weather_screen.dart';
+import 'package:ootd/model/model.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
 
@@ -142,10 +146,10 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.grey,
-                size: 20,
+              leading:Lottie.network('https://assets8.lottiefiles.com/packages/lf20_ligemumo.json',
+                  controller: _bellController,
+                  height: 20,
+                  fit: BoxFit.cover
               ),
               title: Text("설정"),
               onTap: (){//설정창
@@ -173,7 +177,35 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             children: [
               WeatherBg(weatherType: WeatherType.thunder,width: 540,height: 845,),
               Align(
-                alignment: AlignmentDirectional(-0.05, -0.25),
+                alignment: AlignmentDirectional(-0.05, -0.79),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                  child: Container(//옷추천
+                    child: Row(
+                      children: [
+                        Text(
+                          'Gumi',
+                          style: GoogleFonts.lato(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    width: double.infinity,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.black12.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(-0.05, -0.15),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                   child: Container(//옷추천

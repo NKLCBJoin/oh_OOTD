@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
 
@@ -47,10 +48,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Row(
             children: [
+
               SettingsList(
                 sections: [
+
                   SettingsSection(
-                    title: Text('계정'),
+                    title: Text('언어 및 기타'),
                     tiles: <SettingsTile>[
                       SettingsTile.navigation(
                         leading: Icon(Icons.language),
@@ -58,20 +61,25 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         value: Text('한국어'),
                       ),
                       SettingsTile.switchTile(
-                        onToggle: (value) {},
+                        onToggle: (value) {
+
+                        },
                         initialValue: true,
-                        leading: Icon(Icons.format_paint),
-                        title: Text('Enable custom theme'),
+                        leading: Icon(Icons.dark_mode),
+                        title: Text('다크모드'),
                       ),
                     ],
                   ),
                   SettingsSection(
-                    title: Text('기타'),
+                    title: Text('계정'),
                     tiles: <SettingsTile>[
                       SettingsTile.navigation(
-                        leading: Icon(Icons.language),
-                        title: Text('언어'),
-                        value: Text('한국어'),
+                        leading: Icon(Icons.account_box_outlined),
+                        title: Text('계정정보'),
+                      ),
+                      SettingsTile.navigation(
+                        leading: Icon(Icons.accessibility),
+                        title: Text('회원탈퇴'),
                       ),
                     ],
                   ),
