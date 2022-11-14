@@ -8,26 +8,60 @@ import 'package:flutter_animated_icons/useanimations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart';
 import 'package:ootd/screen/loading.dart';
+import 'package:ootd/screen/loading2.dart';
 import 'package:ootd/screen/settingScreen.dart';
 import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
+ // const HomePageWidget({Key? key}) : super(key: key);
+  HomePageWidget({this.parseWeatherData,this.parseAirPollution});
+  final dynamic parseWeatherData;
+  final dynamic parseAirPollution;
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderStateMixin{
+  Model model = Model();
+  Widget ?icon;
+  String weather = 'weather';
+  String cityName = 'cityName';
+  double min_temp = 10;
+  double max_temp = 10;
+  double temp = 10;
+  Widget? airIcon;
+  Widget? airCondition;
+  double pm2_5 = 0;
+  double pm10 = 0;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _menuController;
   late AnimationController _bellController;
 
+  void UpdateData(dynamic weatherData,dynamic airData){
+    int condition = weatherData['weather'][0]['id'];
+    icon = model.getWeatherIcon(condition);
+    int index =airData['list'][0]['main']['aqi'];  // 미세먼지 AQI(인덱스값)
+    icon = model.getWeatherIcon(condition); // 날씨 아이콘 가져오기
+    airCondition = model.getAirCondition(index);
+    airIcon= model.getAirIcon(index);
+
+    pm2_5 = airData['list'][0]['components']['pm2_5']; //초미세먼지
+    pm10 = airData['list'][0]['components']['pm10']; //미세먼지
+
+    weather = weatherData['weather'][0]['description'];
+    temp = weatherData['main']['temp'];
+    min_temp = weatherData['main']['temp_min'];
+    max_temp = weatherData['main']['temp_max'];
+    cityName = weatherData['name'];
+  }
   void initState(){//메뉴바에 관한변수. 최지철
     _menuController = AnimationController(vsync: this , duration: const Duration(seconds: 1));
     _bellController= AnimationController(vsync: this , duration: const Duration(seconds: 1));
+    UpdateData(widget.parseWeatherData,widget.parseAirPollution);
   }
   void dispose(){//메뉴바에 관한함수. 최지철
     _menuController.dispose();
@@ -134,7 +168,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               title: Text("주간OOTD"),
               onTap: (){//메인화면으로 돌아가기
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading())); // weather_screen에 정상적으로 화면이 나오는지 실험중
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading2())); // weather_screen에 정상적으로 화면이 나오는지 실험중
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
                     AnimationStatus.dismissed) {
@@ -183,12 +217,138 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                   child: Container(//옷추천
                     child: Row(
                       children: [
-                        Text(
-                          'Gumi',
-                          style: GoogleFonts.lato(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                        Column(
+                          children: [
+                            Text(
+                              '$cityName',
+                              style: GoogleFonts.lato(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  '$temp°C',
+                                  style: GoogleFonts.lato(
+                                      fontSize: 40.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                icon!,
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '$weather',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width:20,
+                                ),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text(
+                                              'SQI(대기질지수)',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 11.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            airIcon!,
+                                            airCondition!,
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              '미세먼지',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 10.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '$pm10',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 10.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '㎍/m³',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 10.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              '초미세먼지',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 10.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '$pm2_5',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 10.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '㎍/m³',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 10.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '최대기온: $max_temp°C',
+                                    style: GoogleFonts.lato(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    '최저기온: $min_temp°C',
+                                    style: GoogleFonts.lato(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ]
+                            ),
+                          ],
                         ),
                       ],
                     ),

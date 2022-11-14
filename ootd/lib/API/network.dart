@@ -28,3 +28,17 @@ class Network {
     }
   }
 }
+class Network2 {
+  late final String url;
+
+  Network2(this.url);
+
+  Future <dynamic> getHourWeatherData() async {
+    http.Response response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      String jsonData = response.body;
+      var parsingData = jsonDecode(jsonData);
+      return parsingData;
+    }
+  }
+}

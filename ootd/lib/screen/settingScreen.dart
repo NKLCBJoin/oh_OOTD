@@ -4,6 +4,8 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'loading.dart';
+
 
 
 class SettingsWidget extends StatefulWidget {
@@ -30,7 +32,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             size: 30,
           ),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_)=>HomePageWidget()));
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),
         title: Align(

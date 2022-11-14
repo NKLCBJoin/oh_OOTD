@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         // )
       initialRoute: '/',
       routes: {
-        '/' : (context) => SettingsWidget(),
+        '/' : (context) => Loading(),
       },
     );
   }
