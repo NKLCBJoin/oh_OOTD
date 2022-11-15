@@ -14,6 +14,8 @@ import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ootd/API/gsheets.dart';
+import 'package:ootd/API/kakao.dart';
+
 class HomePageWidget extends StatefulWidget {
  // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution});
@@ -381,6 +383,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                       border: Border.all(
                         width: 0,
                       ),
+                    ),
+                    child: Center(
+                      child: login_nextpage(),
                     ),
                   ),
                 ),
