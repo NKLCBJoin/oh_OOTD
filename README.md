@@ -24,5 +24,7 @@
 
 
 ## 🗓계획 및 일정 진행사항
-![간트](https://user-images.githubusercontent.com/60930743/195562691-4726919f-90f8-47b8-94b5-5bbf58015534.PNG)
+-11월15일자 기준-
+![간트](![image](https://user-images.githubusercontent.com/114370871/201876419-e1a60569-30ef-400c-aa5f-78531e6fe901.png)
+
 
