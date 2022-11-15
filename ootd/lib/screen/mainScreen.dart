@@ -13,7 +13,7 @@ import 'package:ootd/screen/settingScreen.dart';
 import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:ootd/API/gsheets.dart';
 class HomePageWidget extends StatefulWidget {
  // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution});
@@ -78,8 +78,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
         elevation: 0,
         leading: IconButton(
           icon: Icon(
-            Icons.menu,
+            Icons.location_pin,
             size: 30,
+            color: Colors.white,
           ),
           onPressed: () {
             print('위치.');
@@ -89,10 +90,10 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           IconButton(
             splashRadius: 50,
             iconSize: 100,
-            icon: Lottie.asset(Useanimations.menuV3,
+            icon: Lottie.asset(Useanimations.menuV2,
                 controller: _menuController,
                 height: 60,
-                fit: BoxFit.fitHeight
+                fit: BoxFit.fitHeight,
             ),
             onPressed: () async {
               if (_menuController.status ==
@@ -119,7 +120,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               accountName: Text('섹스신 근재'), accountEmail: Text('SexShin@gmail.com'),
               decoration: BoxDecoration(
-                  color: Colors.red[200],
+                  color: Colors.blue[300],
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30.0),
                       bottomRight: Radius.circular(30.0))),
@@ -128,7 +129,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               leading: Icon(
                 Icons.home,
                 color: Colors.grey,
-                size: 20,
+                size: 30,
               ),
               title: Text("홈으로"),
               onTap: (){//메인화면으로 돌아가기
@@ -143,12 +144,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               },
             ),
             ListTile(
-              leading: Lottie.asset(LottieFiles.$63128_bell_icon,
-                  controller: _bellController,
-                  height: 20,
-                  fit: BoxFit.cover
+              leading: Icon(
+                Icons.alarm_on_sharp,
+                color: Colors.grey,
+                size: 30,
               ),
-              title: Text("알림 설정"),
+              title: Text("알람 설정"),
               onTap: (){ //알람 기능 선택시
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
@@ -162,9 +163,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             ),
             ListTile(
               leading: Icon(
-                Icons.home,
+                Icons.checkroom_rounded,
                 color: Colors.grey,
-                size: 20,
+                size: 30,
               ),
               title: Text("주간OOTD"),
               onTap: (){//메인화면으로 돌아가기
@@ -180,10 +181,10 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               },
             ),
             ListTile(
-              leading:Lottie.network('https://assets8.lottiefiles.com/packages/lf20_ligemumo.json',
-                  controller: _bellController,
-                  height: 20,
-                  fit: BoxFit.cover
+              leading: Icon(
+                Icons.settings_sharp,
+                color: Colors.grey,
+                size: 30,
               ),
               title: Text("설정"),
               onTap: (){//설정창
@@ -209,7 +210,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           },
           child: Stack(
             children: [
-              WeatherBg(weatherType: WeatherType.thunder,width: 540,height: 845,),
+              WeatherBg(weatherType: WeatherType.sunny,width: 540,height: 845,),
               Align(
                 alignment: AlignmentDirectional(-0.05, -0.79),
                 child: Padding(
@@ -218,8 +219,10 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     child: Row(
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
+
                               '$cityName',
                               style: GoogleFonts.lato(
                                   fontSize: 30.0,
@@ -231,7 +234,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 Text(
                                   '$temp°C',
                                   style: GoogleFonts.lato(
-                                      fontSize: 40.0,
+                                      fontSize: 32.0,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
@@ -354,8 +357,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     ),
                     width: double.infinity,
                     height: 180,
+
                     decoration: BoxDecoration(
-                      color: Colors.black12.withOpacity(0.5),
+                      color: Colors.black12.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         width: 0,

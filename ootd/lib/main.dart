@@ -8,6 +8,7 @@ import 'API/kakao.dart';
 import 'package:flutter/services.dart';
 import 'screen/settingScreen.dart';
 import 'screen/startScreen.dart';
+import 'package:ootd/screen/tempScreen.dart';
 //신근재
 void main() async
 {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         // )
       initialRoute: '/',
       routes: {
-        '/' : (context) => Loading(),
+        '/' : (context) => firstPage(),
       },
     );
   }
