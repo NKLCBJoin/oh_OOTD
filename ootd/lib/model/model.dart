@@ -13,36 +13,40 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   Widget ?getWeatherIcon(int condition) {
     if(condition < 300)
       {
-        return Image.asset('weather/Thunder.png', // 비천둥
+        return Image.asset('assets/weather/Thunder.png', // 비천둥
+            height: 30,width: 30,
         );
       }else if(condition <600){
 
-      return Image.asset('weather/Snowy_cloud.png', // 눈옴
+      return Image.asset('assets/weather/Snowycloud.png', // 눈옴
+        height: 30,width: 30,
       );
     }else if(condition==800){
-    return Image.asset('weather/Sunny.png', // 날씨 좋음
+    return Image.asset('assets/weather/Sunny.png', // 날씨 좋음
+      height: 30,width: 30,
     );
     }else if(condition<=804){
-      return Image.asset('weather/Cloud_2.png', // 구름낌
+      return Image.asset('assets/weather/Cloud2.png', // 구름낌
+        height: 30,width: 30,
       );
     }
   }
   Widget ?getAirIcon(int index)
   {
     if(index==1){
-      return Image.asset('dust/good.png',
-          width: 37.0,
-          height: 35.0,
+      return Image.asset('assets/dust/good.png',
+          width: 15.0,
+          height: 15.0,
       );
     }else if(index==2||index==3){
-      return Image.asset('dust/normal.png',
-        width: 37.0,
-        height: 35.0,
+      return Image.asset('assets/dust/normal.png',
+        width: 15.0,
+        height: 15.0,
       );
     }else if(index==4||index==5){
-      return Image.asset('dust/bad.png',
-        width: 37.0,
-        height: 35.0,
+      return Image.asset('assets/dust/bad.png',
+        width: 15.0,
+        height: 15.0,
       );
     }
   }

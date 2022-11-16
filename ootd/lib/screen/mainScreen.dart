@@ -34,8 +34,8 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   double temp = 10;
   Widget? airIcon;
   Widget? airCondition;
-  double pm2_5 = 0;
-  double pm10 = 0;
+  double pm2_5 = 0.0;
+  double pm10 = 0.0;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _menuController;
@@ -111,7 +111,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
       //---------------Drawer메뉴(메뉴 클릭시 나타나는 사이드페이지)-----------------------
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
@@ -214,13 +213,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 alignment: AlignmentDirectional(-0.05, -0.79),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                  child: Container(//옷추천
+                  child: Container(
+                    child: SingleChildScrollView(//옷추천
                     child: Row(
                       children: [
                         Column(
                           children: [
                             Text(
-                              '$cityName',
+                              'Gumi',
                               style: GoogleFonts.lato(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.bold,
@@ -252,80 +252,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 SizedBox(
                                   width:20,
                                 ),
-                                Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'SQI(대기질지수)',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 11.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            airIcon!,
-                                            airCondition!,
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '미세먼지',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 10.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              '$pm10',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 10.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              '㎍/m³',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 10.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '초미세먼지',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 10.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              '$pm2_5',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 10.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              '㎍/m³',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 10.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
                               ],
                             ),
+
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -348,9 +277,79 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   ),
                                 ]
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      'SQI(대기질지수)',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 11.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    airIcon!,
+                                    airCondition!,
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      '미세먼지',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '$pm10',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '㎍/m³',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      '초미세먼지',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '$pm2_5',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      '㎍/m³',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+
                           ],
                         ),
                       ],
+                    ),
                     ),
                     width: double.infinity,
                     height: 180,
@@ -386,6 +385,13 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 child: Padding(//실시간날씨
                   padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
                   child: Container(
+                    child: Row(
+                      children: [
+                        Text(
+                            '시간대별 날씨'
+                        ),
+                      ],
+                    ),
                     width: double.infinity,
                     height: 300,
                     decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ootd/screen/loading.dart';
 import 'package:ootd/screen/mainScreen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
@@ -18,7 +19,7 @@ class  _firstPageState extends State<firstPage>{
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePageWidget()));
+          context, MaterialPageRoute(builder: (context) => Loading()));
     });
   }
   Widget build(BuildContext context){

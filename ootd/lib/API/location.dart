@@ -7,7 +7,7 @@ class MyLocation{
   double ?longtitude2;
   Future <void> getMyCurrentLocation() async{
     try {
-      LocationPermission permission = await Geolocator.requestPermission(); // 권한
+      //LocationPermission permission = await Geolocator.requestPermission(); // 권한
       Position position = await Geolocator.
       getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       latitude2 = position.latitude;

@@ -25,17 +25,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   String cityName = 'cityName';
   String weather = 'weather';
-  double min_temp = 10;
-  double max_temp = 10;
-  double temp = 10;
-  double pressure= 1000;
-  double humidity= 50;
-  double wind_speed = 1;
-  double feel_temp = 10;
+  double min_temp = 10.0;
+  double max_temp = 10.0;
+  double temp = 10.0;
+  double pressure= 1000.0;
+  double humidity= 50.0;
+  double wind_speed = 1.0;
+  double feel_temp = 10.0;
   Widget? airIcon;
   Widget? airCondition;
-  double pm2_5 = 0;
-  double pm10 = 0;
+  double pm2_5 = 0.0;
+  double pm10 = 0.0;
 
   @override
   void initState() {
@@ -49,13 +49,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
   void UpdateData(dynamic weatherData, dynamic airData){
     int condition = weatherData['weather'][0]['id'];
-    temp = weatherData['main']['temp'];
-    min_temp = weatherData['main']['temp_min'];
-    max_temp = weatherData['main']['temp_max'];
-    feel_temp = weatherData['main']['feels_like'];
-    pressure = weatherData['main']['pressure'];
-    humidity = weatherData['main']['humidity'];
-    wind_speed = weatherData['wind']['speed'];
+    temp = weatherData['main']['temp'].toDouble();
+    min_temp = weatherData['main']['temp_min'].toDouble();
+    max_temp = weatherData['main']['temp_max'].toDouble();
+    feel_temp = weatherData['main']['feels_like'].toDouble();
+    pressure = weatherData['main']['pressure'].toDouble();
+    humidity = weatherData['main']['humidity'].toDouble();
+    wind_speed = weatherData['wind']['speed'].toDouble();
     weather = weatherData['weather'][0]['description'];
     cityName = weatherData['name'];
 
@@ -64,8 +64,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
     airCondition = model.getAirCondition(index);
     airIcon= model.getAirIcon(index);
 
-    pm2_5 = airData['list'][0]['components']['pm2_5']; //초미세먼지
-    pm10 = airData['list'][0]['components']['pm10']; //미세먼지
+    pm2_5 = airData['list'][0]['components']['pm2_5'].toDouble(); //초미세먼지
+    pm10 = airData['list'][0]['components']['pm10'].toDouble(); //미세먼지
 
   }
   @override
@@ -111,7 +111,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         body: Container(
           child: Stack(
             children: <Widget>[
-              Image.asset('background.png',
+              Image.asset('assets/background.png',
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
@@ -130,7 +130,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           height: 150.0,
                         ),
                         Text(
-                          'Gumi',
+                          '$cityName',
                           style: GoogleFonts.lato(
                               fontSize: 45.0,
                               fontWeight: FontWeight.bold,
@@ -312,7 +312,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         ),
                       ],
                     ),
-                    Image.asset('kakao_login_medium.png',
+                    Image.asset('assets/kakao_login_medium.png',
                       fit: BoxFit.cover,
                     ),
                   ],
