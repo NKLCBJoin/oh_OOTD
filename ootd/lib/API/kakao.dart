@@ -26,7 +26,7 @@ class Kakao extends StatelessWidget {
   }
 }
 
-//<-------------------로그인 클래스 정의----------------------->
+//<-------------------로그인 버튼 클래스 정의----------------------->
 class login_nextpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class login_nextpage extends StatelessWidget {
           //토큰 유효성 확인 후 로그인 시도
           try {
             AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-            User user = await UserApi.instance.me();
+            User user = await UserApi.instance.me();//유저 정보 user에 담는다.
             print('토큰 정보 보기 성공'
                 '\n회원정보: ${tokenInfo.id}'
                 '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
@@ -58,6 +58,8 @@ class login_nextpage extends StatelessWidget {
                 await UserApi.instance.loginWithKakaoTalk();
                 User user = await UserApi.instance.me();
                 print('카카오톡으로 로그인 성공');
+                //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
+                //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
                 Navigator.push
                   (context,
                   MaterialPageRoute(builder: (context) => secondpage(user)),);

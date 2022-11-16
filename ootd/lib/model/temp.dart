@@ -14,6 +14,7 @@ class secondpage extends StatelessWidget {
               children: [
                 SizedBox(height: 300,),
 
+                //user.id나 성별 닉네임 등등 뽑아올 수 있다.
                 Text(
                   '해당 유저의 정보를 읽어옵니다.'
                   '\n회원번호: ${user.id}'
