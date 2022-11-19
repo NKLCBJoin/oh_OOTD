@@ -13,7 +13,7 @@ import 'package:ootd/screen/settingScreen.dart';
 import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:ootd/API/kakao.dart';
 class HomePageWidget extends StatefulWidget {
  // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution});
