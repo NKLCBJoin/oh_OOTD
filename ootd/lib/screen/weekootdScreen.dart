@@ -21,7 +21,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(
-            Icons.add,
+            Icons.arrow_back,
             size: 30,
           ),
           onPressed: () {
@@ -72,24 +72,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 300,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
-                                offset: Offset(0, 10), // changes position of shadow
-                              ),
-                            ],
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Monday',
+                            ),
                           ),
                         ),
                       ),
@@ -110,24 +97,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 300,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
-                                offset: Offset(0, 10), // changes position of shadow
-                              ),
-                            ],
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Tuesday',
+                            ),
                           ),
                         ),
                       ),
@@ -147,19 +121,205 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 offset: Offset(0, 10), // changes position of shadow
                               ),
                             ],
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Wednesday',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Container(
+                          width: 300,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(35),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 0,
+                                blurRadius: 5.0,
+                                offset: Offset(0, 10), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Thursday',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Container(
+                          width: 300,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(35),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 0,
+                                blurRadius: 5.0,
+                                offset: Offset(0, 10), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Friday',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Container(
+                          width: 300,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(35),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 0,
+                                blurRadius: 5.0,
+                                offset: Offset(0, 10), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Saturday',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Container(
+                          width: 300,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(35),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 0,
+                                blurRadius: 5.0,
+                                offset: Offset(0, 10), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Text(
+                              'Sunday',
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Container(
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(10, 30, 10, 10),
+                child:Container(
                   width: double.infinity,
                   height: 500,
                   decoration: BoxDecoration(
                     color: Colors.cyan,
+                    borderRadius: BorderRadius.circular(35),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 0,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 10), // changes position of shadow
+                      ),
+                    ],
                   ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                            topLeft: Radius.circular(35),
+                            topRight: Radius.circular(35),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.pink,
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(35),
+                            bottomRight: Radius.circular(35),
+                            topLeft: Radius.circular(0),
+                            topRight: Radius.circular(0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
                 ),
+            ),
               ],
             ),
           ),
