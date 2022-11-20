@@ -17,7 +17,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/weekootdScreen.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:ootd/screen/menu.dart';
 
 class HomePageWidget extends StatefulWidget {
  // const HomePageWidget({Key? key}) : super(key: key);

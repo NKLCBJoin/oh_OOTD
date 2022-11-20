@@ -4,7 +4,6 @@ import 'package:ootd/screen/loading.dart';
 import 'package:ootd/screen/mainScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:ootd/screen/menu.dart';
 //최지철
 class WeekootdPage extends StatefulWidget {
   const WeekootdPage({Key? key}) : super(key: key);
