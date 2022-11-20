@@ -28,15 +28,20 @@ class _LoadingState extends State<Loading> {
 
     Network network = Network('https://api.openweathermap.org/data/2.5/weather?'
         'lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&lang=kr&units=metric',
-        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey');
+        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey',
+        'https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&units=metric');
     var weatherData = await network.getJsonData();
     print(weatherData);
 
     var airData = await network.getAirData();
     print(airData);
+
+    var hourData = await network.getHourData();
+    print(hourData);
+
     Navigator.push(context, MaterialPageRoute(builder: (context){
       return HomePageWidget(parseWeatherData: weatherData,
-        parseAirPollution: airData,
+        parseAirPollution: airData, parseHourData: hourData,
       );
     }));
     /*Navigator.push(context, MaterialPageRoute(builder: (context){

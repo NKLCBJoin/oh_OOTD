@@ -17,29 +17,20 @@ class Loading2 extends StatefulWidget {
 enum RGB {red, green, blue }
 class _Loading2State extends State<Loading2> {
 
-
-  String ?CityName;
-  var a=0;
   void getLocation2() async{
     MyLocation location = MyLocation();
     await location.getMyCurrentLocation();
     print(location.longtitude2);
     print(location.latitude2);
 
-    Network network = Network('https://api.openweathermap.org/data/2.5/weather?'
-        'lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&lang=kr&units=metric',
-        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey');
-    /*Network2 network = Network2('https://pro.openweathermap.org/data/2.5/forecast/hourly?q=Gumi&appid=$apikey');
-    var weatherData = await network.getHourWeatherData();*/ //시간대별 날씨정보
-    var weatherData = await network.getJsonData();
-    print(weatherData);
+    Network2 network = Network2('https://pro.openweathermap.org/data/2.5/forecast/hourly?q=Gumi&appid=$apikey');
+    var weatherData = await network.getHourWeatherData(); //시간대별 날씨정보
 
-    var airData = await network.getAirData();
-    print(airData);
+    print(weatherData);
+    ;
 
     Navigator.push(context, MaterialPageRoute(builder: (context){
       return WeatherScreen(parseWeatherData: weatherData,
-        parseAirPollution: airData,
       );
     }));
   }

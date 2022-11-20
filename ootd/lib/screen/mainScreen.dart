@@ -5,7 +5,6 @@ import 'package:flutter_animated_icons/flutter_animated_icons.dart';
 import 'package:flutter_animated_icons/icons8.dart';
 import 'package:flutter_animated_icons/lottiefiles.dart';
 import 'package:flutter_animated_icons/useanimations.dart';
-import 'package:flutter_zoom_drawer/config.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart';
 import 'package:ootd/screen/loading.dart';
@@ -15,15 +14,11 @@ import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ootd/API/kakao.dart';
-import 'package:ootd/screen/weekootdScreen.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-
 class HomePageWidget extends StatefulWidget {
  // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution});
   final dynamic parseWeatherData;
   final dynamic parseAirPollution;
-
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -174,7 +169,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               title: Text("주간OOTD"),
               onTap: (){//메인화면으로 돌아가기
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>WeekootdPage())); // weather_screen에 정상적으로 화면이 나오는지 실험중
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading2())); // weather_screen에 정상적으로 화면이 나오는지 실험중
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
                     AnimationStatus.dismissed) {
