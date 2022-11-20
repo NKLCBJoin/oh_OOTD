@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         // )
       initialRoute: '/',
       routes: {
-        '/' : (context) => WeekootdPage(),
+        '/' : (context) => firstPage(),
       },
     );
   }
