@@ -47,6 +47,8 @@ dependencies:
   timer_builder: ^2.0.0
   intl: ^0.17.0
   day_night_switcher: ^0.2.0+1
+  flutter_zoom_drawer: ^3.0.3
+
 
 dev_dependencies:
   flutter_test:
