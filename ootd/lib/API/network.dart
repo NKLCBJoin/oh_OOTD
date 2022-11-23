@@ -42,7 +42,7 @@ class Network2 {
 
   Network2(this.url);
 
-  Future <dynamic> getHourWeatherData() async {
+  Future <dynamic> getDailyData() async {
     http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       String jsonData = response.body;

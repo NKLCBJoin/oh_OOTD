@@ -15,6 +15,7 @@ import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ootd/API/kakao.dart';
+import 'package:ootd/screen/weekootdScreen.dart';
 
 
 class HomePageWidget extends StatefulWidget {
@@ -31,7 +32,7 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderStateMixin{
   Model model = Model();
   Widget ?icon;
-  Widget ?icon2;
+  List <Widget> icons= [];
   String weather = 'weather';
   String cityName = 'cityName';
   double min_temp = 10.0;
@@ -41,23 +42,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   Widget? airCondition;
   double pm2_5 = 0.0;
   double pm10 = 0.0;
-  String hour1 = '';
-  String hour2 = '';
-  String hour3 = '';
-  String hour4 = '';
-  String hour5 = '';
-  String hour6 = '';
-  String hour7 = '';
-  String hour8 = '';
-  double hourly_weather_t1 = 10.0;
-  double hourly_weather_t2 = 10.0;
-  double hourly_weather_t3 = 10.0;
-  double hourly_weather_t4 = 10.0;
-  double hourly_weather_t5 = 10.0;
-  double hourly_weather_t6 = 10.0;
-  double hourly_weather_t7 = 10.0;
-  double hourly_weather_t8 = 10.0;
-
+  List <String> hours = ['hour1', 'hour2', 'hour3', 'hour4', 'hour5','hour6','hour7','hour8' ];
+  var hourly_weathers = List<double>.filled(8, 0.0);
+  // List <double> hourly_weathers= [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _menuController;
@@ -65,10 +52,19 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
 
   void UpdateData(dynamic weatherData,dynamic airData, dynamic hourData){
     int condition = weatherData['weather'][0]['id'];
-    int conditions = hourData['list'][0]['weather'][0]['id'];
+    List <int> conditions = [0,0,0,0,0,0,0,0];
+    for (var i = 0; i<8; i++)
+    {
+      conditions[i] = hourData['list'][i]['weather'][0]['id'];
+    }
+
+    for (var i = 0; i<8; i++)
+    {
+      icons.add(model.getWeatherIcon(conditions[i])!); // 날씨 아이콘 가져오기
+    }
     icon = model.getWeatherIcon(condition);
     int index =airData['list'][0]['main']['aqi'];  // 미세먼지 AQI(인덱스값)
-    icon2 = model.getWeatherIcon(conditions); // 날씨 아이콘 가져오기
+
     airCondition = model.getAirCondition(index);
     airIcon= model.getAirIcon(index);
 
@@ -81,28 +77,21 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
     max_temp = weatherData['main']['temp_max'].toDouble();
     cityName = weatherData['name'];
 
-    hour1 =  hourData['list'][0]['dt_txt'].split(' ')[1];
-    hourly_weather_t1= hourData['list'][0]['main']['temp'].toDouble();
-    hour2 =  hourData['list'][1]['dt_txt'].split(' ')[1];
-    hourly_weather_t2= hourData['list'][1]['main']['temp'].toDouble();
-    hour3 =  hourData['list'][2]['dt_txt'].split(' ')[1];
-    hourly_weather_t3= hourData['list'][2]['main']['temp'].toDouble();
-    hour4 =  hourData['list'][3]['dt_txt'].split(' ')[1];
-    hourly_weather_t4= hourData['list'][3]['main']['temp'].toDouble();
-    hour5 =  hourData['list'][4]['dt_txt'].split(' ')[1];
-    hourly_weather_t5= hourData['list'][4]['main']['temp'].toDouble();
-    hour6 =  hourData['list'][5]['dt_txt'].split(' ')[1];
-    hourly_weather_t6= hourData['list'][5]['main']['temp'].toDouble();
-    hour7 =  hourData['list'][6]['dt_txt'].split(' ')[1];
-    hourly_weather_t7= hourData['list'][6]['main']['temp'].toDouble();
-    hour8 =  hourData['list'][7]['dt_txt'].split(' ')[1];
-    hourly_weather_t8= hourData['list'][7]['main']['temp'].toDouble();
+    for (var i = 0; i<8; i++)
+      {
+        hours[i] = hourData['list'][i]['dt_txt'].split(' ')[1];
+        hourly_weathers[i]= hourData['list'][i]['main']['temp'].toDouble();
+      }
     //print(double.parse(hourly_weather_t1.toStringAsFixed(1)));
   }
   void initState(){//메뉴바에 관한변수. 최지철
     _menuController = AnimationController(vsync: this , duration: const Duration(seconds: 1));
     _bellController= AnimationController(vsync: this , duration: const Duration(seconds: 1));
     UpdateData(widget.parseWeatherData,widget.parseAirPollution,widget.parseHourData);
+    for(var j = 0; j<8; j++)
+    {
+      hourly_weathers[j] = 10.0;
+    }
   }
   void dispose(){//메뉴바에 관한함수. 최지철
     _menuController.dispose();
@@ -272,7 +261,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             Row(
                               children: [
                                 Text(
-                                  '$temp°C',
+                                  '$temp°',
                                   style: GoogleFonts.lato(
                                       fontSize: 32.0,
                                       fontWeight: FontWeight.bold,
@@ -302,7 +291,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '최대기온: $max_temp°C',
+                                    '최대기온: $max_temp°',
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
@@ -312,7 +301,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     width: 10,
                                   ),
                                   Text(
-                                    '최저기온: $min_temp°C',
+                                    '최저기온: $min_temp°',
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
@@ -447,35 +436,15 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weather_t1.toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°C',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon2!,
+                                icons[0]!,
                                 Text(
-                                  '${hour1}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weather_t2.toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icon2!,
-                                Text(
-                                  '$hour2',
+                                  '${hours[0]}',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -487,35 +456,15 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weather_t3.toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°C',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon2!,
+                                icons[1]!,
                                 Text(
-                                  '$hour3',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weather_t4.toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icon2!,
-                                Text(
-                                  '$hour4',
+                                  '${hours[1]}',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -527,35 +476,15 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weather_t5.toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°C',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon2!,
+                                icons[2]!,
                                 Text(
-                                  '$hour5',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weather_t6.toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icon2!,
-                                Text(
-                                  '$hour6',
+                                  '${hours[2]}',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -567,15 +496,15 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weather_t7.toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°C',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon2!,
+                                icons[3]!,
                                 Text(
-                                  '$hour7',
+                                  '${hours[3]}',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -587,15 +516,75 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weather_t8.toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°C',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
                                   ),
                                 ),
-                                icon2!,
+                                icons[4]!,
                                 Text(
-                                  '$hour8',
+                                  '${hours[4]}',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°C',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                icons[5]!,
+                                Text(
+                                  '${hours[5]}',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°C',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                icons[6]!,
+                                Text(
+                                  '${hours[6]}',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°C',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                icons[7]!,
+                                Text(
+                                  '${hours[7]}',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
