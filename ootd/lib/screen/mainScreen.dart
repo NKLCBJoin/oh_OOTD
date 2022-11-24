@@ -21,6 +21,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 //신근재 카톡 로그인 <전역 변수,함수>
 bool Token = false;
+String gen = '로그인 성공 시 뭐가 뜰까?';
 
 void KakaoLogin(){
   Future<bool?> getT() async {
@@ -32,10 +33,11 @@ void KakaoLogin(){
 
       AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
-      print("아이디: ${user.id}");
+      print("아이디: ${user.kakaoAccount?.name}");
       print("성별: ${user.kakaoAccount?.gender}");
       print("닉네임: ${user.kakaoAccount?.profile?.nickname}}");
       print('----------------------------------');
+      gen = (user.kakaoAccount?.gender).toString();
       return true;
     }
     else {
@@ -452,7 +454,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                       children: [
                         SizedBox(height: 50,),
 
-                        Text(' 로그인 성공', style: TextStyle(fontSize:30, color:Colors.white),),
+                        Text(' ${gen}', style: TextStyle(fontSize:30, color:Colors.white),),
 
                         ElevatedButton.icon(
                           icon: Icon(Icons.autorenew_outlined),
