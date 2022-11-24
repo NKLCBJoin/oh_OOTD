@@ -17,6 +17,7 @@ void main() async
   await GoogleSheestApi.init();//DB구글시트연결
   KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
   runApp(const MyApp());
+  KakaoLogin();
 }
 
 class MyApp extends StatelessWidget {
