@@ -522,6 +522,13 @@ class _AlarmState extends State<Alarm> {
                     child: ElevatedButton(
                       onPressed: (){
                         //!!!!!!!!!!!!!!!!!!!!!!!!!버튼 누를 시 DB 안에 알람 내용 저장해야한다!!!!!!!
+                        //<---------버튼 누를 시 시간 관련 정보를 DB에 넘기자------------->
+                        // bool타입은 AM을 제외하고 기본적 false입니다.
+                        // bool타입 AM, PM
+                        // bool타입 week
+                        // int타입 hour, minute
+                        // bool타입 mon tue wed thu fri sat sun
+
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.transparent),
