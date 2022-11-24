@@ -443,6 +443,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                         width: 0,
                       ),
                     ),
+                    //To. 지철
+                      // 이 부분 카톡 로그인 안하면 작업하기 힘드니 지워도 됑 내가 백업 해놓을게
+                      // 카톡 로그인이 디따 크게 나오는데 어케 해야할지..미안너무졸려서나중에할게..화티..팅
                     child: Token ?
                     //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
                     Column(
