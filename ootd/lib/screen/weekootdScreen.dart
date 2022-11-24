@@ -105,7 +105,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Color(0xffa1c4fd),
                       Color(0xffc2e9fb),
                     ]
-                )
+                ),
             ),
             child: ListView(
               padding: EdgeInsetsDirectional.fromSTEB(10, 65, 10, 10),
@@ -113,7 +113,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 600,
+                  height: 830,
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                   ),
@@ -138,66 +138,70 @@ class _WeekootdPageState extends State<WeekootdPage> {
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Monday',
-                                  style: GoogleFonts.kanit(
-                                      textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                      fontSize: 30,
-                                      fontStyle: FontStyle.normal
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '최대 / 최소',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
+                                      '${day1_time}',
+                                      style: GoogleFonts.kanit(
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontSize: 30,
+                                          fontStyle: FontStyle.normal
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      '${double.parse(day1_max_t.toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[0]!,
-                                    Text(
-                                      '/',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${double.parse(day1_min_t.toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[1]!,
                                   ],
                                 ),
-                                Text(
-                                  '${day1_time}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 30.0,
-                                    color: Colors.black87,
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0, 0.98),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(35),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        '${double.parse(day1_max_t.toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 30.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      icons[0]!,
+                                      Text(
+                                        '/',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 30.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${double.parse(day1_min_t.toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 30.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      icons[1]!,
+                                      Text(
+                                        '${day1_time}',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 30.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -248,17 +252,71 @@ class _WeekootdPageState extends State<WeekootdPage> {
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Text(
-                              'Wednesday',
-                              style: GoogleFonts.kanit(
-                                  textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                  fontSize: 30,
-                                  fontStyle: FontStyle.normal
-                              ),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(0, -1),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Tuseday',
+                                        style: GoogleFonts.kanit(
+                                            textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                            fontSize: 30,
+                                            fontStyle: FontStyle.normal
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0.04, 1),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.4),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '${double.parse(day1_max_t.toStringAsFixed(1))}°',
+                                          style: GoogleFonts.lato(
+                                            fontSize: 30.0,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        icons[0]!,
+                                        Text(
+                                          '/',
+                                          style: GoogleFonts.lato(
+                                            fontSize: 30.0,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${double.parse(day1_min_t.toStringAsFixed(1))}°',
+                                          style: GoogleFonts.lato(
+                                            fontSize: 30.0,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        icons[1]!,
+                                        Text(
+                                          '${day1_time}',
+                                          style: GoogleFonts.lato(
+                                            fontSize: 30.0,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
                         ),
                       ),
                       Padding(

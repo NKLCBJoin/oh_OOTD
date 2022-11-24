@@ -2,7 +2,7 @@
 //신근재 작업
 //코드량이 길고 복잡해서 반드시 정리 및 함수화? 과정 통해 코드수 줄이는 작업 필요
 import 'package:flutter/material.dart';
-
+import 'package:ootd/screen/loading.dart';
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -47,7 +47,31 @@ class _AlarmState extends State<Alarm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+        backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+          },
+        ),
+        ),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Color(0xffa1c4fd),
+                  Color(0xffc2e9fb),
+                ]
+            )
+        ),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).padding.top),
@@ -56,13 +80,13 @@ class _AlarmState extends State<Alarm> {
             Flexible(
               flex: 10,
               child: Container(
-                color: Colors.white,
+                color: Colors.transparent,
                 child: Row(
                   children: [
                     Flexible(
                       flex: 1,
                       child: Container(
-                        color: Colors.white,
+                        color: Colors.transparent,
                         child: Column(
                           children: [
                             Flexible(flex: 1, child: Container(),), Flexible(flex: 1, child: Container(),),
@@ -85,9 +109,9 @@ class _AlarmState extends State<Alarm> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                         elevation: MaterialStateProperty.all(0.0),
-                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(side: BorderSide(color: Colors.white)),)
+                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),)
                                     ),
                                     child: AM == true ? Text('오전', style: TextStyle(fontSize: 40, color: Colors.black),):Text('오전', style: TextStyle(fontSize: 40, color: Colors.black12),)
                                 )
@@ -115,7 +139,7 @@ class _AlarmState extends State<Alarm> {
                                     }
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                     elevation: MaterialStateProperty.all(0.0),
                                   ),
                                   child: PM == true ? Text('오후', style: TextStyle(fontSize: 40, color: Colors.black),):Text('오후', style: TextStyle(fontSize: 40, color: Colors.black12),)
@@ -130,7 +154,7 @@ class _AlarmState extends State<Alarm> {
                     Flexible(
                       flex: 1,
                       child: Container(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           child: ListView(
                             children: [
                               for (int i = 1; i < 13; i++)
@@ -155,7 +179,7 @@ class _AlarmState extends State<Alarm> {
                     Flexible(
                       flex: 1,
                       child: Container(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           child: ListView(
                             children: [
                               for (int i = 0; i < 60; i++)
@@ -181,7 +205,7 @@ class _AlarmState extends State<Alarm> {
             Flexible(
               flex: 2,
               child: Container(
-                  color: Colors.white,
+                  color: Colors.transparent,
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
                   child: Row(
                       children: [
@@ -237,7 +261,7 @@ class _AlarmState extends State<Alarm> {
             Flexible(
               flex: 2,
               child: Container(
-                color: Colors.white,
+                color: Colors.transparent,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: Row(
                   children: [
@@ -332,16 +356,18 @@ class _AlarmState extends State<Alarm> {
             Flexible(flex: 2, child: Container(color: Colors.white30,),),
 
             Container(
-              color: Colors.white,
+              color: Colors.transparent,
               child: Row(
                 children: [
                   Flexible(fit: FlexFit.tight,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+                          },
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
                               elevation: MaterialStateProperty.all(0.0)),
                           child: Text('취소',
                             style: TextStyle(color: Colors.black54, fontSize: 30,),
@@ -354,7 +380,7 @@ class _AlarmState extends State<Alarm> {
                     child: ElevatedButton(
                       onPressed: (){},
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.white12),
+                          backgroundColor: MaterialStateProperty.all(Colors.transparent),
                           elevation: MaterialStateProperty.all(0.0)
                       ),
                       child: Text('저장',

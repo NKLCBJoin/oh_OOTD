@@ -16,7 +16,7 @@ import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/weekootdScreen.dart';
-
+import 'package:ootd/screen/alarm.dart';
 
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
@@ -181,6 +181,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               title: Text("알람 설정"),
               onTap: (){ //알람 기능 선택시
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
                     AnimationStatus.dismissed) {
@@ -395,12 +396,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(-0.05, -0.15),
+                alignment: AlignmentDirectional(0, 0.39),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: Container(//옷추천
                     width: double.infinity,
-                    height: 200,
+                    height: 420,
                     decoration: BoxDecoration(
                       color: Colors.black12.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(10),
@@ -415,12 +416,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0.85),
+                alignment: AlignmentDirectional(0, 1),
                 child: Padding(//실시간날씨
                   padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
                   child: Container(
                       width: double.infinity,
-                      height: 300,
+                      height: 100,
                       decoration: BoxDecoration(
                         color: Colors.black12.withOpacity(0.4),
                         borderRadius: BorderRadius.circular(10),
@@ -429,171 +430,244 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                           width: 0,
                         ),
                       ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                      child:ListView(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          child:
+                          Container(
+                            width: 50,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: Column(
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°C',
+                                  '${hours[0]}',
                                   style: GoogleFonts.lato(
-                                    fontSize: 10.0,
+                                    fontSize: 12.0,
                                     color: Colors.white,
                                   ),
                                 ),
                                 icons[0]!,
                                 Text(
-                                  '${hours[0]}',
+                                  '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°C',
                                   style: GoogleFonts.lato(
-                                    fontSize: 10.0,
+                                    fontSize: 20.0,
                                     color: Colors.white,
                                   ),
                                 ),
                               ],
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[1]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[1]!,
-                                Text(
-                                  '${hours[1]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[1]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[2]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[2]!,
-                                Text(
-                                  '${hours[2]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[2]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[3]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[3]!,
-                                Text(
-                                  '${hours[3]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[3]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[4]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[4]!,
-                                Text(
-                                  '${hours[4]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[4]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[5]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[5]!,
-                                Text(
-                                  '${hours[5]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[5]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[6]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[6]!,
-                                Text(
-                                  '${hours[6]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[6]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°C',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            child:
+                            Container(
+                              width: 50,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${hours[7]}',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                icons[7]!,
-                                Text(
-                                  '${hours[7]}',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
+                                  icons[7]!,
+                                  Text(
+                                    '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°C',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ]
-                      )
+                          ),
+                        ],
+                      ),
                   ),
                 ),
               ),
