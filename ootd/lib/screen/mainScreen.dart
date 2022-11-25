@@ -21,7 +21,9 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 //신근재 카톡 로그인 <전역 변수,함수>
 bool Token = false;
-String gen = '로그인 성공 시 뭐가 뜰까?';
+String user_gen = '로그인 성공 시 뭐가 뜰까?';
+String user_name = '';
+String userImage_URL = '';
 
 void KakaoLogin(){
   Future<bool?> getT() async {
@@ -33,11 +35,16 @@ void KakaoLogin(){
 
       AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
-      print("아이디: ${user.kakaoAccount?.name}");
-      print("성별: ${user.kakaoAccount?.gender}");
-      print("닉네임: ${user.kakaoAccount?.profile?.nickname}}");
+
       print('----------------------------------');
-      gen = (user.kakaoAccount?.gender).toString();
+      print("프사 url: ${user.kakaoAccount?.profile?.profileImageUrl}");
+      print("이름: ${user.kakaoAccount?.profile?.nickname}");
+      print("성별: ${user.kakaoAccount?.gender}");
+      print('----------------------------------');
+
+      userImage_URL = (user.kakaoAccount?.profile?.thumbnailImageUrl).toString();
+      user_gen = (user.kakaoAccount?.gender).toString();
+      user_name = (user.kakaoAccount?.profile?.nickname).toString();
       return true;
     }
     else {
@@ -183,7 +190,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
               ),
-              accountName: Text('섹스신 근재'), accountEmail: Text('SexShin@gmail.com'),
+              accountName: Text('섹잘알 최지철'), accountEmail: Text('SexChoi@gmail.com'),
               decoration: BoxDecoration(
                   color: Colors.blue[300],
                   borderRadius: BorderRadius.only(
@@ -446,7 +453,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                       ),
                     ),
                     //To. 지철
-                      // 이 부분 카톡 로그인 안하면 작업하기 힘드니 지워도 됑 내가 백업 해놓을게
+                      // 이 부분 카톡 로그인 안하면 작업하기 힘드니 밑 부분 전부 지워도 됑 내가 백업 해놓을게
                       // 카톡 로그인이 디따 크게 나오는데 어케 해야할지..미안너무졸려서나중에할게..화티..팅
                     child: Token ?
                     //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
@@ -454,7 +461,28 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                       children: [
                         SizedBox(height: 50,),
 
-                        Text(' ${gen}', style: TextStyle(fontSize:30, color:Colors.white),),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white, width: 5),
+                                borderRadius: BorderRadius.circular(20),
+
+                            ),
+                            child: Column(
+                              children: [
+                                Text('안녕하세요 ${user_name}님\n\n'
+                                    '성별 : ${user_gen}'
+                                  , style: TextStyle(fontSize:30, color:Colors.white),),
+
+                                Image.network(
+                                    userImage_URL
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
 
                         ElevatedButton.icon(
                           icon: Icon(Icons.autorenew_outlined),
