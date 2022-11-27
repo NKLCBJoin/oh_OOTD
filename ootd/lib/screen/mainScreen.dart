@@ -79,8 +79,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
 
     for (var i = 0; i<8; i++)
       {
-        hours[i] = hourData['list'][i]['dt_txt'].split(' ')[1];
+        hours[i] = hourData['list'][i]['dt_txt'].split(' ')[1].split(':')[0];
         hourly_weathers[i]= hourData['list'][i]['main']['temp'].toDouble();
+        print(hourly_weathers[i]);
       }
     //print(double.parse(hourly_weather_t1.toStringAsFixed(1)));
   }
@@ -88,10 +89,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
     _menuController = AnimationController(vsync: this , duration: const Duration(seconds: 1));
     _bellController= AnimationController(vsync: this , duration: const Duration(seconds: 1));
     UpdateData(widget.parseWeatherData,widget.parseAirPollution,widget.parseHourData);
-    for(var j = 0; j<8; j++)
-    {
-      hourly_weathers[j] = 10.0;
-    }
   }
   void dispose(){//메뉴바에 관한함수. 최지철
     _menuController.dispose();
@@ -436,7 +433,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -444,7 +441,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[0]!,
                                 Text(
-                                  '${hours[0]}',
+                                  '오전 ${hours[0]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -456,7 +453,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -464,7 +461,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[1]!,
                                 Text(
-                                  '${hours[1]}',
+                                  '오후 ${hours[1]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -476,7 +473,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -484,7 +481,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[2]!,
                                 Text(
-                                  '${hours[2]}',
+                                  '오후 ${hours[2]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -496,7 +493,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -504,7 +501,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[3]!,
                                 Text(
-                                  '${hours[3]}',
+                                  '오후 ${hours[3]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -516,7 +513,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -524,7 +521,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[4]!,
                                 Text(
-                                  '${hours[4]}',
+                                  '오후 ${hours[4]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -536,7 +533,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -544,7 +541,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[5]!,
                                 Text(
-                                  '${hours[5]}',
+                                  '오후 ${hours[5]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -556,7 +553,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -564,7 +561,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[6]!,
                                 Text(
-                                  '${hours[6]}',
+                                  '오후 ${hours[6]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -576,7 +573,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°C',
+                                  '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -584,7 +581,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[7]!,
                                 Text(
-                                  '${hours[7]}',
+                                  '오후 ${hours[7]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
