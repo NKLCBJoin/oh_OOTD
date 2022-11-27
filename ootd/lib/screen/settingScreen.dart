@@ -40,7 +40,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           },
         ),
         title: Align(
-          alignment: AlignmentDirectional(-0.1, 0),
+          alignment: AlignmentDirectional(-0.2, 0),
           child: Text(
             '설정',
           ),
@@ -79,16 +79,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     backgroundColor: DarkMode.DarkOn? Colors.blueGrey : Colors.red,
                   ),
                   title: '다크모드',
-                  subtitle: "수동",
+                  subtitle:  DarkMode.DarkOn? "라이트모드로 변경":"다크모드로 변경",
                   trailing: Switch.adaptive(
-                    value: switchValue,
+                    activeColor: Colors.pink,
+                    activeTrackColor: Colors.pink.withOpacity(0.4),
+                    value: DarkMode.DarkOn,
                     onChanged: (value) {
                       setState(() {
+                        this.switchValue=DarkMode.DarkOn;
                         switchValue=value;
                         DarkMode.DarkOn=switchValue;
+                        print(switchValue);
                       }
                       );
-
                     },
                   ),
                 ),
@@ -103,8 +106,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         barrierDismissible: false, // 바깥 터치해도 닫히는지
                         builder: (BuildContext context) {
                           return AlertDialog(
-                              title: Text('카카오 입사 예정자들 소개'),
-                              content: Text('한국에 있는 최상위 IT기업중 한곳인 카카오 또한 가볍게 입사한다는 마음가짐으로 모인 개발자 그룹이다.                                 후원계좌: 케이뱅크 100-101-970-123 감사합니다.'),
+                            backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                              title: Text('카카오 입사 예정자들 소개',
+                                style:TextStyle(
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              content: Text('한국에 있는 최상위 IT기업중 한곳인 카카오 또한 가볍게 입사한다는 마음가짐으로 모인 개발자 그룹이다.                                 후원계좌: 케이뱅크 100-101-970-123 감사합니다.',
+                                style:TextStyle(
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('확인'),

@@ -182,81 +182,80 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white, //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                             child: Column(
-                              children: [
-                                Text(
-                                  DateFormat(' EEEE ').format(date),
-                                  style: GoogleFonts.lato(
-                                      fontSize: 30.0,
-                                      color: Colors.black87
-                                  ),
-                                ),
-                                // Text(
-                                //   'Monday',
-                                //   style: GoogleFonts.kanit(
-                                //       textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                //       fontSize: 30,
-                                //       fontStyle: FontStyle.normal
-                                //   ),
-                                // ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                    Text(
+                                      DateFormat(' EEEE ').format(date), //----첫째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Text(
-                                          '최대 / 최소',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 30.0,
-                                            color: Colors.black87,
-                                          ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          '${double.parse(day_max_t[0].toStringAsFixed(1))}°',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 30.0,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                        icons[0]!,
-                                        Text(
-                                          '/',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 30.0,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${double.parse(day_min_t[0].toStringAsFixed(1))}°',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 30.0,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                        icons[1]!,
                                       ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -266,64 +265,89 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
                                   children: [
                                     Text(
-                                      '최대 / 최소',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
+                                      DateFormat(' EEEE ').format(date), //----둘째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      '${double.parse(day_max_t[1].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[2]!,
-                                    Text(
-                                      '/',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${double.parse(day_min_t[1].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[3]!,
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
-
                         ),
                       ),
                       Padding(
@@ -332,62 +356,88 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
                                   children: [
                                     Text(
-                                      '최대 / 최소',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
+                                      DateFormat(' EEEE ').format(date),//----셋째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      '${double.parse(day_max_t[2].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[4]!,
-                                    Text(
-                                      '/',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${double.parse(day_min_t[2].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[5]!,
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -397,62 +447,88 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
                                   children: [
                                     Text(
-                                      '최대 / 최소',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
+                                      DateFormat(' EEEE ').format(date), //----넷째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      '${double.parse(day_max_t[3].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[6]!,
-                                    Text(
-                                      '/',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${double.parse(day_min_t[3].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 30.0,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    icons[7]!,
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -462,27 +538,88 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Text(
-                              'Friday',
-                              style: GoogleFonts.kanit(
-                                  textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                  fontSize: 30,
-                                  fontStyle: FontStyle.normal
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      DateFormat(' EEEE ').format(date), //----다섯째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -492,27 +629,88 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Text(
-                              'Saturday',
-                              style: GoogleFonts.kanit(
-                                  textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                  fontSize: 30,
-                                  fontStyle: FontStyle.normal
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      DateFormat(' EEEE ').format(date), //----여섯째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -522,27 +720,80 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 0,
-                                blurRadius: 5.0,
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
                                 offset: Offset(4, 6), // changes position of shadow
                               ),
                             ],
                           ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: Text(
-                              'Sunday',
-                              style: GoogleFonts.kanit(
-                                  textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                  fontSize: 30,
-                                  fontStyle: FontStyle.normal
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      DateFormat(' EEEE ').format(date), //----일곱째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[0]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[1]!,
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),

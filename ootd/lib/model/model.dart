@@ -18,20 +18,20 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
     if(condition < 300)
       {
         return Image.asset('assets/weather/Thunder.png', // 비천둥
-            height: 30,width: 30,
+            height: 40,width: 40,
         );
       }else if(condition <600){
 
       return Image.asset('assets/weather/Snowycloud.png', // 눈옴
-        height: 30,width: 30,
+        height: 40,width: 40,
       );
     }else if(condition==800){
     return Image.asset('assets/weather/Sunny.png', // 날씨 좋음
-      height: 30,width: 30,
+      height: 40,width: 40,
     );
     }else if(condition<=804){
       return Image.asset('assets/weather/Cloud2.png', // 구름낌
-        height: 30,width: 30,
+        height: 40,width: 40,
       );
     }
   }
@@ -39,18 +39,18 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   {
     if(index==1){
       return Image.asset('assets/dust/good.png',
-          width: 15.0,
-          height: 15.0,
+          width: 30,
+          height: 30,
       );
     }else if(index==2||index==3){
       return Image.asset('assets/dust/normal.png',
-        width: 15.0,
-        height: 15.0,
+        width: 30,
+        height: 30,
       );
     }else if(index==4||index==5){
       return Image.asset('assets/dust/bad.png',
-        width: 15.0,
-        height: 15.0,
+        width: 30,
+        height: 30,
       );
     }
   }

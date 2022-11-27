@@ -185,96 +185,114 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
       ),
       //---------------Drawer메뉴(메뉴 클릭시 나타나는 사이드페이지)-----------------------
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-              ),
-              accountName: Text('섹잘알 최지철'), accountEmail: Text('SexChoi@gmail.com'),
-              decoration: BoxDecoration(
-                  color: Colors.blue[300],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30.0),
-                      bottomRight: Radius.circular(30.0))),
+        child: Expanded(
+          child: Container(
+            color: DarkMode.DarkOn? Color(0xff29323c) :Colors.white,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                  ),
+                  accountName: Text('섹잘알 최지철',
+                  style: TextStyle(
+                    color: DarkMode.DarkOn? Colors.black :Colors.white,
+                  ),
+                    ), accountEmail: Text('SexChoi@gmail.com',
+                  style: TextStyle(
+                    color: DarkMode.DarkOn? Colors.black :Colors.white,
+                  ),
+                ),
+                  decoration: BoxDecoration(
+                      color: DarkMode.DarkOn? Colors.pink[400] :Colors.blue[300],
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30.0),
+                          bottomRight: Radius.circular(30.0))),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.home,
+                    color: DarkMode.DarkOn? Colors.white:Colors.grey,
+                    size: 30,
+                  ),
+                  title: Text("홈으로"),
+                  textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
+                  onTap: (){//메인화면으로 돌아가기
+                    scaffoldKey.currentState?.closeDrawer();
+                    if (_menuController.status ==
+                        AnimationStatus.dismissed) {
+                      _menuController.reset();
+                      _menuController.animateTo(0.6);
+                    } else {
+                      _menuController.reverse();
+                    }
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.alarm_on_sharp,
+                    color: DarkMode.DarkOn? Colors.white:Colors.grey,
+                    size: 30,
+                  ),
+                  title: Text("알람 설정"),
+                  textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
+                  onTap: (){ //알람 기능 선택시
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
+                    scaffoldKey.currentState?.closeDrawer();
+                    if (_menuController.status ==
+                        AnimationStatus.dismissed) {
+                      _menuController.reset();
+                      _menuController.animateTo(0.6);
+                    } else {
+                      _menuController.reverse();
+                    }
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.checkroom_rounded,
+                    color: DarkMode.DarkOn? Colors.white:Colors.grey,
+                    size: 30,
+                  ),
+                  title: Text("주간OOTD"),
+                  textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
+                  onTap: (){//메인화면으로 돌아가기
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading2())); // weather_screen에 정상적으로 화면이 나오는지 실험중
+                    scaffoldKey.currentState?.closeDrawer();
+                    if (_menuController.status ==
+                        AnimationStatus.dismissed) {
+                      _menuController.reset();
+                      _menuController.animateTo(0.6);
+                    } else {
+                      _menuController.reverse();
+                    }
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.settings_sharp,
+                    color: DarkMode.DarkOn? Colors.white:Colors.grey,
+                    size: 30,
+                  ),
+                  title: Text("설정"),
+                  textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
+                  onTap: (){//설정창
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingsWidget()));
+                    scaffoldKey.currentState?.closeDrawer();
+                    if (_menuController.status ==
+                        AnimationStatus.dismissed) {
+                      _menuController.reset();
+                      _menuController.animateTo(0.6);
+                    } else {
+                      _menuController.reverse();
+                    }
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: Icon(
-                Icons.home,
-                color: Colors.grey,
-                size: 30,
-              ),
-              title: Text("홈으로"),
-              onTap: (){//메인화면으로 돌아가기
-                scaffoldKey.currentState?.closeDrawer();
-                if (_menuController.status ==
-                    AnimationStatus.dismissed) {
-                  _menuController.reset();
-                  _menuController.animateTo(0.6);
-                } else {
-                  _menuController.reverse();
-                }
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.alarm_on_sharp,
-                color: Colors.grey,
-                size: 30,
-              ),
-              title: Text("알람 설정"),
-              onTap: (){ //알람 기능 선택시
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
-                scaffoldKey.currentState?.closeDrawer();
-                if (_menuController.status ==
-                    AnimationStatus.dismissed) {
-                  _menuController.reset();
-                  _menuController.animateTo(0.6);
-                } else {
-                  _menuController.reverse();
-                }
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.checkroom_rounded,
-                color: Colors.grey,
-                size: 30,
-              ),
-              title: Text("주간OOTD"),
-              onTap: (){//메인화면으로 돌아가기
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading2())); // weather_screen에 정상적으로 화면이 나오는지 실험중
-                scaffoldKey.currentState?.closeDrawer();
-                if (_menuController.status ==
-                    AnimationStatus.dismissed) {
-                  _menuController.reset();
-                  _menuController.animateTo(0.6);
-                } else {
-                  _menuController.reverse();
-                }
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.settings_sharp,
-                color: Colors.grey,
-                size: 30,
-              ),
-              title: Text("설정"),
-              onTap: (){//설정창
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingsWidget()));
-                scaffoldKey.currentState?.closeDrawer();
-                if (_menuController.status ==
-                    AnimationStatus.dismissed) {
-                  _menuController.reset();
-                  _menuController.animateTo(0.6);
-                } else {
-                  _menuController.reverse();
-                }
-              },
-            ),
-          ],
+          ),
+
         ),
 
       ),
@@ -285,58 +303,58 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           },
           child: Stack(
             children: [
-              WeatherBg(weatherType: WeatherType.sunny,width: 540,height: 845,),
+              WeatherBg(weatherType: WeatherType.sunnyNight,width: 540,height: 845,),
               Align(
                 alignment: AlignmentDirectional(-0.05, -0.79),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                   child: Container(//옷추천
-                    child: Row(
+                    width: double.infinity,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.black12.withOpacity(0),
+                    ),
+                    child: Stack(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '$cityName',
-                              style: GoogleFonts.lato(
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '$temp°',
-                                  style: GoogleFonts.lato(
-                                      fontSize: 32.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                icon!,
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  '$weather',
-                                  style: GoogleFonts.lato(
+                        Align(
+                          alignment: AlignmentDirectional(0, -1),
+                          child: Column(
+                            children: [
+                              Text(
+                                '$cityName',
+                                style: GoogleFonts.lato(
                                     fontSize: 25.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width:20,
-                                ),
-                              ],
-                            ),
-
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                '$temp°C',
+                                style: GoogleFonts.lato(
+                                    fontSize: 40.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Row(
                                 children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  icon!,
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   Text(
-                                    '최대기온: $max_temp°',
+                                    '$weather',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 25.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:20,
+                                  ),
+                                  Text(
+                                    '최고: $max_temp°',
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
@@ -346,95 +364,102 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     width: 10,
                                   ),
                                   Text(
-                                    '최저기온: $min_temp°',
+                                    '최저: $min_temp°',
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
-                                ]
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      'SQI(대기질지수)',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 11.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    airIcon!,
-                                    airCondition!,
-                                  ],
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-1, 1),
+                          child: Stack(
+                            children: [
+                              Text(
+                                'SQI(대기질지수)',
+                                style: GoogleFonts.lato(
+                                  fontSize: 11.0,
+                                  color: Colors.white,
                                 ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      '미세먼지',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.7, 0.8),
+                          child: Stack(
+                            children: [
+                              airCondition!,
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.9, 0.8),
+                          child: Stack(
+                            children: [
+                              airIcon!,
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0, 1),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '$pm10㎍/m³',
+                                    style: GoogleFonts.lato(
+                                      fontSize: 15.0,
+                                      color: Colors.white,
                                     ),
-                                    Text(
-                                      '$pm10',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      '㎍/m³',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      '초미세먼지',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      '$pm2_5',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      '㎍/m³',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
 
-                          ],
+                              Text(
+                                '미세먼지',
+                                style: GoogleFonts.lato(
+                                  fontSize: 11.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(1, 1),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                '$pm2_5㎍/m³',
+                                style: GoogleFonts.lato(
+                                  fontSize: 15.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                '초미세먼지',
+                                style: GoogleFonts.lato(
+                                  fontSize: 11.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+
+                            ],
+                          ),
                         ),
                       ],
-                    ),
-                    width: double.infinity,
-                    height: 180,
-                    decoration: BoxDecoration(
-                      color: Colors.black12.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 0,
-                      ),
                     ),
                   ),
                 ),
@@ -603,182 +628,307 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
                         children: [
-                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                          child:
-                          Container(
-                            width: 50,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
+                            Container(
+                              padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  right: BorderSide( // POINT
+                                    color: Colors.white70,
+                                    width: 1,
+                                  ),
+                                ),
+                                color: Colors.transparent,
+                              ),
+                              child: Align(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    icons[0]!,
-                                    Text(
-                                      '${hours[0]}시',
-                                      style: GoogleFonts.lato(
-                                        fontSize: 10.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
+                                          style: GoogleFonts.lato(
+                                            fontSize: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        icons[0]!,
+                                        Text(
+                                          '${hours[0]}시',
+                                          style: GoogleFonts.lato(
+                                            fontSize: 12.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icons[1]!,
-                                Text(
-                                  '${hours[1]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
                                 ),
-                                icons[2]!,
-                                Text(
-                                  '${hours[2]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                              ),
+                              color: Colors.transparent,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icons[3]!,
-                                Text(
-                                  '${hours[3]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[1].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[1]!,
+                                      Text(
+                                        '${hours[1]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
+                          ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
                                 ),
-                                icons[4]!,
-                                Text(
-                                  '${hours[4]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                              ),
+                              color: Colors.transparent,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icons[5]!,
-                                Text(
-                                  '${hours[5]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[2].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[2]!,
+                                      Text(
+                                        '${hours[2]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
+                          ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
                                 ),
-                                icons[6]!,
-                                Text(
-                                  '${hours[6]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                              ),
+                              color: Colors.transparent,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                icons[7]!,
-                                Text(
-                                  '${hours[7]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[3].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[3]!,
+                                      Text(
+                                        '${hours[3]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ]
-                        )
-                      ),
+                          ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
+                                ),
+                              ),
+                              color: Colors.transparent,
+                            ),
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[4].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[4]!,
+                                      Text(
+                                        '${hours[4]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
+                                ),
+                              ),
+                              color: Colors.transparent,
+                            ),
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[5].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[5]!,
+                                      Text(
+                                        '${hours[5]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
+                                ),
+                              ),
+                              color: Colors.transparent,
+                            ),
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[6].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[6]!,
+                                      Text(
+                                        '${hours[6]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+
+                              color: Colors.transparent,
+                            ),
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[7].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      icons[7]!,
+                                      Text(
+                                        '${hours[7]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                          ],
                     ),
-                  ]
-                  )
                   ),
                 ),
               ),
