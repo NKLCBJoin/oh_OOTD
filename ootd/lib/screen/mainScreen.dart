@@ -127,6 +127,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
       }
     //print(double.parse(hourly_weather_t1.toStringAsFixed(1)));
   }
+  // dynamic timedata(List hours, int i){
+  //   if (hours[i]<12)
+  //     return '오전';
+  //   else
+  //     return '오후';
+  // }
   void initState(){//메뉴바에 관한변수. 최지철
     _menuController = AnimationController(vsync: this , duration: const Duration(seconds: 1));
     _bellController= AnimationController(vsync: this , duration: const Duration(seconds: 1));
@@ -620,7 +626,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     ),
                                     icons[0]!,
                                     Text(
-                                      '오전 ${hours[0]}시',
+                                      '${hours[0]}시',
                                       style: GoogleFonts.lato(
                                         fontSize: 10.0,
                                         color: Colors.white,
@@ -640,7 +646,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[1]!,
                                 Text(
-                                  '오후 ${hours[1]}시',
+                                  '${hours[1]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -660,7 +666,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[2]!,
                                 Text(
-                                  '오후 ${hours[2]}시',
+                                  '${hours[2]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -680,7 +686,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[3]!,
                                 Text(
-                                  '오후 ${hours[3]}시',
+                                  '${hours[3]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -700,7 +706,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[4]!,
                                 Text(
-                                  '오후 ${hours[4]}시',
+                                  '${hours[4]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -720,7 +726,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[5]!,
                                 Text(
-                                  '오후 ${hours[5]}시',
+                                  '${hours[5]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -740,7 +746,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[6]!,
                                 Text(
-                                  '오후 ${hours[6]}시',
+                                  '${hours[6]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
@@ -760,7 +766,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                                 icons[7]!,
                                 Text(
-                                  '오후 ${hours[7]}시',
+                                  '${hours[7]}시',
                                   style: GoogleFonts.lato(
                                     fontSize: 10.0,
                                     color: Colors.white,
