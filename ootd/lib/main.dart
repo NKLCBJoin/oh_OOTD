@@ -11,6 +11,9 @@ import 'screen/settingScreen.dart';
 import 'screen/startScreen.dart';
 import 'package:ootd/screen/tempScreen.dart';
 import 'screen/weekootdScreen.dart';
+import 'widget/widget.dart';
+import 'package:get/get.dart';
+
 //신근재
 void main() async
 {
@@ -22,23 +25,23 @@ void main() async
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
+  static final ValueNotifier<ThemeMode> themeNotifier =
+  ValueNotifier(ThemeMode.light);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-         debugShowCheckedModeBanner: false,//이거 지우지말것 디버그리본없애는거 특히 재민(from지철)
-        // home: Container(
-        //     color: Colors.white,
-        //     child: Column(
-        //       children: [
-        //         Loading(),Kakao(),
-        //       ],
-        //     )
-        // )
-      initialRoute: '/',
-      routes: {
-        '/' : (context) =>firstPage(),
-      },
+    return ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,//이거 지우지말것 디버그리본없애는거 특히 재민(from지철)
+            theme: ThemeData(
+            ),
+            initialRoute: '/',
+            routes: {
+              '/' : (context) =>SettingsWidget(),
+            },
+          );
+        }
     );
   }
 }

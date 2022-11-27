@@ -155,7 +155,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             color: Colors.white,
           ),
           onPressed: () {
-            print('위치.');
           },
         ),
         actions: <Widget>[

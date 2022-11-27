@@ -5,6 +5,8 @@ import 'package:ootd/model/model.dart';
 import 'package:ootd/screen/mainScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:settings_ui/settings_ui.dart';
+
 import 'dart:math';
 //최지철
 class WeekootdPage extends StatefulWidget {
@@ -102,8 +104,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Color(0xffa1c4fd),
-                      Color(0xffc2e9fb),
+                      DarkMode.DarkOn? Color(0xff29323c) : Color(0xffa1c4fd), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                      DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
                     ]
                 ),
             ),
@@ -127,7 +129,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           width: 380,
                           height: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.white, //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
@@ -140,7 +142,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                           ),
                           child: Stack(
                             children: [
-                              Align(
+                              Align( //월욜
                                 alignment: AlignmentDirectional(0, -1),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -154,6 +156,14 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       ),
                                     ),
                                   ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.black,
+                                  size: 40,
                                 ),
                               ),
                               Align(
@@ -233,6 +243,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                               ),
                             ),
                           ),
+
                         ),
                       ),
                       Padding(

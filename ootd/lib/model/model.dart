@@ -9,6 +9,10 @@ class UserDB//최지철 DB<->앱간 통신클래스임당~
   static final sex="sex";
   static List<String> getColumns()=> [name,id,pw,sex];
 }
+class DarkMode{
+  static bool DarkOn=false;
+}
+
 class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   Widget ?getWeatherIcon(int condition) {
     if(condition < 300)
