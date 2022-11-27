@@ -2,6 +2,7 @@
 //신근재 작업
 //코드량이 길고 복잡해서 반드시 정리 및 함수화? 과정 통해 코드수 줄이는 작업 필요
 import 'package:flutter/material.dart';
+import 'package:ootd/screen/loading.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -44,25 +45,174 @@ class _AlarmState extends State<Alarm> {
   bool sat = false;
   bool sun = false;
 
+  //DB에 저장된 정보 불러오기
+  bool savedb_first = true;
+  bool save_AM_first = false;
+  int save_hour_first = 1;
+  int save_minute_fisrt = 1;
+
+  bool savedb_second = false;
+  bool save_AM_second = false;
+  int save_hour_second = 1;
+  int save_minute_second = 1;
+
+  //<---------저장된 알람 불러오는 함수------------->
+  getSaved_Alarm() {
+    if(savedb_first == true) {
+      return Container(
+        child: Column(
+          children: [
+            //<-------------------저장된 알람1------------------------>
+            Flexible(
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black38, width: 2),
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: Row(
+                  children: [
+                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+
+                    Flexible(
+                        flex: 3,
+                        child: Text(
+                          '오전 ${save_hour_first}시 ${save_minute_fisrt}분',
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                        )
+                    ),
+
+                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+
+                    ElevatedButton(
+                      onPressed: (){
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!버튼 누를 시 DB 안에 알람 내용 삭제해야..
+                        //<-------------DB에 저장된 데이터를 삭제---------------->
+                        //<-------------페이지 새로고침?-------------->
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
+                          padding: MaterialStatePropertyAll(EdgeInsets.all(15.0))
+                      ),
+                      child: Text('삭제', style: TextStyle(color: Colors.black, fontSize: 25)
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            //<-------------------저장된 알람2------------------------>
+            savedb_second?
+            Flexible(
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black38, width: 2),
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: Row(
+                  children: [
+                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+
+                    Flexible(
+                        flex: 3,
+                        child: Text(
+                          '오전 ${save_hour_second}시 ${save_minute_second}분',
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                        )
+                    ),
+
+                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!버튼 누를 시 DB 안에 알람 내용 삭제해야..
+                        //<-------------DB에 저장된 데이터를 삭제---------------->
+                        //<-------------페이지 새로고침?-------------->
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
+                          padding: MaterialStatePropertyAll(EdgeInsets.all(15.0))
+                      ),
+                      child: Text('삭제', style: TextStyle(color: Colors.black, fontSize: 25)
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+            //저장된 2번째 알람이 없는 경우 기능 없는 컨테이너
+                : Container(),
+          ],
+        ),
+      );
+    }
+    else {
+      return Container(
+          child: Container(
+            margin: EdgeInsets.fromLTRB(5, 30, 5, 30),
+            padding: EdgeInsets.all(10),
+            child: Text(
+              '저장된 알람이 없습니다!',
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
+          )
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+        backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+          },
+        ),
+        ),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Color(0xffa1c4fd),
+                  Color(0xffc2e9fb),
+                ]
+            )
+        ),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).padding.top),
 
             //<-----------------시간 설정----------------------->
             Flexible(
-              flex: 10,
+              flex: 8,
               child: Container(
-                color: Colors.white,
+                color: Colors.transparent,
                 child: Row(
                   children: [
                     Flexible(
                       flex: 1,
                       child: Container(
-                        color: Colors.white,
+                        color: Colors.transparent,
                         child: Column(
                           children: [
                             Flexible(flex: 1, child: Container(),), Flexible(flex: 1, child: Container(),),
@@ -85,9 +235,9 @@ class _AlarmState extends State<Alarm> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                         elevation: MaterialStateProperty.all(0.0),
-                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(side: BorderSide(color: Colors.white)),)
+                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),)
                                     ),
                                     child: AM == true ? Text('오전', style: TextStyle(fontSize: 40, color: Colors.black),):Text('오전', style: TextStyle(fontSize: 40, color: Colors.black12),)
                                 )
@@ -115,7 +265,7 @@ class _AlarmState extends State<Alarm> {
                                     }
                                   },
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                     elevation: MaterialStateProperty.all(0.0),
                                   ),
                                   child: PM == true ? Text('오후', style: TextStyle(fontSize: 40, color: Colors.black),):Text('오후', style: TextStyle(fontSize: 40, color: Colors.black12),)
@@ -130,7 +280,7 @@ class _AlarmState extends State<Alarm> {
                     Flexible(
                       flex: 1,
                       child: Container(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           child: ListView(
                             children: [
                               for (int i = 1; i < 13; i++)
@@ -155,7 +305,7 @@ class _AlarmState extends State<Alarm> {
                     Flexible(
                       flex: 1,
                       child: Container(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           child: ListView(
                             children: [
                               for (int i = 0; i < 60; i++)
@@ -181,7 +331,7 @@ class _AlarmState extends State<Alarm> {
             Flexible(
               flex: 2,
               child: Container(
-                  color: Colors.white,
+                  color: Colors.transparent,
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
                   child: Row(
                       children: [
@@ -237,7 +387,7 @@ class _AlarmState extends State<Alarm> {
             Flexible(
               flex: 2,
               child: Container(
-                color: Colors.white,
+                color: Colors.transparent,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: Row(
                   children: [
@@ -329,19 +479,37 @@ class _AlarmState extends State<Alarm> {
               ),
             ),
 
-            Flexible(flex: 2, child: Container(color: Colors.white30,),),
+            //<--------------저장된 알람 확인하기------------------>
+            Flexible(
+              flex: 4,
+              child: Container(
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black38, width: 2),
+                      borderRadius: BorderRadius.circular(20)
+                  ),
+                  //<<<<저장된 알람의 여부에 따라 작동하는 함수 => 알람 목록 or 알람이 없습니다!>>>>
+                  child: getSaved_Alarm()
+              ),
+            ),
 
+            Flexible(flex: 1, child: Container(color: Colors.white30,),),
+
+            //<--------------취소, 저장 버튼---------------->
             Container(
-              color: Colors.white,
+              color: Colors.transparent,
               child: Row(
                 children: [
                   Flexible(fit: FlexFit.tight,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+                          },
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
                               elevation: MaterialStateProperty.all(0.0)),
                           child: Text('취소',
                             style: TextStyle(color: Colors.black54, fontSize: 30,),
@@ -352,9 +520,18 @@ class _AlarmState extends State<Alarm> {
 
                   Flexible(fit: FlexFit.tight,
                     child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!버튼 누를 시 DB 안에 알람 내용 저장해야한다!!!!!!!
+                        //<---------버튼 누를 시 시간 관련 정보를 DB에 넘기자------------->
+                        // bool타입은 AM을 제외하고 기본적 false입니다.
+                        // bool타입 AM, PM
+                        // bool타입 week
+                        // int타입 hour, minute
+                        // bool타입 mon tue wed thu fri sat sun
+
+                      },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.white12),
+                          backgroundColor: MaterialStateProperty.all(Colors.transparent),
                           elevation: MaterialStateProperty.all(0.0)
                       ),
                       child: Text('저장',

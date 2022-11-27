@@ -16,7 +16,49 @@ import 'package:ootd/model/model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/weekootdScreen.dart';
+import 'package:ootd/screen/alarm.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
+//신근재 카톡 로그인 <전역 변수,함수>
+bool Token = false;
+String user_gen = '로그인 성공 시 뭐가 뜰까?';
+String user_name = '';
+String userImage_URL = '';
+
+void KakaoLogin(){
+  Future<bool?> getT() async {
+    if (await AuthApi.instance.hasToken()) {
+      print('----------------------------------');
+      print('토큰 있음');
+      print(await AuthApi.instance.hasToken());
+      Token = true;
+
+      AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
+      var user = await UserApi.instance.me();//유저 정보 user에 담는다.
+
+      print('----------------------------------');
+      print("프사 url: ${user.kakaoAccount?.profile?.profileImageUrl}");
+      print("이름: ${user.kakaoAccount?.profile?.nickname}");
+      print("성별: ${user.kakaoAccount?.gender}");
+      print('----------------------------------');
+
+      userImage_URL = (user.kakaoAccount?.profile?.thumbnailImageUrl).toString();
+      user_gen = (user.kakaoAccount?.gender).toString();
+      user_name = (user.kakaoAccount?.profile?.nickname).toString();
+      return true;
+    }
+    else {
+      print('----------------------------------');
+      print('토큰 없음;');
+      print(await AuthApi.instance.hasToken());
+      Token = false;
+      print('----------------------------------');
+      return false;
+    }
+  }
+
+  Future<bool?> future = getT();
+}
 
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
@@ -145,7 +187,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
               ),
-              accountName: Text('섹스신 근재'), accountEmail: Text('SexShin@gmail.com'),
+              accountName: Text('섹잘알 최지철'), accountEmail: Text('SexChoi@gmail.com'),
               decoration: BoxDecoration(
                   color: Colors.blue[300],
                   borderRadius: BorderRadius.only(
@@ -178,6 +220,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               title: Text("알람 설정"),
               onTap: (){ //알람 기능 선택시
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
                 scaffoldKey.currentState?.closeDrawer();
                 if (_menuController.status ==
                     AnimationStatus.dismissed) {
@@ -391,13 +434,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                   ),
                 ),
               ),
+              //<-------------------카카오 로그인 or 옷 추천------------------->
               Align(
-                alignment: AlignmentDirectional(-0.05, -0.15),
+                alignment: AlignmentDirectional(0, 0.39),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: Container(//옷추천
                     width: double.infinity,
-                    height: 200,
+                    height: 420,
                     decoration: BoxDecoration(
                       color: Colors.black12.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(10),
@@ -405,19 +449,143 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                         width: 0,
                       ),
                     ),
-                    child: Center(
-                      child: login_nextpage(),
-                    ),
+                    //To. 지철
+                      // 이 부분 카톡 로그인 안하면 작업하기 힘드니 밑 부분 전부 지워도 됑 내가 백업 해놓을게
+                      // 카톡 로그인이 디따 크게 나오는데 어케 해야할지..미안너무졸려서나중에할게..화티..팅
+                    child: Token ?
+                    //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
+                    Column(
+                      children: [
+                        SizedBox(height: 50,),
+
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white, width: 5),
+                                borderRadius: BorderRadius.circular(20),
+
+                            ),
+                            child: Column(
+                              children: [
+                                Text('안녕하세요 ${user_name}님\n\n'
+                                    '성별 : ${user_gen}'
+                                  , style: TextStyle(fontSize:30, color:Colors.white),),
+
+                                Image.network(
+                                    userImage_URL
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        ElevatedButton.icon(
+                          icon: Icon(Icons.autorenew_outlined),
+                          label: Text("로그아웃",style: TextStyle(fontSize: 17, color: Colors.black87),),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                            foregroundColor: MaterialStateProperty.all(Colors.black54),
+                          ),
+                          onPressed: () async {
+                            try {
+                              await UserApi.instance.unlink();
+                              print('연결 끊기 성공, SDK에서 토큰 삭제');
+                              Token = false;
+                              Navigator.push
+                                (context,
+                                  MaterialPageRoute(builder: (context) => Loading()));
+                            } catch (error) {
+                              print('연결 끊기 실패 $error');
+                              Navigator.push
+                                (context,
+                                  MaterialPageRoute(builder: (context) => Loading()));
+                            }
+                          },
+                        )
+                      ],
+                    )
+                        :
+                    //<---------------------로그인 필요(토큰 없음)------------------------>
+                    ElevatedButton.icon(
+                        icon: Icon(Icons.lock),
+                        label: Text("카카오 로그인",style: TextStyle(fontSize: 18, color: Colors.black87),),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                            foregroundColor: MaterialStateProperty.all(Colors.black54),
+                            padding: MaterialStateProperty.all(EdgeInsets.all(20.0))
+                        ),
+
+                        onPressed: () async {
+                          //[1] 카카오톡 설치 여부
+                          if(await isKakaoTalkInstalled()){
+                            try {
+                              //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
+                              AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
+                              User user = await UserApi.instance.me();//유저 정보 user에 담는다.
+                              print('토큰 정보 보기 성공'
+                                  '\n회원정보: ${tokenInfo.id}'
+                                  '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
+                              //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
+                              Token = true;
+                              Navigator.push
+                                (context,
+                                  MaterialPageRoute(builder: (context) => Loading()));
+                            } catch (error) {
+                              print('토큰 정보 보기 실패 $error');
+                              try {
+                                //[2-1] 카카오톡 로그인 접속 시도
+                                await UserApi.instance.loginWithKakaoTalk();
+                                User user = await UserApi.instance.me();
+                                print('카카오톡으로 로그인 성공');
+                                //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
+                                //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
+                                Token = true;
+                                Navigator.push
+                                  (context,
+                                  MaterialPageRoute(builder: (context) => Loading()),);
+                              } catch (error) {
+                                print('카카오톡으로 로그인 실패 $error');
+                              }
+                            }
+                          }
+                          //[1-1 카카오톡 미설치
+                          else{
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context){
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0)
+                                    ),
+
+                                    title: new Text("카카오톡 설치 후 실행해주세요!"),
+
+                                    actions: <Widget>[
+                                      new ElevatedButton(
+                                        child: new Text("Close"),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                }
+                            );
+                          }
+                        }
+                    )
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0.85),
+                alignment: AlignmentDirectional(0, 1),
                 child: Padding(//실시간날씨
                   padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
                   child: Container(
                       width: double.infinity,
-                      height: 300,
+                      height: 100,
                       decoration: BoxDecoration(
                         color: Colors.black12.withOpacity(0.4),
                         borderRadius: BorderRadius.circular(10),
@@ -426,11 +594,19 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                           width: 0,
                         ),
                       ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                      child:ListView(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          child:
+                          Container(
+                            width: 50,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: Column(
                               children: [
                                 Text(
                                   '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',

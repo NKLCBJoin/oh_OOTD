@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/loading.dart';
+import 'package:ootd/screen/loading2.dart';
 import 'package:ootd/screen/mainScreen.dart';
 import 'model/temp.dart';
 import 'API/gsheets.dart';
@@ -16,6 +17,7 @@ void main() async
   await GoogleSheestApi.init();//DB구글시트연결
   KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
   runApp(const MyApp());
+  KakaoLogin();
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         // )
       initialRoute: '/',
       routes: {
-        '/' : (context) => firstPage(),
+        '/' : (context) =>firstPage(),
       },
     );
   }
