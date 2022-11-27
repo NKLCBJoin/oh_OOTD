@@ -606,25 +606,28 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                             ),
-                            child: Column(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    icons[0]!,
+                                    Text(
+                                      '오전 ${hours[0]}시',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                icons[0]!,
-                                Text(
-                                  '오전 ${hours[0]}시',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 10.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -766,7 +769,11 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               ],
                             ),
                           ]
-                      )
+                        )
+                      ),
+                    ),
+                  ]
+                  )
                   ),
                 ),
               ),
