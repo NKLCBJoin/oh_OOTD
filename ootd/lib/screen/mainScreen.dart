@@ -18,10 +18,11 @@ import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/weekootdScreen.dart';
 import 'package:ootd/screen/alarm.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:ootd/screen/startScreen.dart';
 
 //신근재 카톡 로그인 <전역 변수,함수>
 bool Token = false;
-String user_gen = '로그인 성공 시 뭐가 뜰까?';
+String user_gen = '성별 정보 불러오지못했음';
 String user_name = '';
 String userImage_URL = '';
 
@@ -93,6 +94,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   late AnimationController _bellController;
 
   void UpdateData(dynamic weatherData,dynamic airData, dynamic hourData){
+    KakaoLogin();
     int condition = weatherData['weather'][0]['id'];
     List <int> conditions = [0,0,0,0,0,0,0,0];
     for (var i = 0; i<8; i++)
@@ -479,9 +481,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                         width: 0,
                       ),
                     ),
-                    //To. 지철
-                      // 이 부분 카톡 로그인 안하면 작업하기 힘드니 밑 부분 전부 지워도 됑 내가 백업 해놓을게
-                      // 카톡 로그인이 디따 크게 나오는데 어케 해야할지..미안너무졸려서나중에할게..화티..팅
+
                     child: Token ?
                     //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
                     Column(
@@ -500,7 +500,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             child: Column(
                               children: [
                                 Text('안녕하세요 ${user_name}님\n\n'
-                                    '성별 : ${user_gen}'
+                                    '성별 : ${user_gen}\n'
                                   , style: TextStyle(fontSize:30, color:Colors.white),),
 
                                 Image.network(
@@ -525,12 +525,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               Token = false;
                               Navigator.push
                                 (context,
-                                  MaterialPageRoute(builder: (context) => Loading()));
+                                  MaterialPageRoute(builder: (context) => firstPage()));
                             } catch (error) {
                               print('연결 끊기 실패 $error');
                               Navigator.push
                                 (context,
-                                  MaterialPageRoute(builder: (context) => Loading()));
+                                  MaterialPageRoute(builder: (context) => firstPage()));
                             }
                           },
                         )
@@ -538,73 +538,84 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     )
                         :
                     //<---------------------로그인 필요(토큰 없음)------------------------>
-                    ElevatedButton.icon(
-                        icon: Icon(Icons.lock),
-                        label: Text("카카오 로그인",style: TextStyle(fontSize: 18, color: Colors.black87),),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                            foregroundColor: MaterialStateProperty.all(Colors.black54),
-                            padding: MaterialStateProperty.all(EdgeInsets.all(20.0))
-                        ),
+                    Column(
+                      children: [
+                        Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
 
-                        onPressed: () async {
-                          //[1] 카카오톡 설치 여부
-                          if(await isKakaoTalkInstalled()){
-                            try {
-                              //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
-                              AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-                              User user = await UserApi.instance.me();//유저 정보 user에 담는다.
-                              print('토큰 정보 보기 성공'
-                                  '\n회원정보: ${tokenInfo.id}'
-                                  '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
-                              //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
-                              Token = true;
-                              Navigator.push
-                                (context,
-                                  MaterialPageRoute(builder: (context) => Loading()));
-                            } catch (error) {
-                              print('토큰 정보 보기 실패 $error');
-                              try {
-                                //[2-1] 카카오톡 로그인 접속 시도
-                                await UserApi.instance.loginWithKakaoTalk();
-                                User user = await UserApi.instance.me();
-                                print('카카오톡으로 로그인 성공');
-                                //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
-                                //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
-                                Token = true;
-                                Navigator.push
-                                  (context,
-                                  MaterialPageRoute(builder: (context) => Loading()),);
-                              } catch (error) {
-                                print('카카오톡으로 로그인 실패 $error');
+                        Flexible(flex: 1, fit: FlexFit.tight, child:
+                        ElevatedButton.icon(
+                            icon: Icon(Icons.lock),
+                            label: Text("카카오 로그인",style: TextStyle(fontSize: 18, color: Colors.black87),),
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                                foregroundColor: MaterialStateProperty.all(Colors.black54),
+                                padding: MaterialStateProperty.all(EdgeInsets.all(20.0))
+                            ),
+
+                            onPressed: () async {
+                              //[1] 카카오톡 설치 여부
+                              if(await isKakaoTalkInstalled()){
+                                try {
+                                  //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
+                                  AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
+                                  User user = await UserApi.instance.me();//유저 정보 user에 담는다.
+                                  print('토큰 정보 보기 성공'
+                                      '\n회원정보: ${tokenInfo.id}'
+                                      '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
+                                  //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
+                                  Token = true;
+                                  Navigator.push
+                                    (context,
+                                      MaterialPageRoute(builder: (context) => Loading()));
+                                } catch (error) {
+                                  print('토큰 정보 보기 실패 $error');
+                                  try {
+                                    //[2-1] 카카오톡 로그인 접속 시도
+                                    await UserApi.instance.loginWithKakaoTalk();
+                                    User user = await UserApi.instance.me();
+                                    print('카카오톡으로 로그인 성공');
+                                    //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
+                                    //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
+                                    Token = true;
+                                    Navigator.push
+                                      (context,
+                                      MaterialPageRoute(builder: (context) => Loading()),);
+                                  } catch (error) {
+                                    print('카카오톡으로 로그인 실패 $error');
+                                  }
+                                }
+                              }
+                              //[1-1 카카오톡 미설치
+                              else{
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context){
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10.0)
+                                        ),
+
+                                        title: new Text("카카오톡 설치 후 실행해주세요!"),
+
+                                        actions: <Widget>[
+                                          new ElevatedButton(
+                                            child: new Text("Close"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                );
                               }
                             }
-                          }
-                          //[1-1 카카오톡 미설치
-                          else{
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0)
-                                    ),
+                        )
+                        ),
 
-                                    title: new Text("카카오톡 설치 후 실행해주세요!"),
+                        Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
 
-                                    actions: <Widget>[
-                                      new ElevatedButton(
-                                        child: new Text("Close"),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                }
-                            );
-                          }
-                        }
+                      ],
                     )
                   ),
                 ),
