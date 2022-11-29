@@ -8,6 +8,9 @@ import 'loading.dart';
 import 'package:ootd/main.dart';
 import 'package:ootd/model/model.dart';
 import 'package:get/get.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:ootd/screen/loading2.dart';
+import 'package:ootd/screen/startScreen.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
@@ -147,10 +150,70 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               ),
               items: [
                 SettingsItem(
-                  onTap: () {
+                  onTap: () async {
+
                     Get.isDarkMode?
                     Get.changeTheme(ThemeData.light()):
                     Get.changeTheme(ThemeData.dark());
+
+                    try {
+                      await UserApi.instance.unlink();
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false, // 바깥 터치해도 닫히는지
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                                title: Text('로그아웃 성공!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                content: Text('확인버튼을 눌러주세요!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'),
+                                    onPressed: () {
+                                      // 메인으로 이동
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
+                                    },
+                                  ),
+                                ]);
+                          });
+                    } catch (error) {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false, // 바깥 터치해도 닫히는지
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                                title: Text('로그아웃 실패!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                content: Text('로그인이 되어있지 않거나\n오류가 발생했습니다.',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'),
+                                    onPressed: () {
+                                      // 메인으로 이동
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ]);
+                          });
+                    }
+
+                    
                   },
                   icons: Icons.exit_to_app_rounded,
                   title: "로그아웃",

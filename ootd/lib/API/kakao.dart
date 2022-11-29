@@ -106,10 +106,10 @@ class login_logout extends StatelessWidget {
 class login_share extends StatelessWidget {
   final FeedTemplate defaultFeed = FeedTemplate(
     content: Content(
-      title: '딸기 치즈 케익',
-      description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
+      title: 'OOTD추천',
+      description: '주간 날씨에 대한 정보를 소개합니다',
       imageUrl: Uri.parse(
-          'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png'),
+          'https://images.unsplash.com/photo-1661956602926-db6b25f75947?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'),
       link: Link(
           webUrl: Uri.parse('https://developers.kakao.com'),
           mobileWebUrl: Uri.parse('https://developers.kakao.com')),
