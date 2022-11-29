@@ -323,7 +323,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                           child: Column(
                             children: [
                               Text(
-                                '$cityName',
+                                Language.En? 'Gumi':'구미',
                                 style: GoogleFonts.lato(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
