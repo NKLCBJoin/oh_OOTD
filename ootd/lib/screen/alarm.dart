@@ -3,6 +3,7 @@
 //코드량이 길고 복잡해서 반드시 정리 및 함수화? 과정 통해 코드수 줄이는 작업 필요
 import 'package:flutter/material.dart';
 import 'package:ootd/screen/loading.dart';
+import 'package:ootd/model/model.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -68,12 +69,12 @@ class _AlarmState extends State<Alarm> {
               child: Container(
                 margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black38, width: 2),
+                    border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black, width: 2),
                     borderRadius: BorderRadius.circular(20)
                 ),
                 child: Row(
                   children: [
-                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
 
                     Flexible(
                         flex: 3,
@@ -81,11 +82,12 @@ class _AlarmState extends State<Alarm> {
                           '오전 ${save_hour_first}시 ${save_minute_fisrt}분',
                           style: TextStyle(
                             fontSize: 25,
+                            color:  DarkMode.DarkOn?  Colors.white: Colors.black
                           ),
                         )
                     ),
 
-                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
 
                     ElevatedButton(
                       onPressed: (){
@@ -94,10 +96,10 @@ class _AlarmState extends State<Alarm> {
                         //<-------------페이지 새로고침?-------------->
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
+                          backgroundColor: MaterialStateProperty.all(Colors.transparent),elevation: MaterialStateProperty.all(0.0),
                           padding: MaterialStatePropertyAll(EdgeInsets.all(15.0))
                       ),
-                      child: Text('삭제', style: TextStyle(color: Colors.black, fontSize: 25)
+                      child: Text('삭제', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 25)
                       ),
                     ),
                   ],
@@ -112,12 +114,12 @@ class _AlarmState extends State<Alarm> {
               child: Container(
                 margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black38, width: 2),
+                    border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black, width: 2),
                     borderRadius: BorderRadius.circular(20)
                 ),
                 child: Row(
                   children: [
-                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
 
                     Flexible(
                         flex: 3,
@@ -129,7 +131,7 @@ class _AlarmState extends State<Alarm> {
                         )
                     ),
 
-                    Flexible(flex: 1, child: Container(color: Colors.white30,),),
+                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
 
                     ElevatedButton(
                       onPressed: () {
@@ -138,10 +140,10 @@ class _AlarmState extends State<Alarm> {
                         //<-------------페이지 새로고침?-------------->
                       },
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
+                          backgroundColor: MaterialStateProperty.all(Colors.transparent),elevation: MaterialStateProperty.all(0.0),
                           padding: MaterialStatePropertyAll(EdgeInsets.all(15.0))
                       ),
-                      child: Text('삭제', style: TextStyle(color: Colors.black, fontSize: 25)
+                      child: Text('삭제', style: TextStyle(color:DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 25)
                       ),
                     ),
                   ],
@@ -193,8 +195,8 @@ class _AlarmState extends State<Alarm> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xffa1c4fd),
-                  Color(0xffc2e9fb),
+                  DarkMode.DarkOn? Color(0xff29323c) : Color(0xffa1c4fd), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                  DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
                 ]
             )
         ),
@@ -239,7 +241,7 @@ class _AlarmState extends State<Alarm> {
                                         elevation: MaterialStateProperty.all(0.0),
                                         shape: MaterialStateProperty.all(RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),)
                                     ),
-                                    child: AM == true ? Text('오전', style: TextStyle(fontSize: 40, color: Colors.black),):Text('오전', style: TextStyle(fontSize: 40, color: Colors.black12),)
+                                    child: AM == true ? Text('오전', style: TextStyle(fontSize: 40, color:DarkMode.DarkOn?  Colors.white: Colors.black),):Text('오전', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white12: Colors.black12),)
                                 )
                             ),
 
@@ -268,7 +270,7 @@ class _AlarmState extends State<Alarm> {
                                     backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                     elevation: MaterialStateProperty.all(0.0),
                                   ),
-                                  child: PM == true ? Text('오후', style: TextStyle(fontSize: 40, color: Colors.black),):Text('오후', style: TextStyle(fontSize: 40, color: Colors.black12),)
+                                  child: PM == true ? Text('오후', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white: Colors.black),):Text('오후', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white12: Colors.black12),)
                               ),),
                             Flexible(flex: 1, child: Container(),),
                           ],
@@ -285,7 +287,7 @@ class _AlarmState extends State<Alarm> {
                             children: [
                               for (int i = 1; i < 13; i++)
                                 ListTile(
-                                  title: hour == i ? Text('${i}시', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: Colors.black)) : Text('${i}시', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: Colors.black12)),
+                                  title: hour == i ? Text('${i}시', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}시', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
                                   onTap: (){
                                     setState(() {
                                       hour = i;
@@ -310,7 +312,7 @@ class _AlarmState extends State<Alarm> {
                             children: [
                               for (int i = 0; i < 60; i++)
                                 ListTile(
-                                  title: minute == i ? Text('${i}분', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: Colors.black)) : Text('${i}분', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: Colors.black12)),
+                                  title: minute == i ? Text('${i}분', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}분', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
                                   onTap: (){
                                     setState(() {
                                       minute = i;
@@ -336,13 +338,13 @@ class _AlarmState extends State<Alarm> {
                   child: Row(
                       children: [
                         SizedBox(width : 40),
-                        Text('매주 반복', style: TextStyle(color: Colors.black87, fontSize: 30,),),
+                        Text('매주 반복', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,),),
                         SizedBox(width : 30),
 
                         Container(
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black38, width: 2),
+                                border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black, width: 2),
                                 borderRadius: BorderRadius.circular(20)),
                             child: Row(
                               children: [
@@ -355,10 +357,10 @@ class _AlarmState extends State<Alarm> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Colors.white12),
+                                      backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                       elevation: MaterialStateProperty.all(0.0),
                                     ),
-                                    child: repeat == true ? Text('On', style: TextStyle(color: Colors.black, fontSize: 30,)):Text('On', style: TextStyle(color: Colors.black12, fontSize: 30))
+                                    child: repeat == true ? Text('On', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,)):Text('On', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30))
                                 ),
 
                                 ElevatedButton(
@@ -370,10 +372,10 @@ class _AlarmState extends State<Alarm> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(Colors.white12),
+                                      backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                       elevation: MaterialStateProperty.all(0.0),
                                     ),
-                                    child: repeat == false ? Text('Off', style: TextStyle(color: Colors.black, fontSize: 30,)):Text('Off', style: TextStyle(color: Colors.black12, fontSize: 30))
+                                    child: repeat == false ? Text('Off', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,)):Text('Off', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30))
                                 ),
                               ],
                             )
@@ -409,8 +411,8 @@ class _AlarmState extends State<Alarm> {
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                             padding: MaterialStatePropertyAll(EdgeInsets.all(20.0))
                         ),
-                        child: mon == false ? Text('월', style: TextStyle(color: Colors.black12, fontSize: 30)) :
-                        Text('월', style: TextStyle(color: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                        child: mon == false ? Text('월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                        Text('월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                         ),
                       ),
                     ),
@@ -421,8 +423,8 @@ class _AlarmState extends State<Alarm> {
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                             padding: MaterialStatePropertyAll(EdgeInsets.all(20.0))
                         ),
-                        child: tue == false ? Text('화', style: TextStyle(color: Colors.black12, fontSize: 30)) :
-                        Text('화', style: TextStyle(color: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                        child: tue == false ? Text('화', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                        Text('화', style: TextStyle(color:DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                         ),
                       ),
                     ),
@@ -433,8 +435,8 @@ class _AlarmState extends State<Alarm> {
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                             padding: MaterialStatePropertyAll(EdgeInsets.all(20.0))
                         ),
-                        child: wed == false ? Text('수', style: TextStyle(color: Colors.black12, fontSize: 30)) :
-                        Text('수', style: TextStyle(color: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                        child: wed == false ? Text('수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                        Text('수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                         ),
                       ),
                     ),
@@ -445,8 +447,8 @@ class _AlarmState extends State<Alarm> {
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                             padding: MaterialStatePropertyAll(EdgeInsets.all(20.0))
                         ),
-                        child: thu == false ? Text('목', style: TextStyle(color: Colors.black12, fontSize: 30)) :
-                        Text('목', style: TextStyle(color: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                        child: thu == false ? Text('목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                        Text('목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                         ),
                       ),
                     ),
@@ -457,8 +459,8 @@ class _AlarmState extends State<Alarm> {
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                             padding: MaterialStatePropertyAll(EdgeInsets.all(20.0))
                         ),
-                        child: fri == false ? Text('금', style: TextStyle(color: Colors.black12, fontSize: 30)) :
-                        Text('금', style: TextStyle(color: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                        child: fri == false ? Text('금', style: TextStyle(color:DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                        Text('금', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                         ),
                       ),
                     ),
@@ -486,7 +488,7 @@ class _AlarmState extends State<Alarm> {
                   padding: EdgeInsets.all(5),
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black38, width: 2),
+                      border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black38, width: 2),
                       borderRadius: BorderRadius.circular(20)
                   ),
                   //<<<<저장된 알람의 여부에 따라 작동하는 함수 => 알람 목록 or 알람이 없습니다!>>>>
@@ -494,7 +496,7 @@ class _AlarmState extends State<Alarm> {
               ),
             ),
 
-            Flexible(flex: 1, child: Container(color: Colors.white30,),),
+            Flexible(flex: 1, child: Container(color: Colors.transparent,),),
 
             //<--------------취소, 저장 버튼---------------->
             Container(
@@ -512,7 +514,7 @@ class _AlarmState extends State<Alarm> {
                               backgroundColor: MaterialStateProperty.all(Colors.transparent),
                               elevation: MaterialStateProperty.all(0.0)),
                           child: Text('취소',
-                            style: TextStyle(color: Colors.black54, fontSize: 30,),
+                            style: TextStyle(color:  DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,),
                           ),
                         ),
                       )
@@ -535,7 +537,7 @@ class _AlarmState extends State<Alarm> {
                           elevation: MaterialStateProperty.all(0.0)
                       ),
                       child: Text('저장',
-                        style: TextStyle(color: Colors.black54, fontSize: 30, ),
+                        style: TextStyle(color:  DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30, ),
                         textAlign: TextAlign.center,
                       ),
                     ),
