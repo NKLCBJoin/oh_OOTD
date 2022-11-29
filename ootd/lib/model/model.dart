@@ -12,7 +12,11 @@ class UserDB//최지철 DB<->앱간 통신클래스임당~
 class DarkMode{
   static bool DarkOn=false;
 }
-
+class Language{
+  static bool En=false;
+  static bool Kor=false;
+  static bool CN=false;
+}
 class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   Widget ?getWeatherIcon(int condition) {
     if(condition < 300)
@@ -58,7 +62,7 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   {
     if(index==1){
       return Text(
-        '매우좋음',
+        Language.En?'Great!':'매우좋음',
         style: TextStyle(
           color: Colors.lightGreenAccent,
           fontWeight: FontWeight.bold,
@@ -66,7 +70,7 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
       );
     }else if(index==2){
       return Text(
-        '좋음',
+        Language.En?'Good!':'좋음',
         style: TextStyle(
           color: Colors.green,
           fontWeight: FontWeight.bold,
@@ -74,7 +78,7 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
       );
     }else if(index==3){
       return Text(
-        '보통',
+        Language.En?'Not Bad':'보통',
         style: TextStyle(
           color: Colors.white60,
           fontWeight: FontWeight.bold,
@@ -83,7 +87,7 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
     }
     else if(index==4){
       return Text(
-        '나쁨',
+        Language.En?'Bad!':'나쁨',
         style: TextStyle(
           color: Colors.deepOrangeAccent,
           fontWeight: FontWeight.bold,
@@ -92,7 +96,7 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
     }
     else if(index==5){
       return Text(
-        '매우나쁨',
+        Language.En?'F**** Bad!':'매우나쁨',
         style: TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.bold,

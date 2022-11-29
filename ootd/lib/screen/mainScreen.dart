@@ -216,7 +216,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
                     size: 30,
                   ),
-                  title: Text("홈으로"),
+                  title: Text(Language.En?'Home':"홈으로"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
                   onTap: (){//메인화면으로 돌아가기
                     scaffoldKey.currentState?.closeDrawer();
@@ -235,7 +235,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
                     size: 30,
                   ),
-                  title: Text("알람 설정"),
+                  title: Text(Language.En?'Alarm':"알람 설정"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
                   onTap: (){ //알람 기능 선택시
                     Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
@@ -255,7 +255,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
                     size: 30,
                   ),
-                  title: Text("주간OOTD"),
+                  title: Text(Language.En?'Week OOTD':"주간OOTD"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
                   onTap: (){//메인화면으로 돌아가기
                     Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading2())); // weather_screen에 정상적으로 화면이 나오는지 실험중
@@ -275,7 +275,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
                     size: 30,
                   ),
-                  title: Text("설정"),
+                  title: Text(Language.En?'Setting':"설정"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
                   onTap: (){//설정창
                     Navigator.push(context, MaterialPageRoute(builder: (_)=>SettingsWidget()));
@@ -354,7 +354,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     width:20,
                                   ),
                                   Text(
-                                    '최고: $max_temp°',
+                                    Language.En?'High: $max_temp°':'최고: $max_temp°',
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
@@ -364,7 +364,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     width: 10,
                                   ),
                                   Text(
-                                    '최저: $min_temp°',
+                                    Language.En?'Low: $min_temp°':'최저: $min_temp°',
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
@@ -380,7 +380,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                           child: Stack(
                             children: [
                               Text(
-                                'SQI(대기질지수)',
+                                Language.En?"SQI(Air Quality Index)":'SQI(대기질지수)',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
                                   color: Colors.white,
@@ -426,7 +426,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               ),
 
                               Text(
-                                '미세먼지',
+                                Language.En?"Air pollution":'미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
                                   color: Colors.white,
@@ -449,7 +449,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 ),
                               ),
                               Text(
-                                '초미세먼지',
+                                Language.En?"ultrafine dust":'초미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
                                   color: Colors.white,
@@ -540,7 +540,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     //<---------------------로그인 필요(토큰 없음)------------------------>
                     ElevatedButton.icon(
                         icon: Icon(Icons.lock),
-                        label: Text("카카오 로그인",style: TextStyle(fontSize: 18, color: Colors.black87),),
+                        label: Text(Language.En?"KaKaoTalk Login":"카카오 로그인",style: TextStyle(fontSize: 18, color: Colors.black87),),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Colors.yellow),
                             foregroundColor: MaterialStateProperty.all(Colors.black54),
@@ -654,7 +654,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                         ),
                                         icons[0]!,
                                         Text(
-                                          '${hours[0]}시',
+                                          Language.En?' ${hours[0]}am':'${hours[0]}시',
                                           style: GoogleFonts.lato(
                                             fontSize: 12.0,
                                             color: Colors.white,
@@ -692,7 +692,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[1]!,
                                       Text(
-                                        '${hours[1]}시',
+                                        Language.En?' ${hours[1]}pm':'${hours[1]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -730,7 +730,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[2]!,
                                       Text(
-                                        '${hours[2]}시',
+                                        Language.En?' ${hours[2]}pm':'${hours[2]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -768,7 +768,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[3]!,
                                       Text(
-                                        '${hours[3]}시',
+                                        Language.En?' ${hours[3]}pm':'${hours[3]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -806,7 +806,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[4]!,
                                       Text(
-                                        '${hours[4]}시',
+                                        Language.En?' ${hours[4]}pm':'${hours[4]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -844,7 +844,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[5]!,
                                       Text(
-                                        '${hours[5]}시',
+                                        Language.En?' ${hours[5]}pm': '${hours[5]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -882,7 +882,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[6]!,
                                       Text(
-                                        '${hours[6]}시',
+                                        Language.En?' ${hours[6]}am':'${hours[6]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -915,7 +915,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[7]!,
                                       Text(
-                                        '${hours[7]}시',
+                                        Language.En?' ${hours[7]}am': '${hours[7]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
