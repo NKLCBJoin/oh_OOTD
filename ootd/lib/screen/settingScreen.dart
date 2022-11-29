@@ -39,6 +39,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             size: 30,
           ),
           onPressed: () {
+            LoadingData.Lol = false;
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),

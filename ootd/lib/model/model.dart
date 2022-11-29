@@ -17,6 +17,9 @@ class Language{
   static bool Kor=false;
   static bool CN=false;
 }
+class LoadingData{
+  static bool Lol=false;
+}
 class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   Widget ?getWeatherIcon(int condition) {
     if(condition < 300)

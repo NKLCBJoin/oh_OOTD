@@ -10,6 +10,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:dart_date/dart_date.dart';
 
+
 import 'dart:math';
 
 import 'package:timer_builder/timer_builder.dart';
@@ -46,7 +47,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
   List <int> i_min = [0,0,0,0];
 
 //4 7 7 7
-  void UpdateData(dynamic dailyData) {
+  void UpdateData (dynamic dailyData) async{
 
     //print("Yesterday: " + (Date.today - Duration(days: 1)).toString());
     // print(date);
@@ -144,6 +145,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
             size: 30,
           ),
           onPressed: () {
+            LoadingData.Lol = false;
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),

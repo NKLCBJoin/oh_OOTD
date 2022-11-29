@@ -185,6 +185,7 @@ class _AlarmState extends State<Alarm> {
             size: 30,
           ),
           onPressed: () {
+            LoadingData.Lol = false;
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),
