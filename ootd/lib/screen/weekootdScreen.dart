@@ -772,7 +772,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[0].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -787,7 +787,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[0].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,

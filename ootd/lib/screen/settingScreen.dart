@@ -8,6 +8,9 @@ import 'loading.dart';
 import 'package:ootd/main.dart';
 import 'package:ootd/model/model.dart';
 import 'package:get/get.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:ootd/screen/loading2.dart';
+import 'package:ootd/screen/startScreen.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
@@ -42,7 +45,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         title: Align(
           alignment: AlignmentDirectional(-0.2, 0),
           child: Text(
-            '설정',
+            Language.En? 'Setting':'설정',
           ),
         ),
         actions: [],
@@ -61,14 +64,76 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
               items: [
                 SettingsItem(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false, // 바깥 터치해도 닫히는지
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                              title: Text(Language.En? 'Choose Language':'언어 선택',
+                                style:TextStyle(
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              content: Container(
+                                  width: double.minPositive,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    ListTile(
+                                      title: Text("한국어",
+                                      style:TextStyle(
+                                        color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                      ) ,
+                                      ),
+                                      onTap: (){
+                                        setState(() {
+                                          Language.En= false;
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                      shape: Border(
+                                        bottom: BorderSide(
+                                          width: 1,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                        ),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: Text("English",
+                                        style:TextStyle(
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                        ) ,
+                                      ),
+                                      onTap: (){
+                                        setState(() {
+                                          Language.En= true;
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('취소'),
+                                  onPressed: () {
+                                    // 다이얼로그 닫기
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ]);
+                        });
+                  },
                   icons: Icons.language_rounded,
                   iconStyle: IconStyle(
                     withBackground: true,
                     backgroundColor: DarkMode.DarkOn? Colors.blueGrey : Colors.blue,
                   ),
-                  title: '언어',
-                  subtitle: "한국어",
+                  title: Language.En? 'Language':'언어',
+                  subtitle: Language.En? "English":"한국어",
                 ),
                 SettingsItem(
                   onTap: () {},
@@ -78,8 +143,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     withBackground: true,
                     backgroundColor: DarkMode.DarkOn? Colors.blueGrey : Colors.red,
                   ),
-                  title: '다크모드',
-                  subtitle:  DarkMode.DarkOn? "라이트모드로 변경":"다크모드로 변경",
+                  title: Language.En?"DarkMode": '다크모드',
+                  subtitle: Language.En?"Change to Mode":"모드 변경",
                   trailing: Switch.adaptive(
                     activeColor: Colors.pink,
                     activeTrackColor: Colors.pink.withOpacity(0.4),
@@ -107,7 +172,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
-                              title: Text('카카오 입사 예정자들 소개',
+                              title: Text(Language.En?'About Our Team':'카카오 입사 예정자들 소개',
                                 style:TextStyle(
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
@@ -133,13 +198,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     backgroundColor:  DarkMode.DarkOn? Colors.brown : Colors.purple,
                   ),
                   title: 'About',
-                  subtitle: "카카오 입사 예정자들이란?",
+                  subtitle: Language.En?"Who is the KakaoTakDae?":"카카오 입사 예정자들이란?",
                 ),
               ],
             ),
             // You can add a settings title
             SettingsGroup(
-              settingsGroupTitle: "   계정",
+              settingsGroupTitle: Language.En?"Account":"   계정",
               settingsGroupTitleStyle: TextStyle(
                 color: DarkMode.DarkOn? Colors.white :Colors.black,
                 fontWeight: FontWeight.bold,
@@ -147,13 +212,73 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               ),
               items: [
                 SettingsItem(
-                  onTap: () {
+                  onTap: () async {
+
                     Get.isDarkMode?
                     Get.changeTheme(ThemeData.light()):
                     Get.changeTheme(ThemeData.dark());
+
+                    try {
+                      await UserApi.instance.unlink();
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false, // 바깥 터치해도 닫히는지
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                                title: Text('로그아웃 성공!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                content: Text('확인버튼을 눌러주세요!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'),
+                                    onPressed: () {
+                                      // 메인으로 이동
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
+                                    },
+                                  ),
+                                ]);
+                          });
+                    } catch (error) {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false, // 바깥 터치해도 닫히는지
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                                title: Text('로그아웃 실패!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                content: Text('로그인이 되어있지 않거나\n오류가 발생했습니다.',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'),
+                                    onPressed: () {
+                                      // 메인으로 이동
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ]);
+                          });
+                    }
+
+                    
                   },
                   icons: Icons.exit_to_app_rounded,
-                  title: "로그아웃",
+                  title: Language.En?"Logout":"로그아웃",
                 ),
                 SettingsItem(
                   onTap: () {
@@ -162,7 +287,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     Get.changeTheme(ThemeData.dark());
                   },
                   icons: CupertinoIcons.delete_solid,
-                  title: "회원탈퇴",
+                  title: Language.En?'Delete Account':"회원탈퇴",
                   titleStyle: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
