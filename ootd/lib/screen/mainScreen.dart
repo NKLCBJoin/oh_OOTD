@@ -27,7 +27,7 @@ String user_name = '';
 String userImage_URL = '';
 String user_email = '';
 
-void KakaoLogin(){
+void KakaoToken(){
   Future<bool?> getT() async {
     if (await AuthApi.instance.hasToken()) {
       Token = true;
@@ -41,6 +41,12 @@ void KakaoLogin(){
       user_gen = (user.kakaoAccount?.gender).toString();
       user_name = (user.kakaoAccount?.profile?.nickname).toString();
       user_email = (user.kakaoAccount?.email).toString();
+
+      if(user_gen == "Gender.male"){
+        user_gen = "남성";
+      } else {
+        user_gen = "여성";
+      }
       await Future.delayed(Duration(seconds: 1));//땡겨오는 시간 딜레이 대기
       return true;
     }
@@ -609,7 +615,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 );
                               }
                             }
-                        )
+                          )
                         ),
 
                         Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
