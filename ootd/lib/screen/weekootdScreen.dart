@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/model/model.dart';
 import 'package:ootd/screen/mainScreen.dart';
@@ -149,16 +150,9 @@ class _WeekootdPageState extends State<WeekootdPage> {
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),
+        //신근재/공유하기 버튼
         actions:<Widget> [
-          IconButton(
-            icon: Icon(
-              Icons.menu,
-              size: 30,
-            ),
-            onPressed: ()  {
-            },
-          ),
-
+          KakaoShare()
         ],
         centerTitle: false,
       ),
