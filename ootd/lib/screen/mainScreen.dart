@@ -37,7 +37,7 @@ void KakaoLogin(){
 
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
 
-      userImage_URL = (user.kakaoAccount?.profile?.thumbnailImageUrl).toString();
+      userImage_URL = (user.kakaoAccount?.profile?.profileImageUrl).toString();
       user_gen = (user.kakaoAccount?.gender).toString();
       user_name = (user.kakaoAccount?.profile?.nickname).toString();
       user_email = (user.kakaoAccount?.email).toString();
