@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 //신근재
 
 //<-------------------로그인 버튼 클래스 정의----------------------->
-class login_nextpage extends StatelessWidget {
+class KakaoLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -79,7 +79,7 @@ class login_nextpage extends StatelessWidget {
 }
 
 //<-------------------로그아웃 클래스 정의----------------------->
-class login_logout extends StatelessWidget {
+class KakaoLogout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -103,7 +103,7 @@ class login_logout extends StatelessWidget {
 }
 
 //<-------------------공유 클래스 정의----------------------->
-class login_share extends StatelessWidget {
+class KakaoShare extends StatelessWidget {
   final FeedTemplate defaultFeed = FeedTemplate(
     content: Content(
       title: 'OOTD추천',
@@ -120,11 +120,11 @@ class login_share extends StatelessWidget {
   Widget build(BuildContext context) {
     return  ElevatedButton.icon(
       icon: Icon(Icons.share_sharp),
-      label: Text("공유하기",style: TextStyle(fontSize: 17, color: Colors.black87),),
+      label: Text("공유하기",style: TextStyle(fontSize: 10, color: Colors.black87),),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.yellow),
         foregroundColor: MaterialStateProperty.all(Colors.black54),
-        minimumSize: MaterialStateProperty.all(Size(250, 50)),
+        shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
       ),
       onPressed: () async {
         if(await ShareClient.instance.isKakaoTalkSharingAvailable()) {
