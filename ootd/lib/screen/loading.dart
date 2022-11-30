@@ -5,6 +5,9 @@ import 'package:ootd/API/location.dart';
 import 'package:ootd/API/network.dart';
 import 'package:ootd/screen/mainScreen.dart';
 import 'package:ootd/screen/weather_screen.dart';
+import 'package:ootd/model/model.dart';
+import 'package:ootd/screen/weekootdScreen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const apikey = '4293fbff2c2e4d5c80ce32cea6e1b5be';
 
@@ -17,19 +20,24 @@ class Loading extends StatefulWidget {
 enum RGB {red, green, blue }
 class _LoadingState extends State<Loading> {
 
-
-  String ?CityName;
-  var a=0;
-  void getLocation() async{
+  void getLocation() async {
     MyLocation location = MyLocation();
     await location.getMyCurrentLocation();
     print(location.longtitude2);
     print(location.latitude2);
 
-    Network network = Network('https://api.openweathermap.org/data/2.5/weather?'
-        'lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&lang=kr&units=metric',
-        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey',
-        'https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&units=metric');
+    Network network = Network(
+        Language.En ? 'https://api.openweathermap.org/data/2.5/weather?'
+            'lat=${location.latitude2}&lon=${location
+            .longtitude2}&appid=$apikey&lang=en&units=metric' :
+        'https://api.openweathermap.org/data/2.5/weather?'
+            'lat=${location.latitude2}&lon=${location
+            .longtitude2}&appid=$apikey&lang=kr&units=metric',
+        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location
+            .latitude2}&lon=${location.longtitude2}&appid=$apikey',
+        'https://api.openweathermap.org/data/2.5/forecast?lat=${location
+            .latitude2}&lon=${location
+            .longtitude2}&appid=$apikey&units=metric');
     var weatherData = await network.getJsonData();
     print(weatherData);
 
@@ -39,7 +47,7 @@ class _LoadingState extends State<Loading> {
     var hourData = await network.getHourData();
     print(hourData);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
       return HomePageWidget(parseWeatherData: weatherData,
         parseAirPollution: airData, parseHourData: hourData,
       );
@@ -50,23 +58,41 @@ class _LoadingState extends State<Loading> {
       );
     }));*/
   }
+    void getLocation2() async{
+      MyLocation location = MyLocation();
+      await location.getMyCurrentLocation();
+      print(location.longtitude2);
+      print(location.latitude2);
+
+      Network2 network = Network2('https://api.openweathermap.org/data/2.5/forecast?lat='
+          '${location.latitude2}&lon=${location.longtitude2}&appid=$apikey&units=metric');
+
+      var dailyData = await network.getDailyData();
+      print(dailyData);
+
+      Navigator.push(context, MaterialPageRoute(builder: (context){
+        return WeekootdPage(parseDailyData: dailyData,
+        );
+      }));
+    }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLocation();
+    LoadingData.Lol? getLocation2() : getLocation();
   }
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.orangeAccent,
         body: Center(
-          child: Column(
-            children: <Widget>[
-              CircularProgressIndicator()
-              ],
-          )
-        )
-    );
+          child: SpinKitFadingFour(
+            color: Colors.white,
+            size: 80,
+          ),
+          ),
+      );
   }
 }

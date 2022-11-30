@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:ootd/screen/loading.dart';
@@ -7,6 +8,8 @@ import 'package:ootd/screen/mainScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:dart_date/dart_date.dart';
+
 
 import 'dart:math';
 
@@ -23,10 +26,17 @@ class WeekootdPage extends StatefulWidget {
 
 class _WeekootdPageState extends State<WeekootdPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List <dynamic> tomorrows = [];
+  // var tomorrow2 = (Date.today + Duration(days: 2));
+  // var tomorrow3 = (Date.today + Duration(days: 3));
+  // var tomorrow4 = (Date.today + Duration(days: 4));
+  // var tomorrow5 = (Date.today + Duration(days: 5));
+  // var tomorrow6 = (Date.today + Duration(days: 6));
   Model model = Model();
   List <Widget> icons = []; // icon리스트
   //var day1 = List <double>.filled(4, 0.0); //json 파일에 오늘(09시~21시 3시간 간격 4개로 이루어짐) 내일부터 4일차까지는 00시부터 21시까지 7개
   var date = DateTime.now();
+
   String day1_time = '';
 
 
@@ -37,8 +47,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
   List <int> i_min = [0,0,0,0];
 
 //4 7 7 7
-  void UpdateData(dynamic dailyData) {
+  void UpdateData (dynamic dailyData) async{
 
+    //print("Yesterday: " + (Date.today - Duration(days: 1)).toString());
+    // print(date);
+    // var dates = date.toString().split(' ')[0].split('-')[2];
+    for(var i = 0; i<7; i++)
+      tomorrows.add(Date.today + Duration(days: i));
     var conditions = List<int>.filled(25, 0);
     for (var i = 0; i<25; i++)
     {
@@ -113,6 +128,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
   }
   String ?getSystemTime(){
     var now = DateTime.now();
+    //var tomorrow = DateTime();
     return DateFormat("h:mm a").format(now);
   }
   @override
@@ -129,6 +145,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
             size: 30,
           ),
           onPressed: () {
+            LoadingData.Lol = false;
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),
@@ -218,7 +235,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[0].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              //'최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -233,7 +251,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[0].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              //'최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -283,7 +302,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----둘째날
+                                      //tomorrow.format(' EEEE '),
+                                      DateFormat(' EEEE ').format(tomorrows[1]), //----둘째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -301,13 +321,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[1].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[1].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[0]!,
+                                            icons[2]!,
                                             Text(
                                               '/',
                                               style: GoogleFonts.lato(
@@ -316,104 +336,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[1].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[1].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[1]!,
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(-1, 0),
-                                child:Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 40,
-                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(1, 0),
-                                child:Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 40,
-                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                        child: Container(
-                          width: 380,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
-                            borderRadius: BorderRadius.circular(35),
-                            boxShadow: [
-                              BoxShadow(
-                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
-                                spreadRadius: 1,
-                                blurRadius: 6.0,
-                                offset: Offset(4, 6), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0, -1),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      DateFormat(' EEEE ').format(date),//----셋째날
-                                      style: GoogleFonts.kanit(
-                                          fontSize: 30.0,
-                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
-                                          fontStyle: FontStyle.normal
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 15,
-                                            ),
-                                            Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 15.0,
-                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                              ),
-                                            ),
-                                            icons[0]!,
-                                            Text(
-                                              '/',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 15.0,
-                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                              ),
-                                            ),
-                                            Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 15.0,
-                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                              ),
-                                            ),
-                                            icons[1]!,
+                                            icons[3]!,
                                           ],
                                         ),
                                       ],
@@ -465,7 +394,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----넷째날
+                                      DateFormat(' EEEE ').format(tomorrows[2]),//----셋째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -483,13 +412,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[2].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[2].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[0]!,
+                                            icons[4]!,
                                             Text(
                                               '/',
                                               style: GoogleFonts.lato(
@@ -498,13 +427,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[2].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[2].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[1]!,
+                                            icons[5]!,
                                           ],
                                         ),
                                       ],
@@ -556,7 +485,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----다섯째날
+                                      DateFormat(' EEEE ').format(tomorrows[3]), //----넷째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -574,13 +503,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[3].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[3].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[0]!,
+                                            icons[6]!,
                                             Text(
                                               '/',
                                               style: GoogleFonts.lato(
@@ -589,13 +518,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[3].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[3].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[1]!,
+                                            icons[7]!,
                                           ],
                                         ),
                                       ],
@@ -647,7 +576,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----여섯째날
+                                      DateFormat(' EEEE ').format(tomorrows[4]), //----다섯째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -665,13 +594,14 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[0].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[0]!,
+                                            icons[4]!,
                                             Text(
                                               '/',
                                               style: GoogleFonts.lato(
@@ -680,13 +610,13 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[0].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                               ),
                                             ),
-                                            icons[1]!,
+                                            icons[5]!,
                                           ],
                                         ),
                                       ],
@@ -738,7 +668,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----일곱째날
+                                      DateFormat(' EEEE ').format(tomorrows[5]), //----여섯째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -756,7 +686,99 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               width: 15,
                                             ),
                                             Text(
-                                              '최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'High${double.parse(day_max_t[0].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
+
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[6]!,
+                                            Text(
+                                              '/',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              Language.En?'Low${double.parse(day_min_t[0].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              style: GoogleFonts.lato(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                              ),
+                                            ),
+                                            icons[7]!,
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child:Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(1, 0),
+                                child:Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 40,
+                                  color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Container(
+                          width: 380,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                            borderRadius: BorderRadius.circular(35),
+                            boxShadow: [
+                              BoxShadow(
+                                color: DarkMode.DarkOn? Color(0xff29323c).withOpacity(0.9) :Color(0xffa1c4fd).withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 6.0,
+                                offset: Offset(4, 6), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      DateFormat(' EEEE ').format(tomorrows[6]), //----일곱째날
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 30.0,
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                          textStyle: TextStyle(color: Colors.black,letterSpacing: 5),
+                                          fontStyle: FontStyle.normal
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              Language.En?'High${double.parse(day_max_t[0].toStringAsFixed(1))}°':'최고${double.parse(day_max_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -771,7 +793,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             Text(
-                                              '최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
+                                              Language.En?'Low${double.parse(day_min_t[0].toStringAsFixed(1))}°':'최저${double.parse(day_min_t[0].toStringAsFixed(1))}°',
                                               style: GoogleFonts.lato(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white:Colors.black87,
