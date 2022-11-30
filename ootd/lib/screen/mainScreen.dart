@@ -22,37 +22,32 @@ import 'package:ootd/screen/startScreen.dart';
 
 //신근재 카톡 로그인 <전역 변수,함수>
 bool Token = false;
-String user_gen = '성별 정보 불러오지못했음';
+String user_gen = '';
 String user_name = '';
 String userImage_URL = '';
+String user_email = '';
 
 void KakaoLogin(){
   Future<bool?> getT() async {
     if (await AuthApi.instance.hasToken()) {
-      print('----------------------------------');
-      print('토큰 있음');
-      print(await AuthApi.instance.hasToken());
       Token = true;
+      print('----------------------------------');
+      print('토큰 존재');
+      print('----------------------------------');
 
-      AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
-
-      print('----------------------------------');
-      print("프사 url: ${user.kakaoAccount?.profile?.profileImageUrl}");
-      print("이름: ${user.kakaoAccount?.profile?.nickname}");
-      print("성별: ${user.kakaoAccount?.gender}");
-      print('----------------------------------');
 
       userImage_URL = (user.kakaoAccount?.profile?.thumbnailImageUrl).toString();
       user_gen = (user.kakaoAccount?.gender).toString();
       user_name = (user.kakaoAccount?.profile?.nickname).toString();
+      user_email = (user.kakaoAccount?.email).toString();
+      await Future.delayed(Duration(seconds: 1));//땡겨오는 시간 딜레이 대기
       return true;
     }
     else {
-      print('----------------------------------');
-      print('토큰 없음;');
-      print(await AuthApi.instance.hasToken());
       Token = false;
+      print('----------------------------------');
+      print('토큰이 없어요. . .');
       print('----------------------------------');
       return false;
     }
@@ -145,6 +140,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
     _bellController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -492,6 +488,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
                             margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            padding: EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.white, width: 5),
                                 borderRadius: BorderRadius.circular(20),
@@ -499,9 +496,10 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             ),
                             child: Column(
                               children: [
-                                Text('안녕하세요 ${user_name}님\n\n'
+                                Text('${user_name}님\n\n'
                                     '성별 : ${user_gen}\n'
-                                  , style: TextStyle(fontSize:30, color:Colors.white),),
+                                    '${user_email}\n'
+                                  , style: TextStyle(fontSize:20, color:Colors.white),),
 
                                 Image.network(
                                     userImage_URL
@@ -566,7 +564,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   Token = true;
                                   Navigator.push
                                     (context,
-                                      MaterialPageRoute(builder: (context) => Loading()));
+                                      MaterialPageRoute(builder: (context) => firstPage()));
                                 } catch (error) {
                                   print('토큰 정보 보기 실패 $error');
                                   try {
@@ -579,7 +577,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     Token = true;
                                     Navigator.push
                                       (context,
-                                      MaterialPageRoute(builder: (context) => Loading()),);
+                                      MaterialPageRoute(builder: (context) => firstPage()),);
                                   } catch (error) {
                                     print('카카오톡으로 로그인 실패 $error');
                                   }
