@@ -30,6 +30,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   PageController? pageViewController;
   List <dynamic> tomorrows = [];
+  int temp = 0;
   Model model = Model();
   List <Widget> icons = []; // icon리스트
   //var day1 = List <double>.filled(4, 0.0); //json 파일에 오늘(09시~21시 3시간 간격 4개로 이루어짐) 내일부터 4일차까지는 00시부터 21시까지 7개
@@ -47,9 +48,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
 //4 7 7 7
   void UpdateData (dynamic dailyData) async{
 
-    //print("Yesterday: " + (Date.today - Duration(days: 1)).toString());
-    // print(date);
-    // var dates = date.toString().split(' ')[0].split('-')[2];
     for(var i = 0; i<7; i++)
       tomorrows.add(Date.today + Duration(days: i));
     var conditions = List<int>.filled(25, 0);
