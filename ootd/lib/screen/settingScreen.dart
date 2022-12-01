@@ -14,16 +14,24 @@ import 'package:ootd/screen/startScreen.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
-
   @override
   _SettingsWidgetState createState() => _SettingsWidgetState();
 }
+void ChangeTitle(){
+  if(Language.En==true){
+    Language.DarkSubtitle= DarkMode.DarkOn? 'Change to LightMode':'Change to DarkMode';
+  }
+  else if(Language.En==false)
+  {
+    Language.DarkSubtitle= DarkMode.DarkOn? '라이트모드로 변경':'다크모드로 변경';
+  }
+}
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-
   static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var switchValue=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,20 +86,22 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ),
                               ),
                               content: Container(
-                                  width: double.minPositive,
+                                width: double.minPositive,
                                 child: ListView(
                                   shrinkWrap: true,
                                   children: [
                                     ListTile(
                                       title: Text("한국어",
-                                      style:TextStyle(
-                                        color: DarkMode.DarkOn? Colors.white:Colors.black87,
-                                      ) ,
+                                        style:TextStyle(
+                                          color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                        ) ,
                                       ),
                                       onTap: (){
                                         setState(() {
                                           Language.En= false;
+                                          ChangeTitle();
                                           Navigator.of(context).pop();
+
                                         });
                                       },
                                       shape: Border(
@@ -110,6 +120,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       onTap: (){
                                         setState(() {
                                           Language.En= true;
+                                          ChangeTitle();
                                           Navigator.of(context).pop();
                                         });
                                       },
@@ -145,7 +156,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     backgroundColor: DarkMode.DarkOn? Colors.blueGrey : Colors.red,
                   ),
                   title: Language.En?"DarkMode": '다크모드',
-                  subtitle: Language.En?"Change to Mode":"모드 변경",
+                  subtitle: Language.DarkSubtitle,
                   trailing: Switch.adaptive(
                     activeColor: Colors.pink,
                     activeTrackColor: Colors.pink.withOpacity(0.4),
@@ -155,7 +166,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         this.switchValue=DarkMode.DarkOn;
                         switchValue=value;
                         DarkMode.DarkOn=switchValue;
-                        print(switchValue);
+                        ChangeTitle();
                       }
                       );
                     },
@@ -172,7 +183,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         barrierDismissible: false, // 바깥 터치해도 닫히는지
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                              backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
                               title: Text(Language.En?'About Our Team':'카카오 입사 예정자들 소개',
                                 style:TextStyle(
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -207,9 +218,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             SettingsGroup(
               settingsGroupTitle: Language.En?"Account":"   계정",
               settingsGroupTitleStyle: TextStyle(
-                color: DarkMode.DarkOn? Colors.white :Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 25
+                  color: DarkMode.DarkOn? Colors.white :Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25
               ),
               items: [
                 SettingsItem(
@@ -276,7 +287,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           });
                     }
 
-                    
+
                   },
                   icons: Icons.exit_to_app_rounded,
                   title: Language.En?"Logout":"로그아웃",

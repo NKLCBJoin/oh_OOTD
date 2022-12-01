@@ -86,10 +86,10 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.orangeAccent,
+      backgroundColor:  DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
         body: Center(
           child: SpinKitFadingFour(
-            color: Colors.white,
+            color: DarkMode.DarkOn? Colors.white:Color(0xff485563),
             size: 80,
           ),
           ),

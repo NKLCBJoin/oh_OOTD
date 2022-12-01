@@ -211,7 +211,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----첫째날
+                                      'Today', //----첫째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
