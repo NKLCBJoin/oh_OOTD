@@ -9,8 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:dart_date/dart_date.dart';
-
-
 import 'dart:math';
 
 import 'package:timer_builder/timer_builder.dart';
@@ -27,11 +25,7 @@ class WeekootdPage extends StatefulWidget {
 class _WeekootdPageState extends State<WeekootdPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List <dynamic> tomorrows = [];
-  // var tomorrow2 = (Date.today + Duration(days: 2));
-  // var tomorrow3 = (Date.today + Duration(days: 3));
-  // var tomorrow4 = (Date.today + Duration(days: 4));
-  // var tomorrow5 = (Date.today + Duration(days: 5));
-  // var tomorrow6 = (Date.today + Duration(days: 6));
+  int temp = 0;
   Model model = Model();
   List <Widget> icons = []; // icon리스트
   //var day1 = List <double>.filled(4, 0.0); //json 파일에 오늘(09시~21시 3시간 간격 4개로 이루어짐) 내일부터 4일차까지는 00시부터 21시까지 7개
@@ -46,6 +40,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
   List <double> day_min_t= [0.0,0.0,0.0,0.0];
   List <int> i_min = [0,0,0,0];
 
+  List <String> date_kr = ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'];
 //4 7 7 7
   void UpdateData (dynamic dailyData) async{
 
@@ -217,7 +212,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----첫째날
+                                      Language.En? DateFormat(' EEEE ').format(date): date_kr[2], //----첫째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -303,7 +298,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   children: [
                                     Text(
                                       //tomorrow.format(' EEEE '),
-                                      DateFormat(' EEEE ').format(tomorrows[1]), //----둘째날
+                                      Language.En? DateFormat(' EEEE ').format(tomorrows[1]):date_kr[3], //----둘째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,

@@ -88,8 +88,8 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       backgroundColor: Colors.orangeAccent,
         body: Center(
-          child: SpinKitFadingFour(
-            color: Colors.white,
+          child: SpinKitPumpingHeart(
+            color: Colors.pink,
             size: 80,
           ),
           ),
