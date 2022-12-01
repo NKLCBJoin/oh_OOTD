@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserDB//최지철 DB<->앱간 통신클래스임당~
 {
@@ -11,8 +12,10 @@ class UserDB//최지철 DB<->앱간 통신클래스임당~
 }
 class DarkMode{
   static bool DarkOn=false;
+  static bool Am=false;
 }
 class Language{
+  static String DarkSubtitle='다크모드 변경';
   static bool En=false;
   static bool Kor=false;
   static bool CN=false;
@@ -21,22 +24,38 @@ class LoadingData{
   static bool Lol=false;
 }
 class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
+  static DateTime Now=DateTime.now();
+  static String datenow= DateFormat('h').format(DateTime.now());
+  static int datenowInt=int.parse(datenow);
+  static bool snow=false;
+  static bool rain=false;
+  static bool thunder=false;
+  static bool sunny=false;
+  static bool sunnynight=false;
+  static bool cloudy=false;
+  static bool dust=false;
+  static bool Night=true;
+
   Widget ?getWeatherIcon(int condition) {
+
     if(condition < 300)
       {
+        thunder=true;
         return Image.asset('assets/weather/Thunder.png', // 비천둥
             height: 40,width: 40,
         );
       }else if(condition <600){
-
+      snow=true;
       return Image.asset('assets/weather/Snowycloud.png', // 눈옴
         height: 40,width: 40,
       );
     }else if(condition==800){
+      sunny=true;
     return Image.asset('assets/weather/Sunny.png', // 날씨 좋음
       height: 40,width: 40,
     );
     }else if(condition<=804){
+      cloudy=true;
       return Image.asset('assets/weather/Cloud2.png', // 구름낌
         height: 40,width: 40,
       );

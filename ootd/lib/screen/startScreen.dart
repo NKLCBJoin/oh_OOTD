@@ -16,7 +16,7 @@ class  _firstPageState extends State<firstPage>{
   @override
   void initState() {
     // TODO: implement initState
-    KakaoLogin();
+    KakaoToken();
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.push(

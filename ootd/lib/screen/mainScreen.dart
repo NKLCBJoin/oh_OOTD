@@ -21,38 +21,39 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/startScreen.dart';
 
 //신근재 카톡 로그인 <전역 변수,함수>
-bool Token = false;
-String user_gen = '성별 정보 불러오지못했음';
+bool Token = true;
+String user_gen = '';
 String user_name = '';
 String userImage_URL = '';
+String user_email = '';
 
-void KakaoLogin(){
+void KakaoToken(){
   Future<bool?> getT() async {
     if (await AuthApi.instance.hasToken()) {
-      print('----------------------------------');
-      print('토큰 있음');
-      print(await AuthApi.instance.hasToken());
       Token = true;
+      print('----------------------------------');
+      print('토큰 존재');
+      print('----------------------------------');
 
-      AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
 
-      print('----------------------------------');
-      print("프사 url: ${user.kakaoAccount?.profile?.profileImageUrl}");
-      print("이름: ${user.kakaoAccount?.profile?.nickname}");
-      print("성별: ${user.kakaoAccount?.gender}");
-      print('----------------------------------');
-
-      userImage_URL = (user.kakaoAccount?.profile?.thumbnailImageUrl).toString();
+      userImage_URL = (user.kakaoAccount?.profile?.profileImageUrl).toString();
       user_gen = (user.kakaoAccount?.gender).toString();
       user_name = (user.kakaoAccount?.profile?.nickname).toString();
+      user_email = (user.kakaoAccount?.email).toString();
+
+      if(user_gen == "Gender.male"){
+        user_gen = "남성";
+      } else {
+        user_gen = "여성";
+      }
+      await Future.delayed(Duration(seconds: 1));//땡겨오는 시간 딜레이 대기
       return true;
     }
     else {
-      print('----------------------------------');
-      print('토큰 없음;');
-      print(await AuthApi.instance.hasToken());
       Token = false;
+      print('----------------------------------');
+      print('토큰이 없어요. . .');
       print('----------------------------------');
       return false;
     }
@@ -145,6 +146,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
     _bellController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -306,13 +308,29 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           },
           child: Stack(
             children: [
-              WeatherBg(weatherType: WeatherType.sunnyNight,width: 540,height: 845,),
+              if(Model.cloudy==true&&Model.datenowInt<18||Model.datenowInt>6)...[
+                WeatherBg(weatherType: WeatherType.cloudy,width:  MediaQuery.of(context).size.width,height:  MediaQuery.of(context).size.height),
+              ]else if(Model.sunny==true&&Model.datenowInt<18||Model.datenowInt>6)...[
+                WeatherBg(weatherType: WeatherType.sunny,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ]else if(Model.snow==true)...[
+                WeatherBg(weatherType: WeatherType.middleSnow,width:  MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ]else if(Model.dust==true)...[
+                WeatherBg(weatherType: WeatherType.dusty,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ]else if(Model.rain==true)...[
+                WeatherBg(weatherType: WeatherType.heavyRainy,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ]else if(Model.thunder==true)...[
+                WeatherBg(weatherType: WeatherType.thunder,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ]else if(Model.sunny==true&&Model.datenowInt>18||Model.datenowInt<6)...[
+                WeatherBg(weatherType: WeatherType.sunnyNight,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ]else if(Model.cloudy==true&&Model.datenowInt>18||Model.datenowInt<6)...[
+                WeatherBg(weatherType: WeatherType.cloudyNight,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
+              ],
               Align(
                 alignment: AlignmentDirectional(-0.05, -0.79),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                   child: Container(//옷추천
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width,
                     height: 180,
                     decoration: BoxDecoration(
                       color: Colors.black12.withOpacity(0),
@@ -328,14 +346,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 style: GoogleFonts.lato(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Model.Night? Color(0xff497174):Colors.white,),
                               ),
                               Text(
                                 '$temp°C',
                                 style: GoogleFonts.lato(
                                     fontSize: 40.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Model.Night? Color(0xff497174):Colors.white,),
                               ),
                               Row(
                                 children: [
@@ -350,7 +368,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     '$weather',
                                     style: GoogleFonts.lato(
                                       fontSize: 25.0,
-                                      color: Colors.white,
+                                      color: Model.Night? Color(0xff497174):Colors.white,
                                     ),
                                   ),
                                   SizedBox(
@@ -361,7 +379,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                        color: Model.Night? Color(0xff497174):Colors.white,),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -371,7 +389,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                        color: Model.Night? Color(0xff497174):Colors.white,),
                                   ),
                                 ],
                               )
@@ -386,7 +404,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 Language.En?"SQI(Air Quality Index)":'SQI(대기질지수)',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Colors.white,
+                                  color: Model.Night? Color(0xff497174):Colors.white,
                                 ),
                               ),
                             ],
@@ -422,7 +440,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     '$pm10㎍/m³',
                                     style: GoogleFonts.lato(
                                       fontSize: 15.0,
-                                      color: Colors.white,
+                                      color:Model.Night? Color(0xff497174):Colors.white,
                                     ),
                                   ),
                                 ],
@@ -432,7 +450,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 Language.En?"Air pollution":'미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Colors.white,
+                                  color: Model.Night? Color(0xff497174):Colors.white,
                                 ),
                               ),
                             ],
@@ -448,14 +466,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 '$pm2_5㎍/m³',
                                 style: GoogleFonts.lato(
                                   fontSize: 15.0,
-                                  color: Colors.white,
+                                  color: Model.Night? Color(0xff497174):Colors.white,
                                 ),
                               ),
                               Text(
                                 Language.En?"ultrafine dust":'초미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Colors.white,
+                                  color: Model.Night? Color(0xff497174):Colors.white,
                                 ),
                               ),
 
@@ -473,12 +491,13 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: Container(//옷추천
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width,
                     height: 420,
                     decoration: BoxDecoration(
-                      color: Colors.black12.withOpacity(0.5),
+                      color: DarkMode.DarkOn? Colors.black12.withOpacity(0.4):Colors.white12.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
+                        color: DarkMode.DarkOn? Colors.black12:Colors.white12,
                         width: 0,
                       ),
                     ),
@@ -487,22 +506,22 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
                     Column(
                       children: [
-                        SizedBox(height: 50,),
-
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
                             margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            padding: EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.white, width: 5),
-                                borderRadius: BorderRadius.circular(20),
-
-                            ),
+                                borderRadius: BorderRadius.circular(20),),
                             child: Column(
                               children: [
-                                Text('안녕하세요 ${user_name}님\n\n'
+                                Text('${user_name}님\n'
                                     '성별 : ${user_gen}\n'
-                                  , style: TextStyle(fontSize:30, color:Colors.white),),
+                                    '${user_email}\n'
+                                  , style: TextStyle(fontSize:20, color:Colors.white),),
+
+                                KakaoShare(),
 
                                 Image.network(
                                     userImage_URL
@@ -511,30 +530,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             ),
                           ),
                         ),
-
-                        ElevatedButton.icon(
-                          icon: Icon(Icons.autorenew_outlined),
-                          label: Text("로그아웃",style: TextStyle(fontSize: 17, color: Colors.black87),),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                            foregroundColor: MaterialStateProperty.all(Colors.black54),
-                          ),
-                          onPressed: () async {
-                            try {
-                              await UserApi.instance.unlink();
-                              print('연결 끊기 성공, SDK에서 토큰 삭제');
-                              Token = false;
-                              Navigator.push
-                                (context,
-                                  MaterialPageRoute(builder: (context) => firstPage()));
-                            } catch (error) {
-                              print('연결 끊기 실패 $error');
-                              Navigator.push
-                                (context,
-                                  MaterialPageRoute(builder: (context) => firstPage()));
-                            }
-                          },
-                        )
                       ],
                     )
                         :
@@ -552,7 +547,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 foregroundColor: MaterialStateProperty.all(Colors.black54),
                                 padding: MaterialStateProperty.all(EdgeInsets.all(20.0))
                             ),
-
                             onPressed: () async {
                               //[1] 카카오톡 설치 여부
                               if(await isKakaoTalkInstalled()){
@@ -567,7 +561,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   Token = true;
                                   Navigator.push
                                     (context,
-                                      MaterialPageRoute(builder: (context) => Loading()));
+                                      MaterialPageRoute(builder: (context) => firstPage()));
                                 } catch (error) {
                                   print('토큰 정보 보기 실패 $error');
                                   try {
@@ -580,7 +574,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     Token = true;
                                     Navigator.push
                                       (context,
-                                      MaterialPageRoute(builder: (context) => Loading()),);
+                                      MaterialPageRoute(builder: (context) => firstPage()),);
                                   } catch (error) {
                                     print('카카오톡으로 로그인 실패 $error');
                                   }
@@ -611,11 +605,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 );
                               }
                             }
-                        )
+                          )
                         ),
-
                         Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-
                       ],
                     )
                   ),
@@ -623,16 +615,16 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ),
               Align(
                 alignment: AlignmentDirectional(0, 1),
-                child: Padding(//실시간날씨
+                child: Padding(//시간대별 날씨
                   padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
                   child: Container(
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.black12.withOpacity(0.4),
+                        color: DarkMode.DarkOn? Colors.black12.withOpacity(0.4):Colors.white12.withOpacity(0.4),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: Colors.black,
+                          color: DarkMode.DarkOn? Colors.black12:Colors.white12,
                           width: 0,
                         ),
                       ),

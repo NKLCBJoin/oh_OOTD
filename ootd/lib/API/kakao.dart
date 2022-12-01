@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 //신근재
 
 //<-------------------로그인 버튼 클래스 정의----------------------->
-class login_nextpage extends StatelessWidget {
+class KakaoLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -79,7 +79,7 @@ class login_nextpage extends StatelessWidget {
 }
 
 //<-------------------로그아웃 클래스 정의----------------------->
-class login_logout extends StatelessWidget {
+class KakaoLogout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -103,16 +103,29 @@ class login_logout extends StatelessWidget {
 }
 
 //<-------------------공유 클래스 정의----------------------->
-class login_share extends StatelessWidget {
+class KakaoShare extends StatelessWidget {
   final FeedTemplate defaultFeed = FeedTemplate(
     content: Content(
-      title: 'OOTD추천',
-      description: '주간 날씨에 대한 정보를 소개합니다',
+      title: '',
+      description: '',
       imageUrl: Uri.parse(
-          'https://images.unsplash.com/photo-1661956602926-db6b25f75947?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'),
+          'https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361__340.png'),
       link: Link(
-          webUrl: Uri.parse('https://developers.kakao.com'),
-          mobileWebUrl: Uri.parse('https://developers.kakao.com')),
+          //<-------웹 사용 X---------->
+          webUrl: Uri.parse(''),
+          mobileWebUrl: Uri.parse('')),
+    ),
+    itemContent: ItemContent(
+      profileText: '주간 OOTD',
+      items: [
+        ItemInfo(item: '월', itemOp: '맑음 10도'),
+        ItemInfo(item: '화', itemOp: '맑음 10도'),
+        ItemInfo(item: '수', itemOp: '맑음 10도'),
+        ItemInfo(item: '목', itemOp: '맑음 10도'),
+        ItemInfo(item: '금', itemOp: '맑음 10도'),
+        ItemInfo(item: '토', itemOp: '맑음 10도'),
+        ItemInfo(item: '일', itemOp: '맑음 10도')
+      ],
     ),
   );
 
@@ -120,11 +133,11 @@ class login_share extends StatelessWidget {
   Widget build(BuildContext context) {
     return  ElevatedButton.icon(
       icon: Icon(Icons.share_sharp),
-      label: Text("공유하기",style: TextStyle(fontSize: 17, color: Colors.black87),),
+      label: Text("공유하기",style: TextStyle(fontSize: 10, color: Colors.black87),),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.yellow),
         foregroundColor: MaterialStateProperty.all(Colors.black54),
-        minimumSize: MaterialStateProperty.all(Size(250, 50)),
+        shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
       ),
       onPressed: () async {
         if(await ShareClient.instance.isKakaoTalkSharingAvailable()) {
@@ -140,25 +153,3 @@ class login_share extends StatelessWidget {
     );
   }
 }
-
-//<----------------테스트용 코드 <삭제 가능>------------------>
-//class Kakao extends StatelessWidget {
-//   const Kakao({ Key? key }) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: Column(
-//           children: [
-//             SizedBox(height: 200),
-//             Image.asset("assets/mainpage_image.png", height: 300,width: 300,),
-//
-//             login_nextpage(),
-//             SizedBox(height: 15),
-//             login_logout(),
-//             SizedBox(height: 15),
-//             login_share(),
-//           ],
-//         )
-//     );
-//   }
-// }

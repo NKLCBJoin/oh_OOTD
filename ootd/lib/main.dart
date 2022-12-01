@@ -14,14 +14,14 @@ import 'screen/weekootdScreen.dart';
 import 'widget/widget.dart';
 import 'package:get/get.dart';
 import 'model/model.dart';
-
+import 'package:ootd/screen/tempScreen.dart';
 //신근재
 void main() async
 {
   await GoogleSheestApi.init();//DB구글시트연결
   KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
   runApp(const MyApp());
-  KakaoLogin();
+  KakaoToken();
 }
 
 class MyApp extends StatelessWidget {

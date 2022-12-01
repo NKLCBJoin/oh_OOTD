@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/model/model.dart';
 import 'package:ootd/screen/mainScreen.dart';
@@ -9,6 +10,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:dart_date/dart_date.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+as smooth_page_indicator;
+
 import 'dart:math';
 
 import 'package:timer_builder/timer_builder.dart';
@@ -24,6 +28,7 @@ class WeekootdPage extends StatefulWidget {
 
 class _WeekootdPageState extends State<WeekootdPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  PageController? pageViewController;
   List <dynamic> tomorrows = [];
   int temp = 0;
   Model model = Model();
@@ -40,7 +45,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
   List <double> day_min_t= [0.0,0.0,0.0,0.0];
   List <int> i_min = [0,0,0,0];
 
-  List <String> date_kr = ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'];
 //4 7 7 7
   void UpdateData (dynamic dailyData) async{
 
@@ -144,16 +148,9 @@ class _WeekootdPageState extends State<WeekootdPage> {
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),
+        //신근재/공유하기 버튼
         actions:<Widget> [
-          IconButton(
-            icon: Icon(
-              Icons.menu,
-              size: 30,
-            ),
-            onPressed: ()  {
-            },
-          ),
-
+          KakaoShare()
         ],
         centerTitle: false,
       ),
@@ -184,8 +181,10 @@ class _WeekootdPageState extends State<WeekootdPage> {
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
+                  child: PageView(
+                    controller: pageViewController ??=
+                        PageController(initialPage: 0),
+                   // padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
                     children: [
                       Padding(
@@ -212,7 +211,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      Language.En? DateFormat(' EEEE ').format(date): date_kr[2], //----첫째날
+                                      'Today', //----첫째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -267,6 +266,9 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   Icons.arrow_forward_ios,
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  shadows: [
+
+                                  ],
                                 ),
                               )
                             ],
@@ -815,6 +817,35 @@ class _WeekootdPageState extends State<WeekootdPage> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0, 1),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                    child: smooth_page_indicator.SmoothPageIndicator(
+                      controller: pageViewController ??=
+                          PageController(initialPage: 0),
+                      count: 7,
+                      axisDirection: Axis.horizontal,
+                      onDotClicked: (i) {
+                        pageViewController!.animateToPage(
+                          i,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      effect: smooth_page_indicator.ExpandingDotsEffect(
+                        expansionFactor: 2,
+                        spacing: 8,
+                        radius: 16,
+                        dotWidth: 16,
+                        dotHeight: 16,
+                        dotColor: Color(0xFF9E9E9E),
+                        activeDotColor: Color(0xFF3F51B5),
+                        paintStyle: PaintingStyle.fill,
+                      ),
+                    ),
                   ),
                 ),
               ],
