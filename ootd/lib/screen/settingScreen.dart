@@ -286,17 +286,72 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ]);
                           });
                     }
-
-
                   },
                   icons: Icons.exit_to_app_rounded,
                   title: Language.En?"Logout":"로그아웃",
                 ),
                 SettingsItem(
-                  onTap: () {
+                  onTap: () async {
                     Get.isDarkMode?
                     Get.changeTheme(ThemeData.light()):
                     Get.changeTheme(ThemeData.dark());
+
+                    try {
+                      await UserApi.instance.unlink();
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false, // 바깥 터치해도 닫히는지
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                                title: Text('회원탈퇴 성공!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                content: Text('확인버튼을 눌러주세요!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'),
+                                    onPressed: () {
+                                      // 메인으로 이동
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
+                                    },
+                                  ),
+                                ]);
+                          });
+                    } catch (error) {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false, // 바깥 터치해도 닫히는지
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                                title: Text('회원탈퇴 실패!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                content: Text('로그인을 먼저 진행해주세요!',
+                                  style:TextStyle(
+                                    color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'),
+                                    onPressed: () {
+                                      // 메인으로 이동
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ]);
+                          });
+                    }
                   },
                   icons: CupertinoIcons.delete_solid,
                   title: Language.En?'Delete Account':"회원탈퇴",
