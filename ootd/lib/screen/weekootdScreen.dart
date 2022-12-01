@@ -158,8 +158,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Container(
-            width: double.infinity,
-            height: double.infinity,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -175,8 +175,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
               scrollDirection: Axis.vertical,
               children: [
                 Container(
-                  width: double.infinity,
-                  height: 600,
+                  width:MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                   ),
@@ -189,8 +189,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
-                          width: 380,
-                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
@@ -266,7 +266,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   shadows: [
-
                                   ],
                                 ),
                               )
@@ -277,8 +276,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
-                          width: 380,
-                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
@@ -369,8 +368,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
-                          width: 380,
-                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
@@ -460,8 +459,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
-                          width: 380,
-                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
@@ -643,8 +642,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
-                          width: 380,
-                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
@@ -735,8 +734,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Container(
-                          width: 380,
-                          height: double.infinity,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           decoration: BoxDecoration(
                             color: DarkMode.DarkOn? Color(0xff2c4057) :Color(0xffeef5ff), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
                             borderRadius: BorderRadius.circular(35),
@@ -840,8 +839,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                         radius: 16,
                         dotWidth: 16,
                         dotHeight: 16,
-                        dotColor: Color(0xFF9E9E9E),
-                        activeDotColor: Color(0xFF3F51B5),
+                        dotColor: DarkMode.DarkOn? Colors.white:Color(0xFF9E9E9E),
+                        activeDotColor: DarkMode.DarkOn? Colors.pink:Color(0xFF3F51B5),
                         paintStyle: PaintingStyle.fill,
                       ),
                     ),

@@ -162,6 +162,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             color: Colors.white,
           ),
           onPressed: () {
+            print(Model.datenow);
           },
         ),
         actions: <Widget>[
@@ -308,9 +309,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           },
           child: Stack(
             children: [
-              if(Model.cloudy==true&&Model.datenowInt<18||Model.datenowInt>6)...[
+              if(Model.cloudy==true&&Model.Night==false)...[
                 WeatherBg(weatherType: WeatherType.cloudy,width:  MediaQuery.of(context).size.width,height:  MediaQuery.of(context).size.height),
-              ]else if(Model.sunny==true&&Model.datenowInt<18||Model.datenowInt>6)...[
+              ]else if(Model.sunny==true&&Model.Night==false)...[
                 WeatherBg(weatherType: WeatherType.sunny,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
               ]else if(Model.snow==true)...[
                 WeatherBg(weatherType: WeatherType.middleSnow,width:  MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
@@ -320,9 +321,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                 WeatherBg(weatherType: WeatherType.heavyRainy,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
               ]else if(Model.thunder==true)...[
                 WeatherBg(weatherType: WeatherType.thunder,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
-              ]else if(Model.sunny==true&&Model.datenowInt>18||Model.datenowInt<6)...[
+              ]else if(Model.sunny==true&&Model.Night==true)...[
                 WeatherBg(weatherType: WeatherType.sunnyNight,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
-              ]else if(Model.cloudy==true&&Model.datenowInt>18||Model.datenowInt<6)...[
+              ]else if(Model.cloudy==true&&Model.Night==true)...[
                 WeatherBg(weatherType: WeatherType.cloudyNight,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
               ],
               Align(
@@ -346,14 +347,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 style: GoogleFonts.lato(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Model.Night? Color(0xff497174):Colors.white,),
+                                    color: Model.Night? Colors.white:Color(0xff497174),),
                               ),
                               Text(
-                                '$temp°C',
+                                '$temp°',
                                 style: GoogleFonts.lato(
                                     fontSize: 40.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Model.Night? Color(0xff497174):Colors.white,),
+                                    color: Model.Night? Colors.white:Color(0xff497174),),
                               ),
                               Row(
                                 children: [
@@ -368,7 +369,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     '$weather',
                                     style: GoogleFonts.lato(
                                       fontSize: 25.0,
-                                      color: Model.Night? Color(0xff497174):Colors.white,
+                                      color: Model.Night? Colors.white:Color(0xff497174),
                                     ),
                                   ),
                                   SizedBox(
@@ -379,7 +380,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
-                                        color: Model.Night? Color(0xff497174):Colors.white,),
+                                        color: Model.Night? Colors.white:Color(0xff497174),),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -389,7 +390,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     style: GoogleFonts.lato(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.bold,
-                                        color: Model.Night? Color(0xff497174):Colors.white,),
+                                        color: Model.Night? Colors.white:Color(0xff497174)),
                                   ),
                                 ],
                               )
@@ -404,7 +405,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 Language.En?"SQI(Air Quality Index)":'SQI(대기질지수)',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Model.Night? Color(0xff497174):Colors.white,
+                                  color: Model.Night? Colors.white:Color(0xff497174),
                                 ),
                               ),
                             ],
@@ -440,7 +441,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     '$pm10㎍/m³',
                                     style: GoogleFonts.lato(
                                       fontSize: 15.0,
-                                      color:Model.Night? Color(0xff497174):Colors.white,
+                                      color:Model.Night? Colors.white:Color(0xff497174),
                                     ),
                                   ),
                                 ],
@@ -450,7 +451,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 Language.En?"Air pollution":'미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Model.Night? Color(0xff497174):Colors.white,
+                                  color: Model.Night? Colors.white:Color(0xff497174),
                                 ),
                               ),
                             ],
@@ -466,14 +467,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 '$pm2_5㎍/m³',
                                 style: GoogleFonts.lato(
                                   fontSize: 15.0,
-                                  color: Model.Night? Color(0xff497174):Colors.white,
+                                  color: Model.Night? Colors.white:Color(0xff497174),
                                 ),
                               ),
                               Text(
                                 Language.En?"ultrafine dust":'초미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Model.Night? Color(0xff497174):Colors.white,
+                                  color: Model.Night? Colors.white:Color(0xff497174),
                                 ),
                               ),
 
@@ -644,7 +645,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                         ),
                                         icons[0]!,
                                         Text(
-                                          Language.En?' ${hours[0]}am':'${hours[0]}시',
+                                          Language.En?' ${hours[0]}:00':'${hours[0]}시',
                                           style: GoogleFonts.lato(
                                             fontSize: 12.0,
                                             color: Colors.white,
@@ -682,7 +683,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[1]!,
                                       Text(
-                                        Language.En?' ${hours[1]}pm':'${hours[1]}시',
+                                        Language.En?' ${hours[1]}:00':'${hours[1]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -720,7 +721,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[2]!,
                                       Text(
-                                        Language.En?' ${hours[2]}pm':'${hours[2]}시',
+                                        Language.En?' ${hours[2]}:00':'${hours[2]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -758,7 +759,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[3]!,
                                       Text(
-                                        Language.En?' ${hours[3]}pm':'${hours[3]}시',
+                                        Language.En?' ${hours[3]}:00':'${hours[3]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -796,7 +797,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[4]!,
                                       Text(
-                                        Language.En?' ${hours[4]}pm':'${hours[4]}시',
+                                        Language.En?' ${hours[4]}:00':'${hours[4]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -834,7 +835,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[5]!,
                                       Text(
-                                        Language.En?' ${hours[5]}pm': '${hours[5]}시',
+                                        Language.En?' ${hours[5]}:00': '${hours[5]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -872,7 +873,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[6]!,
                                       Text(
-                                        Language.En?' ${hours[6]}am':'${hours[6]}시',
+                                        Language.En?' ${hours[6]}:00':'${hours[6]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,
@@ -905,7 +906,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       ),
                                       icons[7]!,
                                       Text(
-                                        Language.En?' ${hours[7]}am': '${hours[7]}시',
+                                        Language.En?' ${hours[7]}:00': '${hours[7]}시',
                                         style: GoogleFonts.lato(
                                           fontSize: 12.0,
                                           color: Colors.white,

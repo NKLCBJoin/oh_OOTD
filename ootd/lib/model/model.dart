@@ -25,7 +25,7 @@ class LoadingData{
 }
 class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   static DateTime Now=DateTime.now();
-  static String datenow= DateFormat('h').format(DateTime.now());
+  static String datenow= DateFormat('H').format(DateTime.now());
   static int datenowInt=int.parse(datenow);
   static bool snow=false;
   static bool rain=false;
@@ -34,15 +34,17 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   static bool sunnynight=false;
   static bool cloudy=false;
   static bool dust=false;
-  static bool Night=true;
+  static bool Night=false;
 
   Widget ?getWeatherIcon(int condition) {
 
     if(condition < 300)
       {
+        Night=true;
         thunder=true;
         return Image.asset('assets/weather/Thunder.png', // 비천둥
             height: 40,width: 40,
+
         );
       }else if(condition <600){
       snow=true;

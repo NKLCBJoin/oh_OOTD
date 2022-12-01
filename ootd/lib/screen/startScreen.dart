@@ -4,6 +4,7 @@ import 'package:ootd/screen/mainScreen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:flutter/material.dart';
+import 'package:ootd/model/model.dart';
 //최지철  처음 애니메이션
 
 class firstPage extends StatefulWidget{
@@ -14,7 +15,16 @@ class firstPage extends StatefulWidget{
 
 class  _firstPageState extends State<firstPage>{
   @override
+  void SetNight(){
+    if(Model.datenowInt<18||Model.datenowInt>6){
+      Model.Night=false;
+    }
+    if(Model.datenowInt<6||Model.datenowInt>18){
+      Model.Night=true;
+    }
+  }
   void initState() {
+    SetNight();
     // TODO: implement initState
     KakaoToken();
     super.initState();
@@ -23,6 +33,7 @@ class  _firstPageState extends State<firstPage>{
           context, MaterialPageRoute(builder: (context) => Loading()));
     });
   }
+
   Widget build(BuildContext context){
     return Scaffold(
       body: Container(

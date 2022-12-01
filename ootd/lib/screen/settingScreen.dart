@@ -189,7 +189,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
                               ),
-                              content: Text('한국에 있는 최상위 IT기업중 한곳인 카카오 또한 가볍게 입사한다는 마음가짐으로 모인 개발자 그룹이다.                                 후원계좌: 케이뱅크 100-101-970-123 감사합니다.',
+                              content: Text(Language.En?'Kakao, one of the top IT companies in Korea, is also a group of developers who gathered with the mindset of joining the company lightly.':'한국에 있는 최상위 IT기업중 한곳인 카카오 또한 가볍게 입사한다는 마음가짐으로 모인 개발자 그룹이다.                                 후원계좌: 케이뱅크 100-101-970-123 감사합니다.',
                                 style:TextStyle(
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
