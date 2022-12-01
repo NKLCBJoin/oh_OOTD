@@ -508,21 +508,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white, width: 5),
-                                borderRadius: BorderRadius.circular(20),
-
-                            ),
                             child: Column(
                               children: [
 
                               ],
                             ),
                           ),
-                        ),
                       ],
                     )
                         :
