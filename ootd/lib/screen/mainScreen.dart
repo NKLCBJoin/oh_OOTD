@@ -529,6 +529,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               ],
                             ),
                           ),
+                        ),
                       ],
                     )
                         :
