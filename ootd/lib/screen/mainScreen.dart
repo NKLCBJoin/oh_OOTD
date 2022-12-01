@@ -498,15 +498,15 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             padding: EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.white, width: 5),
-                                borderRadius: BorderRadius.circular(20),
-
-                            ),
+                                borderRadius: BorderRadius.circular(20),),
                             child: Column(
                               children: [
-                                Text('${user_name}님\n\n'
+                                Text('${user_name}님\n'
                                     '성별 : ${user_gen}\n'
                                     '${user_email}\n'
                                   , style: TextStyle(fontSize:20, color:Colors.white),),
+
+                                KakaoShare(),
 
                                 Image.network(
                                     userImage_URL
@@ -617,9 +617,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             }
                           )
                         ),
-
                         Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-
                       ],
                     )
                   ),
