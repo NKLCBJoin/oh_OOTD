@@ -14,7 +14,7 @@ import 'screen/weekootdScreen.dart';
 import 'widget/widget.dart';
 import 'package:get/get.dart';
 import 'model/model.dart';
-
+import 'package:ootd/screen/tempScreen.dart';
 //신근재
 void main() async
 {

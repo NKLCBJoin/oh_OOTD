@@ -10,7 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:dart_date/dart_date.dart';
-
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+as smooth_page_indicator;
 
 import 'dart:math';
 
@@ -27,12 +28,8 @@ class WeekootdPage extends StatefulWidget {
 
 class _WeekootdPageState extends State<WeekootdPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  PageController? pageViewController;
   List <dynamic> tomorrows = [];
-  // var tomorrow2 = (Date.today + Duration(days: 2));
-  // var tomorrow3 = (Date.today + Duration(days: 3));
-  // var tomorrow4 = (Date.today + Duration(days: 4));
-  // var tomorrow5 = (Date.today + Duration(days: 5));
-  // var tomorrow6 = (Date.today + Duration(days: 6));
   Model model = Model();
   List <Widget> icons = []; // icon리스트
   //var day1 = List <double>.filled(4, 0.0); //json 파일에 오늘(09시~21시 3시간 간격 4개로 이루어짐) 내일부터 4일차까지는 00시부터 21시까지 7개
@@ -183,8 +180,10 @@ class _WeekootdPageState extends State<WeekootdPage> {
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
+                  child: PageView(
+                    controller: pageViewController ??=
+                        PageController(initialPage: 0),
+                   // padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
                     children: [
                       Padding(
@@ -211,7 +210,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      DateFormat(' EEEE ').format(date), //----첫째날
+                                      'Today', //----첫째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
@@ -266,6 +265,9 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   Icons.arrow_forward_ios,
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                                  shadows: [
+
+                                  ],
                                 ),
                               )
                             ],
@@ -814,6 +816,35 @@ class _WeekootdPageState extends State<WeekootdPage> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0, 1),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                    child: smooth_page_indicator.SmoothPageIndicator(
+                      controller: pageViewController ??=
+                          PageController(initialPage: 0),
+                      count: 7,
+                      axisDirection: Axis.horizontal,
+                      onDotClicked: (i) {
+                        pageViewController!.animateToPage(
+                          i,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      effect: smooth_page_indicator.ExpandingDotsEffect(
+                        expansionFactor: 2,
+                        spacing: 8,
+                        radius: 16,
+                        dotWidth: 16,
+                        dotHeight: 16,
+                        dotColor: Color(0xFF9E9E9E),
+                        activeDotColor: Color(0xFF3F51B5),
+                        paintStyle: PaintingStyle.fill,
+                      ),
+                    ),
                   ),
                 ),
               ],
