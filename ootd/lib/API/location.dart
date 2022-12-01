@@ -1,7 +1,6 @@
 //이재민 위치정보 받아오기
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-
 class MyLocation{
   double ?latitude2;
   double ?longtitude2;

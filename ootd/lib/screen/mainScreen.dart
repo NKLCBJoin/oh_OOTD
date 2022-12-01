@@ -21,37 +21,32 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/startScreen.dart';
 
 //신근재 카톡 로그인 <전역 변수,함수>
-bool Token = true;
-String user_gen = '';
-String user_name = '';
-String userImage_URL = '';
-String user_email = '';
 
 void KakaoToken(){
   Future<bool?> getT() async {
     if (await AuthApi.instance.hasToken()) {
-      Token = true;
+      KakaoData.Token = true;
       print('----------------------------------');
       print('토큰 존재');
       print('----------------------------------');
 
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
 
-      userImage_URL = (user.kakaoAccount?.profile?.profileImageUrl).toString();
-      user_gen = (user.kakaoAccount?.gender).toString();
-      user_name = (user.kakaoAccount?.profile?.nickname).toString();
-      user_email = (user.kakaoAccount?.email).toString();
+      KakaoData.userImage_URL = (user.kakaoAccount?.profile?.profileImageUrl).toString();
+      KakaoData.user_gen = (user.kakaoAccount?.gender).toString();
+      KakaoData.user_name = (user.kakaoAccount?.profile?.nickname).toString();
+      KakaoData.user_email = (user.kakaoAccount?.email).toString();
 
-      if(user_gen == "Gender.male"){
-        user_gen = "남성";
+      if(KakaoData.user_gen == "Gender.male"){
+        KakaoData.user_gen = "남성";
       } else {
-        user_gen = "여성";
+        KakaoData.user_gen = "여성";
       }
       await Future.delayed(Duration(seconds: 1));//땡겨오는 시간 딜레이 대기
       return true;
     }
     else {
-      Token = false;
+      KakaoData.Token = false;
       print('----------------------------------');
       print('토큰이 없어요. . .');
       print('----------------------------------');
@@ -503,18 +498,34 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                       ),
                     ),
 
-                    child: Token ?
+                    child: KakaoData.Token ?
                     //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
                     Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            padding: EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white, width: 5),
+                                borderRadius: BorderRadius.circular(20),),
                             child: Column(
                               children: [
+                                Text('${KakaoData.user_name}님\n'
+                                    '성별 : ${KakaoData.user_gen}\n'
+                                    '${KakaoData.user_email}\n'
+                                  , style: TextStyle(fontSize:20, color:Colors.white),),
 
+                                KakaoShare(),
+
+                                Image.network(
+                                    KakaoData.userImage_URL
+                                ),
                               ],
                             ),
                           ),
+                        ),
                       ],
                     )
                         :
@@ -543,10 +554,10 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                       '\n회원정보: ${tokenInfo.id}'
                                       '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
                                   //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
-                                  Token = true;
+                                                                KakaoData.Token = true;
                                   Navigator.push
-                                    (context,
-                                      MaterialPageRoute(builder: (context) => firstPage()));
+                                  (context,
+                                  MaterialPageRoute(builder: (context) => firstPage()));
                                 } catch (error) {
                                   print('토큰 정보 보기 실패 $error');
                                   try {
@@ -556,7 +567,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                     print('카카오톡으로 로그인 성공');
                                     //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
                                     //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
-                                    Token = true;
+                                    KakaoData.Token = true;
                                     Navigator.push
                                       (context,
                                       MaterialPageRoute(builder: (context) => firstPage()),);
@@ -592,9 +603,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                             }
                           )
                         ),
-
                         Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-
                       ],
                     )
                   ),

@@ -23,6 +23,16 @@ class Language{
 class LoadingData{
   static bool Lol=false;
 }
+
+class KakaoData {// 신근재 _카톡 토큰 및 유저 정보
+  static bool Token = true;
+
+  static String user_gen = '';
+  static String user_name = '';
+  static String userImage_URL = '';
+  static String user_email = '';
+}
+
 class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
   static DateTime Now=DateTime.now();
   static String datenow= DateFormat('H').format(DateTime.now());

@@ -106,13 +106,26 @@ class KakaoLogout extends StatelessWidget {
 class KakaoShare extends StatelessWidget {
   final FeedTemplate defaultFeed = FeedTemplate(
     content: Content(
-      title: 'OOTD추천',
-      description: '주간 날씨에 대한 정보를 소개합니다',
+      title: '',
+      description: '',
       imageUrl: Uri.parse(
-          'https://images.unsplash.com/photo-1661956602926-db6b25f75947?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'),
+          'https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361__340.png'),
       link: Link(
-          webUrl: Uri.parse('https://developers.kakao.com'),
-          mobileWebUrl: Uri.parse('https://developers.kakao.com')),
+          //<-------웹 사용 X---------->
+          webUrl: Uri.parse(''),
+          mobileWebUrl: Uri.parse('')),
+    ),
+    itemContent: ItemContent(
+      profileText: '주간 OOTD',
+      items: [
+        ItemInfo(item: '월', itemOp: '맑음 10도'),
+        ItemInfo(item: '화', itemOp: '맑음 10도'),
+        ItemInfo(item: '수', itemOp: '맑음 10도'),
+        ItemInfo(item: '목', itemOp: '맑음 10도'),
+        ItemInfo(item: '금', itemOp: '맑음 10도'),
+        ItemInfo(item: '토', itemOp: '맑음 10도'),
+        ItemInfo(item: '일', itemOp: '맑음 10도')
+      ],
     ),
   );
 
@@ -140,25 +153,3 @@ class KakaoShare extends StatelessWidget {
     );
   }
 }
-
-//<----------------테스트용 코드 <삭제 가능>------------------>
-//class Kakao extends StatelessWidget {
-//   const Kakao({ Key? key }) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         child: Column(
-//           children: [
-//             SizedBox(height: 200),
-//             Image.asset("assets/mainpage_image.png", height: 300,width: 300,),
-//
-//             login_nextpage(),
-//             SizedBox(height: 15),
-//             login_logout(),
-//             SizedBox(height: 15),
-//             login_share(),
-//           ],
-//         )
-//     );
-//   }
-// }
