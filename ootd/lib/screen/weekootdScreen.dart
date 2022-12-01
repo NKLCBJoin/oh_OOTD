@@ -48,9 +48,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
 //4 7 7 7
   void UpdateData (dynamic dailyData) async{
 
-    //print("Yesterday: " + (Date.today - Duration(days: 1)).toString());
-    // print(date);
-    // var dates = date.toString().split(' ')[0].split('-')[2];
     for(var i = 0; i<7; i++)
       tomorrows.add(Date.today + Duration(days: i));
     var conditions = List<int>.filled(25, 0);
@@ -300,7 +297,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   children: [
                                     Text(
                                       //tomorrow.format(' EEEE '),
-                                      Language.En? DateFormat(' EEEE ').format(tomorrows[1]):date_kr[3], //----둘째날
+                                      DateFormat(' EEEE ').format(tomorrows[1]), //----둘째날
                                       style: GoogleFonts.kanit(
                                           fontSize: 30.0,
                                           color: DarkMode.DarkOn? Colors.white:Colors.black87,
