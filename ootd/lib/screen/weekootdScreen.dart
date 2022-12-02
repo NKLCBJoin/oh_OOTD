@@ -147,7 +147,15 @@ class _WeekootdPageState extends State<WeekootdPage> {
         ),
         //신근재/공유하기 버튼
         actions:<Widget> [
-          KakaoShare()
+          IconButton(
+            icon: Icon(
+              Icons.share,
+              size: 30,
+            ),
+            onPressed: () {
+              KakaoShare();
+            },
+          ),
         ],
         centerTitle: false,
       ),

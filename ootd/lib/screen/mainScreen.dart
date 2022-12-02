@@ -462,14 +462,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                 '$pm2_5㎍/m³',
                                 style: GoogleFonts.lato(
                                   fontSize: 15.0,
-                                  color: Model.Night? Colors.white:Color(0xff497174),
+                                  color: Model.Night? Colors.white:Colors.black54,
                                 ),
                               ),
                               Text(
                                 Language.En?"ultrafine dust":'초미세먼지',
                                 style: GoogleFonts.lato(
                                   fontSize: 11.0,
-                                  color: Model.Night? Colors.white:Color(0xff497174),
+                                  color: Model.Night? Colors.white:Colors.black54,
                                 ),
                               ),
 
@@ -502,32 +502,74 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                     //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white, width: 5),
-                                borderRadius: BorderRadius.circular(20),),
-                            child: Column(
-                              children: [
-                                Text('${KakaoData.user_name}님\n'
-                                    '성별 : ${KakaoData.user_gen}\n'
-                                    '${KakaoData.user_email}\n'
-                                  , style: TextStyle(fontSize:20, color:Colors.white),),
-
-                                KakaoShare(),
-
-                                Image.network(
-                                    KakaoData.userImage_URL
-                                ),
-                              ],
-                            ),
+                      if(Language.En==false)...{
+                        Text(
+                          "오늘 뭐 입지?!",
+                          style: GoogleFonts.jua(
+                            fontSize: 30.0,
+                            color: DarkMode.DarkOn? Colors.white70:Colors.black54,
                           ),
                         ),
+                      }else...
+                      {
+                        Text(
+                          "Today OOTD",
+                          style: GoogleFonts.kanit(
+                            fontSize: 30.0,
+                            color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                          ),
+                        ),
+                      },
+                        SizedBox(
+                          height: 7,
+                        ),
+                        Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Column(
+                          mainAxisSize:MainAxisSize.min ,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if(Language.En==false)...{
+                              Text(
+                                " 체온:36.5°기준",
+                                style: GoogleFonts.jua(
+                                  fontSize: 15.0,
+                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                ),
+                              ),
+
+                              Text(
+                                " 습도:",
+                                style: GoogleFonts.jua(
+                                  fontSize: 15.0,
+                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                ),
+                              ),
+                            }else...
+                            {
+                              Text(
+                                " Temperature:36.5°",
+                                style: GoogleFonts.kanit(
+                                  fontSize: 12.0,
+                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                ),
+                              ),
+                              Text(
+                                " Humidity:",
+                                style: GoogleFonts.kanit(
+                                  fontSize: 12.0,
+                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                ),
+                              ),
+                            },
+                          ],
+                        ),
+                        ),
+
                       ],
                     )
+
                         :
                     //<---------------------로그인 필요(토큰 없음)------------------------>
                     Column(

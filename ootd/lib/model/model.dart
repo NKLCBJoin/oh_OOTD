@@ -98,7 +98,7 @@ class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
       return Text(
         Language.En?'Great!':'매우좋음',
         style: TextStyle(
-          color: Colors.lightGreenAccent,
+          color: Colors.cyan,
           fontWeight: FontWeight.bold,
         ),
       );
