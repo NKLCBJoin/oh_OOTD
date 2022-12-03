@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/API/kakao.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/model/model.dart';
@@ -17,10 +18,40 @@ import 'dart:math';
 
 import 'package:timer_builder/timer_builder.dart';
 //최지철
+
+var day = List <double>.filled(25, 10.0);
+
+// List <double> Day= [];//하루 기온정보
+// List <int> Day_Index = [0,0,0,0];//날짜를 나눈 인덱스 정보
+
+List <dynamic> tomorrows = [];
+List <double> day_max_t= [];//하루 기온정보
+List <int> i_max = [0,0,0,0];//날짜를 나눈 인덱스 정보
+List <double> day_min_t= [0.0,0.0,0.0,0.0];
+List <int> i_min = [0,0,0,0];
+
+//신근재 카카오톡 공유하기 내용
+FeedTemplate defaultFeed = FeedTemplate(
+  content: Content(
+    title: '주간 OOTD를 확인하세요!',
+    description:
+        'Today : 최고${double.parse(day_max_t[0].toStringAsFixed(1))}° | 최저${double.parse(day_min_t[0].toStringAsFixed(1))}°\n'
+        '${DateFormat(' EEEE ').format(tomorrows[1])} :  최고${double.parse(day_max_t[1].toStringAsFixed(1))}° | 최저${double.parse(day_min_t[1].toStringAsFixed(1))}°\n'
+        '${DateFormat(' EEEE ').format(tomorrows[2])} :  최고${double.parse(day_max_t[2].toStringAsFixed(1))}° | 최저${double.parse(day_min_t[2].toStringAsFixed(1))}°\n'
+        ,
+    imageUrl: Uri.parse(
+        'https://user-images.githubusercontent.com/114370871/202841775-920e3e6e-1d09-462e-896b-3d2ae2c68beb.png'),
+    link: Link(
+      //<-------웹 사용 X---------->
+        webUrl: Uri.parse(''),
+        mobileWebUrl: Uri.parse('')),
+  ),
+);
+
+
 class WeekootdPage extends StatefulWidget {
   WeekootdPage({this.parseDailyData});//재민 날짜별 날씨데이터 가져오기
   final dynamic parseDailyData;
-
 
   @override
   _WeekootdPageState createState() => _WeekootdPageState();
@@ -29,25 +60,15 @@ class WeekootdPage extends StatefulWidget {
 class _WeekootdPageState extends State<WeekootdPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   PageController? pageViewController;
-  List <dynamic> tomorrows = [];
   int temp = 0;
   Model model = Model();
   List <Widget> icons = []; // icon리스트
   //var day1 = List <double>.filled(4, 0.0); //json 파일에 오늘(09시~21시 3시간 간격 4개로 이루어짐) 내일부터 4일차까지는 00시부터 21시까지 7개
   var date = DateTime.now();
-
   String day1_time = '';
-
-
-  var day = List <double>.filled(25, 10.0);
-  List <double> day_max_t= [];
-  List <int> i_max = [0,0,0,0];
-  List <double> day_min_t= [0.0,0.0,0.0,0.0];
-  List <int> i_min = [0,0,0,0];
 
 //4 7 7 7
   void UpdateData (dynamic dailyData) async{
-
     for(var i = 0; i<7; i++)
       tomorrows.add(Date.today + Duration(days: i));
     var conditions = List<int>.filled(25, 0);
@@ -56,7 +77,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
       conditions[i] = dailyData['list'][i]['weather'][0]['id'];
       print(conditions[i]);
     }
-
 
     day1_time = dailyData['list'][1]['dt_txt'].split(' ')[0];
 
@@ -94,7 +114,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
       print("i_max: ${i_max[i]}");
     for(var i=0; i<4; i++)
       print("i_min: ${i_min[i]}");
-
   }
   dynamic max_s(List day, int temp, int length, int start){
     double maxdata= -10;
@@ -116,6 +135,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
     List <dynamic> b = [mindata, temp2];
     return b;
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -127,6 +147,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
     //var tomorrow = DateTime();
     return DateFormat("h:mm a").format(now);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,6 +166,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
           },
         ),
+
         //신근재/공유하기 버튼
         actions:<Widget> [
           IconButton(
@@ -156,6 +178,26 @@ class _WeekootdPageState extends State<WeekootdPage> {
               KakaoShare();
             },
           ),
+            ElevatedButton.icon(
+              icon: Icon(Icons.share_sharp),
+              label: Text("공유하기",style: TextStyle(fontSize: 10, color: Colors.black87),),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                foregroundColor: MaterialStateProperty.all(Colors.black54),
+                shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+              ),
+              onPressed: () async {
+                if(await ShareClient.instance.isKakaoTalkSharingAvailable()) {
+                  try {
+                    Uri uri = await ShareClient.instance.shareDefault(template: defaultFeed);
+                    await ShareClient.instance.launchKakaoTalk(uri);
+                    print('카카오톡 공유 완료');
+                  } catch (error) {
+                    print('카카오톡 공유 실패 $error');
+                  }
+                }
+            },
+          )
         ],
         centerTitle: false,
       ),
@@ -859,4 +901,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
       ),
     );
   }
+}
+
+class TestFeed {
 }

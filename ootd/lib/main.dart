@@ -4,7 +4,6 @@ import 'package:ootd/screen/alarm.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/screen/loading2.dart';
 import 'package:ootd/screen/mainScreen.dart';
-import 'model/temp.dart';
 import 'API/gsheets.dart';
 import 'API/kakao.dart';
 import 'package:flutter/services.dart';
