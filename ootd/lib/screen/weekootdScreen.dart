@@ -169,7 +169,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
 
         //신근재/공유하기 버튼
         actions:<Widget> [
-<<<<<<< Updated upstream
           IconButton(
             icon: Icon(
               Icons.share,
@@ -179,7 +178,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
               KakaoShare();
             },
           ),
-=======
             ElevatedButton.icon(
               icon: Icon(Icons.share_sharp),
               label: Text("공유하기",style: TextStyle(fontSize: 10, color: Colors.black87),),
@@ -200,7 +198,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
                 }
             },
           )
->>>>>>> Stashed changes
         ],
         centerTitle: false,
       ),
