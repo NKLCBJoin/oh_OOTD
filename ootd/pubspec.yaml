@@ -66,6 +66,7 @@ dependencies:
   sqflite: 2.2.0+2
   timeago: 3.2.2
   url_launcher: 6.1.5
+  dotted_border: ^2.0.0+3
 
 
 
