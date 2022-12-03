@@ -90,7 +90,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   late AnimationController _bellController;
 
   void UpdateData(dynamic weatherData,dynamic airData, dynamic hourData){
-    KakaoLogin();
     int condition = weatherData['weather'][0]['id'];
     List <int> conditions = [0,0,0,0,0,0,0,0];
     for (var i = 0; i<8; i++)
