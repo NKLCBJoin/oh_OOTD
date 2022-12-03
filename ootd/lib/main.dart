@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:ootd/screen/alarm.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/screen/loading2.dart';
 import 'package:ootd/screen/mainScreen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,//이거 지우지말것 디버그리본없애는거 특히 재민(from지철)
             initialRoute: '/',
             routes: {
-              '/' : (context) =>firstPage(),
+              '/' : (context) =>Alarm(),
             },
           );
         }

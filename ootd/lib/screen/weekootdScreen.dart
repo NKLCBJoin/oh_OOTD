@@ -165,7 +165,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            height: 700,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topRight,

@@ -1,10 +1,14 @@
 //알람 UI
 //신근재, 최지철
 //코드량이 길고 복잡해서 반드시 정리 및 함수화? 과정 통해 코드수 줄이는 작업 필요
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/model/model.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,25 +32,6 @@ class Alarm extends StatefulWidget {
 
 class _AlarmState extends State<Alarm> {
   //오전인지 오후인지
-  bool AM = true;
-  bool PM = false;
-
-  //주간 반복 여부
-  bool repeat = false;
-
-  //설정한 시간, 분
-  int hour = 1;
-  int minute = 0;
-  int _i=0;
-
-  //요일 설정 여부 값
-  bool mon = false;
-  bool tue = false;
-  bool wed = false;
-  bool thu = false;
-  bool fri = false;
-  bool sat = false;
-  bool sun = false;
 
   //DB에 저장된 정보 불러오기
   bool savedb_first = true;
@@ -59,120 +44,7 @@ class _AlarmState extends State<Alarm> {
   int save_hour_second = 1;
   int save_minute_second = 1;
 
-  //<---------저장된 알람 불러오는 함수------------->
-  getSaved_Alarm() {
-    if(savedb_first == true) {
-      return Container(
-        child: Column(
-          children: [
-            //<-------------------저장된 알람1------------------------>
-            Flexible(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                decoration: BoxDecoration(
-                    border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black, width: 2),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-                child: Row(
-                  children: [
-                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
-
-                    Flexible(
-                        flex: 3,
-                        child: Text(
-                          Language.En?' ${save_hour_first}:${save_minute_fisrt}Am':'오전 ${save_hour_first}시 ${save_minute_fisrt}분',
-                          style: TextStyle(
-                              fontSize: 25,
-                              color:  DarkMode.DarkOn?  Colors.white: Colors.black
-                          ),
-                        )
-                    ),
-
-                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
-
-                    ElevatedButton(
-                      onPressed: (){
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!버튼 누를 시 DB 안에 알람 내용 삭제해야..
-                        //<-------------DB에 저장된 데이터를 삭제---------------->
-                        //<-------------페이지 새로고침?-------------->
-                      },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.transparent),elevation: MaterialStateProperty.all(0.0),
-                          padding: MaterialStatePropertyAll(EdgeInsets.all(15.0))
-                      ),
-                      child: Text(Language.En?'Delete':'삭제', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 25)
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            //<-------------------저장된 알람2------------------------>
-            savedb_second?
-            Flexible(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                decoration: BoxDecoration(
-                    border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black, width: 2),
-                    borderRadius: BorderRadius.circular(20)
-                ),
-                child: Row(
-                  children: [
-                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
-
-                    Flexible(
-                        flex: 3,
-                        child: Text(
-                          Language.En?'${save_hour_second}: ${save_minute_second}Am':'오전 ${save_hour_second}시 ${save_minute_second}분',
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                        )
-                    ),
-
-                    Flexible(flex: 1, child: Container(color: Colors.transparent,),),
-
-                    ElevatedButton(
-                      onPressed: () {
-                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!버튼 누를 시 DB 안에 알람 내용 삭제해야..
-                        //<-------------DB에 저장된 데이터를 삭제---------------->
-                        //<-------------페이지 새로고침?-------------->
-                      },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.transparent),elevation: MaterialStateProperty.all(0.0),
-                          padding: MaterialStatePropertyAll(EdgeInsets.all(15.0))
-                      ),
-                      child: Text(Language.En?'Delete':'삭제', style: TextStyle(color:DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 25)
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-            //저장된 2번째 알람이 없는 경우 기능 없는 컨테이너
-                : Container(),
-          ],
-        ),
-      );
-    }
-    else {
-      return Container(
-          child: Container(
-            margin: EdgeInsets.fromLTRB(5, 30, 5, 30),
-            padding: EdgeInsets.all(10),
-            child: Text(Language.En?'No saved alarms!':
-            '저장된 알람이 없습니다!',
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            ),
-          )
-      );
-    }
-  }
+  bool? switchValue;
 
   @override
   Widget build(BuildContext context) {
@@ -209,21 +81,107 @@ class _AlarmState extends State<Alarm> {
             padding: EdgeInsetsDirectional.fromSTEB(10, 30, 10, 10),
             scrollDirection: Axis.vertical,
             children: [
-              Padding( padding: EdgeInsetsDirectional.fromSTEB(10, 60, 10, 10),
+
+              ListView.builder(
+                 scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: AlarmState.AlarmCount,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    return Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Stack(
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(padding: EdgeInsetsDirectional.fromSTEB(100, 10, 0, 0),
+                                  child: Text(
+                                    Language.En?'Alarm':'알람',
+                                    style: Language.En?GoogleFonts.kanit(
+                                        fontSize: 30.0,
+                                        fontStyle: FontStyle.normal
+                                    ):GoogleFonts.jua(
+                                        fontSize: 30.0,
+                                        fontStyle: FontStyle.normal
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Padding(padding: EdgeInsetsDirectional.fromSTEB(70, 5, 0, 0),
+                                      child: Text(
+                                        '월-목',
+                                        style: Language.En?GoogleFonts.kanit(
+                                            fontSize: 20.0
+                                        ):GoogleFonts.jua(
+                                            fontSize: 20.0
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
+                                      child: Text(
+                                        '${AlarmState.hour.toString()}:${AlarmState.minute.toString()}${AlarmState.AmPm}',
+                                        style: Language.En?GoogleFonts.kanit(
+                                            fontSize: 20.0
+                                        ):GoogleFonts.jua(
+                                            fontSize: 20.0
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(1, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Switch(value: switchValue??=true, onChanged:(newValue) async{
+                                   setState(() {
+                                     switchValue=newValue!;
+                                   });
+                                  }
+                                  ),
+                                  IconButton(onPressed: (){
+
+                                  }, icon: Icon(
+                                    Icons.delete,
+                                    size: 20,
+                                    color: Colors.black,
+                                  ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+              Padding( padding: EdgeInsetsDirectional.fromSTEB(10, 30, 10, 10),
                 child: DottedBorder(
                   borderType: BorderType.RRect,
                   radius: Radius.circular(20),
                   dashPattern: [10, 10],
                   color: Colors.black,
                   child: Container(
-                    width: 100,
-                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    height: 90,
                     color: Colors.transparent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(onPressed: (){
-
                           showDialog(
                               context: context,
                               barrierDismissible: false, // 바깥 터치해도 닫히는지
@@ -238,7 +196,6 @@ class _AlarmState extends State<Alarm> {
                                         child: Column(
                                           children: [
                                             SizedBox(height: MediaQuery.of(context).padding.top),
-
                                             //<-----------------시간 설정----------------------->
                                             Flexible(
                                               flex: 8,
@@ -258,16 +215,20 @@ class _AlarmState extends State<Alarm> {
                                                                 flex: 1,
                                                                 child: ElevatedButton(
                                                                     onPressed: () {
-                                                                      if (AM == true) {
+                                                                      if (AlarmState.AM == true) {
                                                                         setState(() {
-                                                                          AM = false;
-                                                                          PM = true;
+                                                                          AlarmState.AM = false;
+                                                                          AlarmState.PM = true;
+                                                                          AlarmState. AmPm="AM";
+                                                                          print(AlarmState.AmPm);
                                                                         });
                                                                       }
-                                                                      else if (AM == false) {
+                                                                      else if (AlarmState.AM == false) {
                                                                         setState(() {
-                                                                          AM = true;
-                                                                          PM = false;
+                                                                          AlarmState. AM = true;
+                                                                          AlarmState.PM = false;
+                                                                          AlarmState. AmPm="AM";
+                                                                          print(AlarmState.AmPm);
                                                                         });
                                                                       }
                                                                     },
@@ -276,7 +237,7 @@ class _AlarmState extends State<Alarm> {
                                                                         elevation: MaterialStateProperty.all(0.0),
                                                                         shape: MaterialStateProperty.all(RoundedRectangleBorder(side: BorderSide(color: Colors.transparent)),)
                                                                     ),
-                                                                    child: AM == true ? Text(Language.En?'Am':'오전', style: TextStyle(fontSize: 40, color:DarkMode.DarkOn?  Colors.white: Colors.black),):Text(Language.En?'Am':'오전', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white12: Colors.black12),)
+                                                                    child: AlarmState.AM == true ? Text(Language.En?'Am':'오전', style: TextStyle(fontSize: 40, color:DarkMode.DarkOn?  Colors.white: Colors.black),):Text(Language.En?'Am':'오전', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white12: Colors.black12),)
                                                                 )
                                                             ),
 
@@ -287,17 +248,19 @@ class _AlarmState extends State<Alarm> {
                                                               flex: 1,
                                                               child: ElevatedButton(
                                                                   onPressed: (){
-                                                                    if (PM == true) {
+                                                                    if (AlarmState.PM == true) {
                                                                       setState(() {
-                                                                        PM = false;
-                                                                        AM = true;
+                                                                        AlarmState.PM = false;
+                                                                        AlarmState.AM = true;
+                                                                        AlarmState.AmPm="Pm";
                                                                       });
                                                                     }
 
-                                                                    else if (PM == false) {
+                                                                    else if (AlarmState.PM == false) {
                                                                       setState(() {
-                                                                        PM = true;
-                                                                        AM = false;
+                                                                        AlarmState.PM = true;
+                                                                        AlarmState.AM = false;
+                                                                        AlarmState.AmPm="Pm";
                                                                       });
                                                                     }
                                                                   },
@@ -305,7 +268,7 @@ class _AlarmState extends State<Alarm> {
                                                                     backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                                                     elevation: MaterialStateProperty.all(0.0),
                                                                   ),
-                                                                  child: PM == true ? Text(Language.En?'Pm':'오후', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white: Colors.black),):Text(Language.En?"Pm":'오후', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white12: Colors.black12),)
+                                                                  child: AlarmState.PM == true ? Text(Language.En?'Pm':'오후', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white: Colors.black),):Text(Language.En?"Pm":'오후', style: TextStyle(fontSize: 40, color: DarkMode.DarkOn?  Colors.white12: Colors.black12),)
                                                               ),),
                                                             Flexible(flex: 1, child: Container(),),
                                                           ],
@@ -322,10 +285,11 @@ class _AlarmState extends State<Alarm> {
                                                             children: [
                                                               for (int i = 1; i < 13; i++)
                                                                 ListTile(
-                                                                  title: hour == i ? Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
+                                                                  title: AlarmState.hour == i ? Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
                                                                   onTap: (){
                                                                     setState(() {
-                                                                      hour = i;
+                                                                      AlarmState.AlarmInfo[AlarmState.AlarmCount][0]=i;
+                                                                      print(AlarmState.AlarmInfo[AlarmState.AlarmCount][0]);
                                                                     });
                                                                   },
                                                                   focusColor: Colors.amber,
@@ -337,7 +301,6 @@ class _AlarmState extends State<Alarm> {
                                                           )
                                                       ),
                                                     ),
-
                                                     //알림 분 정하기
                                                     Flexible(
                                                       flex: 1,
@@ -347,10 +310,11 @@ class _AlarmState extends State<Alarm> {
                                                             children: [
                                                               for (int i = 0; i < 60; i++)
                                                                 ListTile(
-                                                                  title: minute == i ? Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
+                                                                  title: AlarmState.minute == i ? Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
                                                                   onTap: (){
                                                                     setState(() {
-                                                                      minute = i;
+                                                                      AlarmState.AlarmInfo[AlarmState.AlarmCount][1]=i;
+                                                                      print(AlarmState.AlarmInfo[AlarmState.AlarmCount][1]);
                                                                     });
                                                                   } ,
                                                                 ),
@@ -385,9 +349,9 @@ class _AlarmState extends State<Alarm> {
                                                               children: [
                                                                 ElevatedButton(
                                                                     onPressed: (){
-                                                                      if (repeat == false) {
+                                                                      if (AlarmState.repeat == false) {
                                                                         setState(() {
-                                                                          repeat = true;
+                                                                          AlarmState.repeat = true;
                                                                         });
                                                                       }
                                                                     },
@@ -395,14 +359,14 @@ class _AlarmState extends State<Alarm> {
                                                                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                                                       elevation: MaterialStateProperty.all(0.0),
                                                                     ),
-                                                                    child: repeat == true ? Text('On', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,)):Text('On', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30))
+                                                                    child: AlarmState.repeat == true ? Text('On', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,)):Text('On', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30))
                                                                 ),
 
                                                                 ElevatedButton(
                                                                     onPressed: (){
-                                                                      if (repeat == true) {
+                                                                      if (AlarmState.repeat == true) {
                                                                         setState(() {
-                                                                          repeat = false;
+                                                                          AlarmState.repeat = false;
                                                                         });
                                                                       }
                                                                     },
@@ -410,7 +374,7 @@ class _AlarmState extends State<Alarm> {
                                                                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
                                                                       elevation: MaterialStateProperty.all(0.0),
                                                                     ),
-                                                                    child: repeat == false ? Text('Off', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,)):Text('Off', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30))
+                                                                    child: AlarmState.repeat == false ? Text('Off', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,)):Text('Off', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30))
                                                                 ),
                                                               ],
                                                             )
@@ -430,11 +394,11 @@ class _AlarmState extends State<Alarm> {
                                                   children: [
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){sun = !sun;});},
+                                                        onPressed: () {setState((){AlarmState.sun = !AlarmState.sun;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: sun == false ? Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.redAccent, fontSize: 30)) :
+                                                        child: AlarmState.sun == false ? Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.redAccent, fontSize: 30)) :
                                                         Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.red, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -442,11 +406,11 @@ class _AlarmState extends State<Alarm> {
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){mon = !mon;});},
+                                                        onPressed: () {setState((){AlarmState.mon = !AlarmState.mon;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: mon == false ? Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                                                        child: AlarmState.mon == false ? Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
                                                         Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -454,11 +418,11 @@ class _AlarmState extends State<Alarm> {
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){tue = !tue;});},
+                                                        onPressed: () {setState((){AlarmState.tue = !AlarmState.tue;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: tue == false ? Text(Language.En?'Tue':'화', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                                                        child: AlarmState.tue == false ? Text(Language.En?'Tue':'화', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
                                                         Text(Language.En?'Tue':'화', style: TextStyle(color:DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -466,11 +430,11 @@ class _AlarmState extends State<Alarm> {
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){wed = !wed;});},
+                                                        onPressed: () {setState((){AlarmState.wed = !AlarmState.wed;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: wed == false ? Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                                                        child: AlarmState.wed == false ? Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
                                                         Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -478,11 +442,11 @@ class _AlarmState extends State<Alarm> {
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){thu = !thu;});},
+                                                        onPressed: () {setState((){AlarmState.thu = !AlarmState.thu;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: thu == false ? Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                                                        child: AlarmState.thu == false ? Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
                                                         Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -490,11 +454,11 @@ class _AlarmState extends State<Alarm> {
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){fri = !fri;});},
+                                                        onPressed: () {setState((){AlarmState.fri = !AlarmState.fri;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: fri == false ? Text(Language.En?'Fri':'금', style: TextStyle(color:DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
+                                                        child: AlarmState.fri == false ? Text(Language.En?'Fri':'금', style: TextStyle(color:DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
                                                         Text(Language.En?'Fri':'금', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -502,11 +466,11 @@ class _AlarmState extends State<Alarm> {
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){sat = !sat;});},
+                                                        onPressed: () {setState((){AlarmState.sat = !AlarmState.sat;});},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: sat == false ? Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: 30)) :
+                                                        child: AlarmState.sat == false ? Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: 30)) :
                                                         Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: 30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
@@ -515,22 +479,6 @@ class _AlarmState extends State<Alarm> {
                                                 ),
                                               ),
                                             ),
-
-                                            //<--------------저장된 알람 확인하기------------------>
-                                            Flexible(
-                                              flex: 4,
-                                              child: Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(color: DarkMode.DarkOn?  Colors.white: Colors.black38, width: 2),
-                                                      borderRadius: BorderRadius.circular(20)
-                                                  ),
-                                                  //<<<<저장된 알람의 여부에 따라 작동하는 함수 => 알람 목록 or 알람이 없습니다!>>>>
-                                                  child: getSaved_Alarm()
-                                              ),
-                                            ),
-
                                             Flexible(flex: 1, child: Container(color: Colors.transparent,),),
 
                                             //<--------------취소, 저장 버튼---------------->
@@ -558,16 +506,12 @@ class _AlarmState extends State<Alarm> {
                                                   Flexible(fit: FlexFit.tight,
                                                     child: ElevatedButton(
                                                       onPressed: (){
-                                                        _i++;
-                                                        ListView.builder(
-                                                            itemCount: _i,
-                                                            itemBuilder: (BuildContext ctx, int idx) {
-                                                              return Container(
-
-                                                              );
-                                                            }
-                                                        );
-                                                        Navigator.pop(context);
+                                                        setState(() {
+                                                          AlarmState.AlarmCount++;
+                                                          print(AlarmState.AlarmCount);
+                                                          Navigator.pop(context);
+                                                          Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
+                                                        });
                                                         // bool타입은 AM을 제외하고 기본적 false입니다.
                                                         // bool타입 AM, PM
                                                         // bool타입 week
@@ -591,7 +535,6 @@ class _AlarmState extends State<Alarm> {
                                         ),
                                       ) ,
                                     );
-
                                   },
                                 );
                               }

@@ -10,11 +10,35 @@ class UserDB//최지철 DB<->앱간 통신클래스임당~
   static final sex="sex";
   static List<String> getColumns()=> [name,id,pw,sex];
 }
-class DarkMode{
+class AlarmState{
+  static  var AlarmInfo = List.generate(6, (index) => [0,0,0,0],growable: false); //[][0]은 시간 [][1]은 분 [][2]는 AmPm [][3]은 매주 반복여부
+  static int AlarmCount=0;
+  static  bool AM = true;
+  static  bool PM = false;
+  static  bool MakeAlarm=false;
+  //주간 반복 여부
+  static  bool repeat = false;
+
+  //설정한 시간, 분
+  static int hour = 1;
+  static  int minute = 0;
+  static   int _i=0;
+
+  //요일 설정 여부 값
+  static bool mon = false;
+  static  bool tue = false;
+  static bool wed = false;
+  static bool thu = false;
+  static  bool fri = false;
+  static   bool sat = false;
+  static  bool sun = false;
+  static String ?AmPm;
+}
+class DarkMode{ //최지철
   static bool DarkOn=false;
   static bool Am=false;
 }
-class Language{
+class Language{ //최지철
   static String DarkSubtitle='다크모드 변경';
   static bool En=false;
   static bool Kor=false;
@@ -33,7 +57,7 @@ class KakaoData {// 신근재 _카톡 토큰 및 유저 정보
   static String user_email = '';
 }
 
-class Model{ // 이재민 컨디션에 따른 아이콘 불러오기
+class Model{ // 이재민,최지철 컨디션에 따른 아이콘 불러오기
   static DateTime Now=DateTime.now();
   static String datenow= DateFormat('H').format(DateTime.now());
   static int datenowInt=int.parse(datenow);
