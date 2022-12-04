@@ -70,6 +70,7 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderStateMixin{
   Model model = Model();
+  KakaoData kakaodata = KakaoData();
   Widget ?icon;
   List <Widget> icons= [];
   String weather = 'weather';
