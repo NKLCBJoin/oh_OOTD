@@ -1,14 +1,14 @@
 //알람 UI
 //신근재, 최지철
 //코드량이 길고 복잡해서 반드시 정리 및 함수화? 과정 통해 코드수 줄이는 작업 필요
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/model/model.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -25,26 +25,12 @@ class MyApp extends StatelessWidget {
 
 class Alarm extends StatefulWidget {
   const Alarm({Key? key}) : super(key: key);
-
   @override
   State<Alarm> createState() => _AlarmState();
 }
 
 class _AlarmState extends State<Alarm> {
-  //오전인지 오후인지
-
-  //DB에 저장된 정보 불러오기
-  bool savedb_first = true;
-  bool save_AM_first = false;
-  int save_hour_first = 1;
-  int save_minute_fisrt = 1;
-
-  bool savedb_second = false;
-  bool save_AM_second = false;
-  int save_hour_second = 1;
-  int save_minute_second = 1;
-
-  bool? switchValue;
+  static int i=0;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +71,7 @@ class _AlarmState extends State<Alarm> {
               ListView.builder(
                  scrollDirection: Axis.vertical,
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: AlarmState.AlarmCount,
                   itemBuilder: (BuildContext ctxt, int index) {
                     return Padding(
@@ -93,8 +80,29 @@ class _AlarmState extends State<Alarm> {
                         width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          gradient:AlarmState.AlarmOnOff[index]?  LinearGradient(
+                            colors:  [
+                              DarkMode.DarkOn? Color(0xff30cfd0) : Color(0xff64b3f4), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                              DarkMode.DarkOn? Color(0xff330867) :Color(0xffc2e59c),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ):LinearGradient(
+                            colors:  [
+                              Color(0xff596164),
+                              Color(0xff596164),
+                            ],
+                          ),
+                          //color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: DarkMode.DarkOn? Color(0xff330867).withOpacity(0.5) :Color(0xff64b3f4).withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6.0,
+                              offset: Offset(4, 6), // changes position of shadow
+                            ),
+                          ],
                         ),
                         child: Stack(
                           children: [
@@ -107,35 +115,89 @@ class _AlarmState extends State<Alarm> {
                                     Language.En?'Alarm':'알람',
                                     style: Language.En?GoogleFonts.kanit(
                                         fontSize: 30.0,
-                                        fontStyle: FontStyle.normal
+                                        fontStyle: FontStyle.normal,
+                                      textStyle: TextStyle(
+                                        color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                      ),
                                     ):GoogleFonts.jua(
                                         fontSize: 30.0,
-                                        fontStyle: FontStyle.normal
+                                        fontStyle: FontStyle.normal,
+                                      textStyle: TextStyle(
+                                        color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                      ),
                                     ),
+
                                   ),
                                 ),
                                 Row(
                                   children: [
-                                    Padding(padding: EdgeInsetsDirectional.fromSTEB(70, 5, 0, 0),
-                                      child: Text(
-                                        '월-목',
-                                        style: Language.En?GoogleFonts.kanit(
-                                            fontSize: 20.0
-                                        ):GoogleFonts.jua(
-                                            fontSize: 20.0
-                                        ),
-                                      ),
-                                    ),
                                     Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
                                       child: Text(
-                                        '${AlarmState.hour.toString()}:${AlarmState.minute.toString()}${AlarmState.AmPm}',
+                                        '${AlarmState.AlarmInfo[index][0].toString().padLeft(2,"0")}:${AlarmState.AlarmInfo[index][1].toString().padLeft(2,"0")}${AlarmState.AlarmInfo[index][2]}',
                                         style: Language.En?GoogleFonts.kanit(
-                                            fontSize: 20.0
+                                            fontSize: 20.0,
+                                          textStyle: TextStyle(
+                                        color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                            shadows: <Shadow>[
+                                              Shadow(
+                                                offset: Offset(5.0, 5.0),
+                                                blurRadius: 10.0,
+                                                color: Colors.blueGrey,
+                                              ),
+                                            ],
+                                        ),
                                         ):GoogleFonts.jua(
-                                            fontSize: 20.0
+                                            fontSize: 20.0,
+                                          textStyle: TextStyle(
+                                            color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                            shadows: <Shadow>[
+                                              Shadow(
+                                                offset: Offset(5.0, 5.0),
+                                                blurRadius: 10.0,
+                                                color: Colors.blueGrey,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
+                                    Padding(padding: EdgeInsetsDirectional.fromSTEB(10, 5, 5, 0),
+                                      child: Text(AlarmState.repeat?'${AlarmState.AlarmInfo[index][3]}':'',
+                                        style: Language.En?
+                                        GoogleFonts.kanit(
+                                            fontSize: 15.0,
+                                          textStyle: TextStyle(
+                                            color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                          ),
+                                        ):GoogleFonts.jua(
+                                            fontSize: 20.0,
+                                          textStyle: TextStyle(
+                                            color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    for(int i=0;i<7;i++)...{
+                                      if(AlarmState.day[index][i]==true)...{
+                                        Padding(padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                        child:
+                                        Text('${AlarmState.dayString[index][i]}',
+                                          style: Language.En?GoogleFonts.kanit(
+                                              fontSize: 12.0,
+                                            textStyle: TextStyle(
+                                              color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                            ),
+                                          ):GoogleFonts.jua(
+                                              fontSize: 20.0,
+                                            textStyle: TextStyle(
+                                              color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                                            ),
+                                          ),
+                                        ),
+                                        ),
+                                      },
+                                    },
                                   ],
                                 ),
                               ],
@@ -146,14 +208,36 @@ class _AlarmState extends State<Alarm> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Switch(value: switchValue??=true, onChanged:(newValue) async{
-                                   setState(() {
-                                     switchValue=newValue!;
-                                   });
+
+                                  Switch(
+                                      activeColor:DarkMode.DarkOn? Colors.pinkAccent:Colors.cyan,
+                                      activeTrackColor:DarkMode.DarkOn? Colors.pink.withOpacity(0.4):Colors.cyan.withOpacity(0.4),
+                                      value: AlarmState.AlarmOnOff[index], onChanged:(newValue) async{
+                                    setState(() {
+
+                                      AlarmState.AlarmOnOff[index]=newValue;
+
+                                    });
                                   }
                                   ),
-                                  IconButton(onPressed: (){
-
+                                  IconButton(onPressed: (){//알람삭제
+                                    setState(() {
+                                      if(index!=1&&index+1!=null)
+                                      {
+                                       for(int i=index;i<AlarmState.AlarmCount;i++)
+                                       {
+                                         if(i+1<=AlarmState.AlarmCount){
+                                         AlarmState.AlarmInfo[i][0]=AlarmState.AlarmInfo[i+1][0];
+                                         AlarmState.AlarmInfo[i][1]=AlarmState.AlarmInfo[i+1][1];
+                                         AlarmState.AlarmInfo[i][2]=AlarmState.AlarmInfo[i+1][2];
+                                         }
+                                       }
+                                       AlarmState.AlarmCount--;
+                                      }else{
+                                        AlarmState.AlarmCount--;
+                                      }
+                                    }
+                                    );
                                   }, icon: Icon(
                                     Icons.delete,
                                     size: 20,
@@ -173,7 +257,8 @@ class _AlarmState extends State<Alarm> {
                   borderType: BorderType.RRect,
                   radius: Radius.circular(20),
                   dashPattern: [10, 10],
-                  color: Colors.black,
+                  color: DarkMode.DarkOn? Colors.white70:Colors.black87,
+                  strokeWidth: 5,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 90,
@@ -181,7 +266,9 @@ class _AlarmState extends State<Alarm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        IconButton(onPressed: (){
+                        IconButton(onPressed: (){//추가 버튼
+                          AlarmState.repeat=false;
+                         AlarmState.day[AlarmState.AlarmCount]=[false,false,false,false,false,false,false];
                           showDialog(
                               context: context,
                               barrierDismissible: false, // 바깥 터치해도 닫히는지
@@ -219,16 +306,12 @@ class _AlarmState extends State<Alarm> {
                                                                         setState(() {
                                                                           AlarmState.AM = false;
                                                                           AlarmState.PM = true;
-                                                                          AlarmState. AmPm="AM";
-                                                                          print(AlarmState.AmPm);
                                                                         });
                                                                       }
                                                                       else if (AlarmState.AM == false) {
                                                                         setState(() {
                                                                           AlarmState. AM = true;
                                                                           AlarmState.PM = false;
-                                                                          AlarmState. AmPm="AM";
-                                                                          print(AlarmState.AmPm);
                                                                         });
                                                                       }
                                                                     },
@@ -252,7 +335,6 @@ class _AlarmState extends State<Alarm> {
                                                                       setState(() {
                                                                         AlarmState.PM = false;
                                                                         AlarmState.AM = true;
-                                                                        AlarmState.AmPm="Pm";
                                                                       });
                                                                     }
 
@@ -260,7 +342,6 @@ class _AlarmState extends State<Alarm> {
                                                                       setState(() {
                                                                         AlarmState.PM = true;
                                                                         AlarmState.AM = false;
-                                                                        AlarmState.AmPm="Pm";
                                                                       });
                                                                     }
                                                                   },
@@ -285,10 +366,11 @@ class _AlarmState extends State<Alarm> {
                                                             children: [
                                                               for (int i = 1; i < 13; i++)
                                                                 ListTile(
-                                                                  title: AlarmState.hour == i ? Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
+                                                                  title: AlarmState.AlarmInfo[AlarmState.AlarmCount][0] == i ? Text('${i.toString().padLeft(2,"0")}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i.toString().padLeft(2,"0")}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
                                                                   onTap: (){
                                                                     setState(() {
                                                                       AlarmState.AlarmInfo[AlarmState.AlarmCount][0]=i;
+                                                                      AlarmState.hour == i;
                                                                       print(AlarmState.AlarmInfo[AlarmState.AlarmCount][0]);
                                                                     });
                                                                   },
@@ -310,7 +392,7 @@ class _AlarmState extends State<Alarm> {
                                                             children: [
                                                               for (int i = 0; i < 60; i++)
                                                                 ListTile(
-                                                                  title: AlarmState.minute == i ? Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
+                                                                  title: AlarmState.AlarmInfo[AlarmState.AlarmCount][1] == i ? Text('${i.toString().padLeft(2,"0")}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white: Colors.black)) : Text('${i.toString().padLeft(2,"0")}', textAlign: TextAlign.center, style: TextStyle(fontSize: 45, color: DarkMode.DarkOn?  Colors.white12: Colors.black12)),
                                                                   onTap: (){
                                                                     setState(() {
                                                                       AlarmState.AlarmInfo[AlarmState.AlarmCount][1]=i;
@@ -337,7 +419,7 @@ class _AlarmState extends State<Alarm> {
                                                   child: Row(
                                                       children: [
                                                         SizedBox(width : 10),
-                                                        Text(Language.En?'every week':'매주 반복', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,),),
+                                                        Text(Language.En?'every week':'매주 반복', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: Language.En?20:30,),),
                                                         SizedBox(width : 10),
 
                                                         Container(
@@ -364,11 +446,13 @@ class _AlarmState extends State<Alarm> {
 
                                                                 ElevatedButton(
                                                                     onPressed: (){
-                                                                      if (AlarmState.repeat == true) {
-                                                                        setState(() {
+                                                                      setState(() {
+                                                                        if (AlarmState.repeat == true) {
+                                                                          AlarmState.AlarmInfo[AlarmState.AlarmCount][3] =Language.En?'Every':"매주";
+
                                                                           AlarmState.repeat = false;
-                                                                        });
-                                                                      }
+                                                                        }
+                                                                      });
                                                                     },
                                                                     style: ButtonStyle(
                                                                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -394,84 +478,100 @@ class _AlarmState extends State<Alarm> {
                                                   children: [
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.sun = !AlarmState.sun;});},
+                                                        onPressed: () {
+                                                          setState((){AlarmState.day[AlarmState.AlarmCount][6] = !AlarmState.day[AlarmState.AlarmCount][6];
+                                                          AlarmState.dayString[AlarmState.AlarmCount][6]=Language.En?'Sun':'일';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.sun == false ? Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.redAccent, fontSize: 30)) :
-                                                        Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.red, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child: AlarmState.day[AlarmState.AlarmCount][6] == false ? Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.redAccent, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Sun':'일', style: TextStyle(color: Colors.red, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.mon = !AlarmState.mon;});},
+                                                        onPressed: () {setState((){
+                                                          AlarmState.day[AlarmState.AlarmCount][0] = !AlarmState.day[AlarmState.AlarmCount][0];
+                                                          AlarmState.dayString[AlarmState.AlarmCount][0]=Language.En?'Mon ':'월';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.mon == false ? Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
-                                                        Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child: AlarmState.day[AlarmState.AlarmCount][0] == false ? Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Mon':'월', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.tue = !AlarmState.tue;});},
+                                                        onPressed: () {setState((){AlarmState.day[AlarmState.AlarmCount][1] = !AlarmState.day[AlarmState.AlarmCount][1];
+                                                        AlarmState.dayString[AlarmState.AlarmCount][1]=Language.En?'Tue ':'화';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.tue == false ? Text(Language.En?'Tue':'화', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
-                                                        Text(Language.En?'Tue':'화', style: TextStyle(color:DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child: AlarmState.day[AlarmState.AlarmCount][1] == false ? Text(Language.En?'Tue':'화', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Tue':'화', style: TextStyle(color:DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.wed = !AlarmState.wed;});},
+                                                        onPressed: () {setState((){AlarmState.day[AlarmState.AlarmCount][2] = !AlarmState.day[AlarmState.AlarmCount][2];
+                                                        AlarmState.dayString[AlarmState.AlarmCount][2]=Language.En?'Wen ':'수';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.wed == false ? Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
-                                                        Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child: AlarmState.day[AlarmState.AlarmCount][2] == false ? Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Wen':'수', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.thu = !AlarmState.thu;});},
+                                                        onPressed: () {setState((){AlarmState.day[AlarmState.AlarmCount][3] = !AlarmState.day[AlarmState.AlarmCount][3];
+                                                        AlarmState.dayString[AlarmState.AlarmCount][3]=Language.En?'Thr ':'목';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.thu == false ? Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
-                                                        Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child: AlarmState.day[AlarmState.AlarmCount][3] == false ? Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Thr':'목', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.fri = !AlarmState.fri;});},
+                                                        onPressed: () {setState((){AlarmState.day[AlarmState.AlarmCount][4] = !AlarmState.day[AlarmState.AlarmCount][4];
+                                                        AlarmState.dayString[AlarmState.AlarmCount][4]=Language.En?'Fri ':'금';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.fri == false ? Text(Language.En?'Fri':'금', style: TextStyle(color:DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: 30)) :
-                                                        Text(Language.En?'Fri':'금', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child: AlarmState.day[AlarmState.AlarmCount][4] == false ? Text(Language.En?'Fri':'금', style: TextStyle(color:DarkMode.DarkOn?  Colors.white12: Colors.black12, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Fri':'금', style: TextStyle(color: DarkMode.DarkOn?  Colors.white: Colors.black, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
 
                                                     Flexible(fit: FlexFit.tight,
                                                       child: ElevatedButton(
-                                                        onPressed: () {setState((){AlarmState.sat = !AlarmState.sat;});},
+                                                        onPressed: () {setState((){AlarmState.day[AlarmState.AlarmCount][5] = !AlarmState.day[AlarmState.AlarmCount][5];
+                                                        AlarmState.dayString[AlarmState.AlarmCount][5]=Language.En?'Sat':'토';
+                                                        });},
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white12),elevation: MaterialStateProperty.all(0.0),
                                                             padding: MaterialStatePropertyAll(EdgeInsets.all(0))
                                                         ),
-                                                        child: AlarmState.sat == false ? Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: 30)) :
-                                                        Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: 30,decoration: TextDecoration.underline, )
+                                                        child:AlarmState.day[AlarmState.AlarmCount][5] == false ? Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: Language.En?20:30)) :
+                                                        Text(Language.En?'Sat':'토', style: TextStyle(color: Colors.blue, fontSize: Language.En?20:30,decoration: TextDecoration.underline, )
                                                         ),
                                                       ),
                                                     ),
@@ -506,7 +606,17 @@ class _AlarmState extends State<Alarm> {
                                                   Flexible(fit: FlexFit.tight,
                                                     child: ElevatedButton(
                                                       onPressed: (){
+                                                        for(int i=0;i<7;i++){
+                                                        print('${AlarmState.dayString[AlarmState.AlarmCount][i]}');
+                                                        }
                                                         setState(() {
+                                                          if(AlarmState.AM==true){
+                                                            AlarmState.AlarmInfo[AlarmState.AlarmCount][2]="AM";
+                                                          }else{
+                                                            AlarmState.AlarmInfo[AlarmState.AlarmCount][2]="PM";
+                                                          }
+                                                          print('${AlarmState.AlarmInfo[AlarmState.AlarmCount][0]}:${AlarmState.AlarmInfo[AlarmState.AlarmCount][1].toString()}${AlarmState.AlarmInfo[AlarmState.AlarmCount][2]}',
+                                                          );
                                                           AlarmState.AlarmCount++;
                                                           print(AlarmState.AlarmCount);
                                                           Navigator.pop(context);
@@ -542,11 +652,15 @@ class _AlarmState extends State<Alarm> {
                         },
                             icon: Icon(
                               Icons.add,
-                              color: Colors.black,
+                              color: DarkMode.DarkOn? Colors.white70:Colors.black87,
                               size: 30,
                             )
                         ),
-                        Text('add'),
+                        Text('add',
+                        style:TextStyle(
+                         color:  DarkMode.DarkOn? Colors.white70:Colors.black87,
+                        ),
+                        ),
                       ],
                     ),
                   ),

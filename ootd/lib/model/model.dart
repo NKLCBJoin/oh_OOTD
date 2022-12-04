@@ -10,9 +10,10 @@ class UserDB//최지철 DB<->앱간 통신클래스임당~
   static final sex="sex";
   static List<String> getColumns()=> [name,id,pw,sex];
 }
-class AlarmState{
-  static  var AlarmInfo = List.generate(6, (index) => [0,0,0,0],growable: false); //[][0]은 시간 [][1]은 분 [][2]는 AmPm [][3]은 매주 반복여부
+class AlarmState{//최지철
   static int AlarmCount=0;
+  static  var AlarmInfo = List.generate(7, (index) => [1,0,"","",""],growable: false); //[][0]은 시간 [][1]은 분 [][2]는 AmPm [][3]은 매주반복 [4]
+  static List<bool>AlarmOnOff=[true,true,true,true,true,true,true,true];
   static  bool AM = true;
   static  bool PM = false;
   static  bool MakeAlarm=false;
@@ -25,13 +26,8 @@ class AlarmState{
   static   int _i=0;
 
   //요일 설정 여부 값
-  static bool mon = false;
-  static  bool tue = false;
-  static bool wed = false;
-  static bool thu = false;
-  static  bool fri = false;
-  static   bool sat = false;
-  static  bool sun = false;
+  static  var day = List.generate(7, (index) => [false,false,false,false,false,false,false],growable: false);
+  static  var dayString = List.generate(7, (index) => ["","","","","","","","",""],growable: false);
   static String ?AmPm;
 }
 class DarkMode{ //최지철
