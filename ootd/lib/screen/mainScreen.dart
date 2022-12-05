@@ -321,363 +321,367 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               ]else if(Model.cloudy==true&&Model.Night==true)...[
                 WeatherBg(weatherType: WeatherType.cloudyNight,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height)
               ],
-              Align(
-                alignment: AlignmentDirectional(-0.05, -0.79),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-                  child: Container(//옷추천
-                    width: MediaQuery.of(context).size.width,
-                    height: 180,
-                    decoration: BoxDecoration(
-                      color: Colors.black12.withOpacity(0),
-                    ),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(0, -1),
-                          child: Column(
-                            children: [
-                              Text(
-                                Language.En? 'Gumi':'구미',
-                                style: GoogleFonts.lato(
+              //<-------------------카카오 로그인 or 옷 추천------------------->
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Container(//옷추천
+                      width: MediaQuery.of(context).size.width,
+                      height: 230,
+                      decoration: BoxDecoration(
+                        color: Colors.black12.withOpacity(0),
+                      ),
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
+                            child: Column(
+                              children: [
+
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  Language.En? 'Gumi':'구미',
+                                  style: GoogleFonts.lato(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     color: Model.Night? Colors.white:Color(0xff497174),),
-                              ),
-                              Text(
-                                '$temp°',
-                                style: GoogleFonts.lato(
-                                    fontSize: 40.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Model.Night? Colors.white:Color(0xff497174),),
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  icon!,
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    '$weather',
-                                    style: GoogleFonts.lato(
-                                      fontSize: 25.0,
-                                      color: Model.Night? Colors.white:Color(0xff497174),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width:20,
-                                  ),
-                                  Text(
-                                    Language.En?'High: $max_temp°':'최고: $max_temp°',
-                                    style: GoogleFonts.lato(
-                                        fontSize: 17.0,
+                                ),
+
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '$temp°',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 40.0,
                                         fontWeight: FontWeight.bold,
                                         color: Model.Night? Colors.white:Color(0xff497174),),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    Language.En?'Low: $min_temp°':'최저: $min_temp°',
-                                    style: GoogleFonts.lato(
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Model.Night? Colors.white:Color(0xff497174)),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(-1, 1),
-                          child: Stack(
-                            children: [
-                              Text(
-                                Language.En?"SQI(Air Quality Index)":'SQI(대기질지수)',
-                                style: GoogleFonts.lato(
-                                  fontSize: 11.0,
-                                  color: Model.Night? Colors.white:Color(0xff497174),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(-0.7, 0.8),
-                          child: Stack(
-                            children: [
-                              airCondition!,
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(-0.9, 0.8),
-                          child: Stack(
-                            children: [
-                              airIcon!,
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(0, 1),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '$pm10㎍/m³',
-                                    style: GoogleFonts.lato(
-                                      fontSize: 15.0,
-                                      color:Model.Night? Colors.white:Color(0xff497174),
                                     ),
-                                  ),
-                                ],
-                              ),
-
-                              Text(
-                                Language.En?"Air pollution":'미세먼지',
-                                style: GoogleFonts.lato(
-                                  fontSize: 11.0,
-                                  color: Model.Night? Colors.white:Color(0xff497174),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(1, 1),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                '$pm2_5㎍/m³',
-                                style: GoogleFonts.lato(
-                                  fontSize: 15.0,
-                                  color: Model.Night? Colors.white:Colors.black54,
-                                ),
-                              ),
-                              Text(
-                                Language.En?"ultrafine dust":'초미세먼지',
-                                style: GoogleFonts.lato(
-                                  fontSize: 11.0,
-                                  color: Model.Night? Colors.white:Colors.black54,
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              //<-------------------카카오 로그인 or 옷 추천------------------->
-              Align(
-                alignment: AlignmentDirectional(0, 0.39),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                  child: Container(//옷추천
-                    width: MediaQuery.of(context).size.width,
-                    height: 420,
-                    decoration: BoxDecoration(
-                      color: DarkMode.DarkOn? Colors.black12.withOpacity(0.4):Colors.white12.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: DarkMode.DarkOn? Colors.black12:Colors.white12,
-                        width: 0,
-                      ),
-                    ),
-
-                    child: KakaoData.Token ?
-                    //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
-                    Column(
-                      children: [
-                      if(Language.En==false)...{
-                        Text(
-                          "오늘 뭐 입지?!",
-                          style: GoogleFonts.jua(
-                            fontSize: 30.0,
-                            color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                          ),
-                        ),
-                      }else...
-                      {
-                        Text(
-                          "Today OOTD",
-                          style: GoogleFonts.kanit(
-                            fontSize: 30.0,
-                            color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                          ),
-                        ),
-                      },
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Align(
-                        alignment: AlignmentDirectional(-1, 0),
-                        child: Column(
-                          mainAxisSize:MainAxisSize.min ,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if(Language.En==false)...{
-                              Text(
-                                " 체온:36.5°기준",
-                                style: GoogleFonts.jua(
-                                  fontSize: 15.0,
-                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                ),
-                              ),
-
-                              Text(
-                                " 습도:",
-                                style: GoogleFonts.jua(
-                                  fontSize: 15.0,
-                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                ),
-                              ),
-                            }else...
-                            {
-                              Text(
-                                " Temperature:36.5°",
-                                style: GoogleFonts.kanit(
-                                  fontSize: 12.0,
-                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                ),
-                              ),
-                              Text(
-                                " Humidity:",
-                                style: GoogleFonts.kanit(
-                                  fontSize: 12.0,
-                                  color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                ),
-                              ),
-                            },
-                          ],
-                        ),
-                        ),
-
-                      ],
-                    )
-
-                        :
-                    //<---------------------로그인 필요(토큰 없음)------------------------>
-                    Stack(
-                      children: [
-                        Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-                        Flexible(flex: 1, fit: FlexFit.tight, child:
-                          InkWell(
-                            onTap: ()async{
-                              print('카톡로그인 클릭');
-                                //[1] 카카오톡 설치 여부
-                                if(await isKakaoTalkInstalled()){
-                                  try {
-                                    //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
-                                    AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-                                    User user = await UserApi.instance.me();//유저 정보 user에 담는다.
-                                    print('토큰 정보 보기 성공'
-                                        '\n회원정보: ${tokenInfo.id}'
-                                        '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
-                                    //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
-                                    KakaoData.Token = true;
-                                    Navigator.push
-                                      (context,
-                                        MaterialPageRoute(builder: (context) => firstPage()));
-                                  } catch (error) {
-                                    print('토큰 정보 보기 실패 $error');
-                                    try {
-                                      //[2-1] 카카오톡 로그인 접속 시도
-                                      await UserApi.instance.loginWithKakaoTalk();
-                                      User user = await UserApi.instance.me();
-                                      print('카카오톡으로 로그인 성공');
-                                      //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
-                                      //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
-                                      KakaoData.Token = true;
-                                      Navigator.push
-                                        (context,
-                                        MaterialPageRoute(builder: (context) => firstPage()),);
-                                    } catch (error) {
-                                      print('카카오톡으로 로그인 실패 $error');
-                                    }
-                                  }
-                                }
-                                //[1-1 카카오톡 미설치
-                                else{
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context){
-                                        return AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10.0)
-                                          ),
-
-                                          title: new Text(Language.En?'Did not installed KaKaoTalk':"카카오톡 설치 후 실행해주세요!"),
-
-                                          actions: <Widget>[
-                                            new ElevatedButton(
-                                              child: new Text("Close"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                  );
-                                }
-                              },
-                            child: Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Container(//카톡로그인 버튼
-                                width: MediaQuery.of(context).size.width*0.6,
-                                height: MediaQuery.of(context).size.height*0.08,
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow[400],
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 7.0,
-                                      offset: Offset(4, 6), // changes position of shadow
+                                  ],),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    icon!,
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      '$weather',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 25.0,
+                                        color: Model.Night? Colors.white:Color(0xff497174),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:10,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
                                     ),
                                   ],
                                 ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset('assets/kakao.png'),
-                                      Text(Language.En?'Login with KaKao':'카카오톡 로그인',
-                                      ),
-                                    ],
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      Language.En?'Low: $min_temp°':'최저: $min_temp°',
+                                      style: GoogleFonts.lato(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Model.Night? Colors.white:Color(0xff497174)),
+                                    ),
+                                    Text(
+                                      Language.En?'High: $max_temp°':'최고: $max_temp°',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Model.Night? Colors.white:Color(0xff497174),),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(-1, 1),
+                            child: Stack(
+                              children: [
+                                Text(
+                                  Language.En?"SQI(Air Quality Index)":'SQI(대기질지수)',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 11.0,
+                                    color: Model.Night? Colors.white:Color(0xff497174),
                                   ),
                                 ),
-                              ),
-                            )
+                              ],
+                            ),
                           ),
-                        ),
-                        Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-                      ],
-                    )
+                          Align(
+                            alignment: AlignmentDirectional(-0.7, 0.8),
+                            child: Stack(
+                              children: [
+                                airCondition!,
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(-0.9, 0.8),
+                            child: Stack(
+                              children: [
+                                airIcon!,
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(0, 1),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '$pm10㎍/m³',
+                                      style: GoogleFonts.lato(
+                                        fontSize: 15.0,
+                                        color:Model.Night? Colors.white:Color(0xff497174),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                Text(
+                                  Language.En?"Air pollution":'미세먼지',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 11.0,
+                                    color: Model.Night? Colors.white:Color(0xff497174),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(1, 1),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '$pm2_5㎍/m³',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 15.0,
+                                    color: Model.Night? Colors.white:Colors.black54,
+                                  ),
+                                ),
+                                Text(
+                                  Language.En?"ultrafine dust":'초미세먼지',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 11.0,
+                                    color: Model.Night? Colors.white:Colors.black54,
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0, 1),
-                child: Padding(//시간대별 날씨
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 10),
-                  child: Container(
+                  Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                      child: Container(//옷추천
+                          width: MediaQuery.of(context).size.width,
+                          height: 410,
+                          decoration: BoxDecoration(
+                            color: DarkMode.DarkOn? Colors.black12.withOpacity(0.4):Colors.white12.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: DarkMode.DarkOn? Colors.black12:Colors.white12,
+                              width: 0,
+                            ),
+                          ),
+
+                          child: KakaoData.Token ?
+                          //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
+                          Column(
+                            children: [
+                              if(Language.En==false)...{
+                                Text(
+                                  "오늘 뭐 입지?!",
+                                  style: GoogleFonts.jua(
+                                    fontSize: 30.0,
+                                    color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                  ),
+                                ),
+                              }else...
+                              {
+                                Text(
+                                  "Today OOTD",
+                                  style: GoogleFonts.kanit(
+                                    fontSize: 30.0,
+                                    color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                  ),
+                                ),
+                              },
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-0.95, 0),
+                                child: Column(
+                                  mainAxisSize:MainAxisSize.min ,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if(Language.En==false)...{
+                                      Text(
+                                        " 습도:",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        " Humidity:",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-0.95, 0),
+
+                              ),
+                            ],
+                          )
+
+                              :
+                          //<---------------------로그인 필요(토큰 없음)------------------------>
+                          Stack(
+                            children: [
+                              Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
+                              Flexible(flex: 1, fit: FlexFit.tight, child:
+                              InkWell(
+                                  onTap: ()async{
+                                    print('카톡로그인 클릭');
+                                    //[1] 카카오톡 설치 여부
+                                    if(await isKakaoTalkInstalled()){
+                                      try {
+                                        //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
+                                        AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
+                                        User user = await UserApi.instance.me();//유저 정보 user에 담는다.
+                                        print('토큰 정보 보기 성공'
+                                            '\n회원정보: ${tokenInfo.id}'
+                                            '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
+                                        //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
+                                        KakaoData.Token = true;
+                                        Navigator.push
+                                          (context,
+                                            MaterialPageRoute(builder: (context) => firstPage()));
+                                      } catch (error) {
+                                        print('토큰 정보 보기 실패 $error');
+                                        try {
+                                          //[2-1] 카카오톡 로그인 접속 시도
+                                          await UserApi.instance.loginWithKakaoTalk();
+                                          User user = await UserApi.instance.me();
+                                          print('카카오톡으로 로그인 성공');
+                                          //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
+                                          //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
+                                          KakaoData.Token = true;
+                                          Navigator.push
+                                            (context,
+                                            MaterialPageRoute(builder: (context) => firstPage()),);
+                                        } catch (error) {
+                                          print('카카오톡으로 로그인 실패 $error');
+                                        }
+                                      }
+                                    }
+                                    //[1-1 카카오톡 미설치
+                                    else{
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context){
+                                            return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0)
+                                              ),
+
+                                              title: new Text(Language.En?'Did not installed KaKaoTalk':"카카오톡 설치 후 실행해주세요!"),
+
+                                              actions: <Widget>[
+                                                new ElevatedButton(
+                                                  child: new Text("Close"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                      );
+                                    }
+                                  },
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Container(//카톡로그인 버튼
+                                      width: MediaQuery.of(context).size.width*0.6,
+                                      height: MediaQuery.of(context).size.height*0.08,
+                                      decoration: BoxDecoration(
+                                        color: Colors.yellow[400],
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 7.0,
+                                            offset: Offset(4, 6), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset('assets/kakao.png'),
+                                            Text(Language.En?'Login with KaKao':'카카오톡 로그인',
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                              ),
+                              ),
+                              Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
+                            ],
+                          )
+                      ),
+                    ),
+                  Padding(//시간대별 날씨
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                    child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 100,
                       decoration: BoxDecoration(
@@ -692,44 +696,44 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
                         children: [
-                            Container(
-                              padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  right: BorderSide( // POINT
-                                    color: Colors.white70,
-                                    width: 1,
-                                  ),
+                          Container(
+                            padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide( // POINT
+                                  color: Colors.white70,
+                                  width: 1,
                                 ),
-                                color: Colors.transparent,
                               ),
-                              child: Align(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 12.0,
-                                            color: Colors.white,
-                                          ),
+                              color: Colors.transparent,
+                            ),
+                            child: Align(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${double.parse(hourly_weathers[0].toStringAsFixed(1))}°',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
                                         ),
-                                        icons[0]!,
-                                        Text(
-                                          Language.En?' ${hours[0]}:00':'${hours[0]}시',
-                                          style: GoogleFonts.lato(
-                                            fontSize: 12.0,
-                                            color: Colors.white,
-                                          ),
+                                      ),
+                                      icons[0]!,
+                                      Text(
+                                        Language.En?' ${hours[0]}:00':'${hours[0]}시',
+                                        style: GoogleFonts.lato(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
                                         ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
+                          ),
                           Container(
                             padding: EdgeInsetsDirectional.fromSTEB(10,20, 10, 0),
                             decoration: BoxDecoration(
@@ -991,10 +995,11 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               ),
                             ),
                           )
-                          ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
+    ],
               ),
             ],
           ),

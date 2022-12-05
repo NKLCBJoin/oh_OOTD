@@ -45,7 +45,7 @@ class LoadingData{
 }
 
 class KakaoData {// 신근재 _카톡 토큰 및 유저 정보
-  static bool Token = false;
+  static bool Token = true;
 
   static String user_gen = '';
   static String user_name = '';

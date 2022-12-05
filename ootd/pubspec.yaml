@@ -67,6 +67,7 @@ dependencies:
   timeago: 3.2.2
   url_launcher: 6.1.5
   dotted_border: ^2.0.0+3
+  firebase_messaging: ^14.1.3
 
 
 
