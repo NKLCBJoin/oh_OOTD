@@ -26,8 +26,8 @@ void main() async
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  KakaoToken();
   runApp(const MyApp());
-  //KakaoToken();
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,//이거 지우지말것 디버그리본없애는거 특히 재민(from지철)
             initialRoute: '/',
             routes: {
-              '/' : (context) =>Alarm(),
+              '/' : (context) => firstPage(),
             },
           );
         }
