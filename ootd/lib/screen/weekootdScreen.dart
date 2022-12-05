@@ -21,9 +21,6 @@ import 'package:timer_builder/timer_builder.dart';
 
 var day = List <double>.filled(25, 10.0);
 
-// List <double> Day= [];//하루 기온정보
-// List <int> Day_Index = [0,0,0,0];//날짜를 나눈 인덱스 정보
-
 List <dynamic> tomorrows = [];
 List <double> day_max_t= [];//하루 기온정보
 List <int> i_max = [0,0,0,0];//날짜를 나눈 인덱스 정보

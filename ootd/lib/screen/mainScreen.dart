@@ -25,7 +25,7 @@ import 'package:ootd/screen/startScreen.dart';
 void KakaoToken(){
   Future<bool?> getT() async {
     if (await AuthApi.instance.hasToken()) {
-      KakaoData.Token = true;
+      KakaoData.Token = false;
       print('----------------------------------');
       print('토큰 존재');
       print('----------------------------------');
@@ -70,6 +70,7 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderStateMixin{
   Model model = Model();
+  KakaoData kakaodata = KakaoData();
   Widget ?icon;
   List <Widget> icons= [];
   String weather = 'weather';
@@ -571,78 +572,100 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
 
                         :
                     //<---------------------로그인 필요(토큰 없음)------------------------>
-                    Column(
+                    Stack(
                       children: [
                         Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-
                         Flexible(flex: 1, fit: FlexFit.tight, child:
-                        ElevatedButton.icon(
-                            icon: Icon(Icons.lock),
-                            label: Text("카카오 로그인",style: TextStyle(fontSize: 18, color: Colors.black87),),
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                                foregroundColor: MaterialStateProperty.all(Colors.black54),
-                                padding: MaterialStateProperty.all(EdgeInsets.all(20.0))
-                            ),
-                            onPressed: () async {
-                              //[1] 카카오톡 설치 여부
-                              if(await isKakaoTalkInstalled()){
-                                try {
-                                  //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
-                                  AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-                                  User user = await UserApi.instance.me();//유저 정보 user에 담는다.
-                                  print('토큰 정보 보기 성공'
-                                      '\n회원정보: ${tokenInfo.id}'
-                                      '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
-                                  //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
-                                                                KakaoData.Token = true;
-                                  Navigator.push
-                                  (context,
-                                  MaterialPageRoute(builder: (context) => firstPage()));
-                                } catch (error) {
-                                  print('토큰 정보 보기 실패 $error');
+                          InkWell(
+                            onTap: ()async{
+                              print('카톡로그인 클릭');
+                                //[1] 카카오톡 설치 여부
+                                if(await isKakaoTalkInstalled()){
                                   try {
-                                    //[2-1] 카카오톡 로그인 접속 시도
-                                    await UserApi.instance.loginWithKakaoTalk();
-                                    User user = await UserApi.instance.me();
-                                    print('카카오톡으로 로그인 성공');
-                                    //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
-                                    //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
+                                    //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
+                                    AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
+                                    User user = await UserApi.instance.me();//유저 정보 user에 담는다.
+                                    print('토큰 정보 보기 성공'
+                                        '\n회원정보: ${tokenInfo.id}'
+                                        '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
+                                    //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
                                     KakaoData.Token = true;
                                     Navigator.push
                                       (context,
-                                      MaterialPageRoute(builder: (context) => firstPage()),);
+                                        MaterialPageRoute(builder: (context) => firstPage()));
                                   } catch (error) {
-                                    print('카카오톡으로 로그인 실패 $error');
+                                    print('토큰 정보 보기 실패 $error');
+                                    try {
+                                      //[2-1] 카카오톡 로그인 접속 시도
+                                      await UserApi.instance.loginWithKakaoTalk();
+                                      User user = await UserApi.instance.me();
+                                      print('카카오톡으로 로그인 성공');
+                                      //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
+                                      //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
+                                      KakaoData.Token = true;
+                                      Navigator.push
+                                        (context,
+                                        MaterialPageRoute(builder: (context) => firstPage()),);
+                                    } catch (error) {
+                                      print('카카오톡으로 로그인 실패 $error');
+                                    }
                                   }
                                 }
-                              }
-                              //[1-1 카카오톡 미설치
-                              else{
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context){
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10.0)
-                                        ),
-
-                                        title: new Text("카카오톡 설치 후 실행해주세요!"),
-
-                                        actions: <Widget>[
-                                          new ElevatedButton(
-                                            child: new Text("Close"),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
+                                //[1-1 카카오톡 미설치
+                                else{
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context){
+                                        return AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0)
                                           ),
-                                        ],
-                                      );
-                                    }
-                                );
-                              }
-                            }
-                          )
+
+                                          title: new Text(Language.En?'Did not installed KaKaoTalk':"카카오톡 설치 후 실행해주세요!"),
+
+                                          actions: <Widget>[
+                                            new ElevatedButton(
+                                              child: new Text("Close"),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                  );
+                                }
+                              },
+                            child: Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Container(//카톡로그인 버튼
+                                width: MediaQuery.of(context).size.width*0.6,
+                                height: MediaQuery.of(context).size.height*0.08,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow[400],
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 7.0,
+                                      offset: Offset(4, 6), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset('assets/kakao.png'),
+                                      Text(Language.En?'Login with KaKao':'카카오톡 로그인',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ),
                         ),
                         Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
                       ],
