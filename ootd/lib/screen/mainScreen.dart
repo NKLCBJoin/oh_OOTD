@@ -20,43 +20,6 @@ import 'package:ootd/screen/alarm.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/startScreen.dart';
 
-//신근재 카톡 로그인 <전역 변수,함수>
-
-void KakaoToken(){
-  Future<bool?> getT() async {
-    if (await AuthApi.instance.hasToken()) {
-      KakaoData.Token = false;
-      print('----------------------------------');
-      print('토큰 존재');
-      print('----------------------------------');
-
-      var user = await UserApi.instance.me();//유저 정보 user에 담는다.
-
-      KakaoData.userImage_URL = (user.kakaoAccount?.profile?.profileImageUrl).toString();
-      KakaoData.user_gen = (user.kakaoAccount?.gender).toString();
-      KakaoData.user_name = (user.kakaoAccount?.profile?.nickname).toString();
-      KakaoData.user_email = (user.kakaoAccount?.email).toString();
-
-      if(KakaoData.user_gen == "Gender.male"){
-        KakaoData.user_gen = "남성";
-      } else {
-        KakaoData.user_gen = "여성";
-      }
-      await Future.delayed(Duration(seconds: 1));//땡겨오는 시간 딜레이 대기
-      return true;
-    }
-    else {
-      KakaoData.Token = false;
-      print('----------------------------------');
-      print('토큰이 없어요. . .');
-      print('----------------------------------');
-      return false;
-    }
-  }
-
-  Future<bool?> future = getT();
-}
-
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution,this.parseHourData});
@@ -193,17 +156,18 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
               children: <Widget>[
                 UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.white,
+                      backgroundImage: KakaoData.Token? NetworkImage('${KakaoData.userImage_URL}') : NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7s_NWoe9O4ONIdRkRBZjASnTMGvQC5ajjtw&usqp=CAU')
                   ),
-                  accountName: Text('섹잘알 최지철',
+                  accountName: KakaoData.Token? Text('${KakaoData.user_name}',
                   style: TextStyle(
                     color: DarkMode.DarkOn? Colors.black :Colors.white,
                   ),
-                    ), accountEmail: Text('SexChoi@gmail.com',
+                    ) : Text('이름:로그인 후 나타납니다.'),
+                  accountEmail: KakaoData.Token? Text('${KakaoData.user_email}',
                   style: TextStyle(
                     color: DarkMode.DarkOn? Colors.black :Colors.white,
                   ),
-                ),
+                ) : Text('이메일:로그인 후 나타납니다.'),
                   decoration: BoxDecoration(
                       color: DarkMode.DarkOn? Colors.pink[400] :Colors.blue[300],
                       borderRadius: BorderRadius.only(
