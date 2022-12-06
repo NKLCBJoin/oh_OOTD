@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:ootd/model/model.dart';
+import 'package:ootd/API/kakao.dart';
 //최지철  처음 애니메이션
 
 class firstPage extends StatefulWidget{

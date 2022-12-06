@@ -2,6 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+class location { //이용구 주소, 해시키, 텍스트컨트롤러
+
+  static Map<String,String> headerss = {
+    "X-NCP-APIGW-API-KEY-ID": "noaoz64fyk", // 개인 클라이언트 아이디
+    "X-NCP-APIGW-API-KEY": "gk2M9ll3WPkULJOsIZWdb7XDeBqhCQEwbITRGb43" // 개인 시크릿 키
+  };
+
+  static String address=''; //api를 통해(페이지의 _addressAPI() 실행하면 값 들어감) 주소 값이 들어간다.
+
+  static String x_pos=''; //현재 위도
+  static String y_pos=''; //현재 경도
+
+  static String lat=''; //위도
+  static String lon=''; //경도
+
+  static String gu=''; //구
+  static String si=''; //시
+}
+
+
 class UserDB//최지철 DB<->앱간 통신클래스임당~
 {
   static final name="name";

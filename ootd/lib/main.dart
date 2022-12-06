@@ -15,13 +15,19 @@ import 'widget/widget.dart';
 import 'package:get/get.dart';
 import 'model/model.dart';
 import 'package:ootd/screen/tempScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 //신근재
 void main() async
 {
   await GoogleSheestApi.init();//DB구글시트연결
   KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   KakaoToken();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +43,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,//이거 지우지말것 디버그리본없애는거 특히 재민(from지철)
             initialRoute: '/',
             routes: {
-              '/' : (context) =>firstPage(),
+              '/' : (context) => firstPage(),
             },
           );
         }

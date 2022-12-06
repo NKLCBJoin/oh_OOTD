@@ -21,9 +21,6 @@ import 'package:timer_builder/timer_builder.dart';
 
 var day = List <double>.filled(25, 10.0);
 
-// List <double> Day= [];//하루 기온정보
-// List <int> Day_Index = [0,0,0,0];//날짜를 나눈 인덱스 정보
-
 List <dynamic> tomorrows = [];
 List <double> day_max_t= [];//하루 기온정보
 List <int> i_max = [0,0,0,0];//날짜를 나눈 인덱스 정보
@@ -207,7 +204,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: 700,
+            height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -224,7 +221,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
               children: [
                 Container(
                   width:MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  height: 700,
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                   ),

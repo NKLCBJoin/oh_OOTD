@@ -3,10 +3,14 @@
     <!-- 인터넷 권한 코딩 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
    <application
+       android:usesCleartextTraffic="true"
         android:label="ootd"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <meta-data android:name="com.kakao.sdk.AppKey" android:value="5535ff91826d301ef91870ab7357e8e9"/>
+       <meta-data android:name="com.naver.maps.map.CLIENT_ID" android:value="noaoz64fyk" />
        <activity
            android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
            android:exported="true">

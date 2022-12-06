@@ -238,19 +238,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                                 backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
-                                title: Text('로그아웃 성공!',
+                                title: Text(Language.En?'Sucess Logout':'로그아웃 성공',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
-                                content: Text('확인버튼을 눌러주세요!',
+                                content: Text(Language.En?'See U next time :)':'다음에 또 만나요!',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text('확인'),
+                                    child: Text(Language.En?'Ok':'확인'),
                                     onPressed: () {
                                       // 메인으로 이동
                                       Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
@@ -265,19 +265,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                                 backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
-                                title: Text('로그아웃 실패!',
+                                title: Text(Language.En? 'Failed Logout':'로그아웃 실패',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
-                                content: Text('로그인이 되어있지 않거나\n오류가 발생했습니다.',
+                                content: Text(Language.En?'You are not Login.\nTry again ':'로그인이 되어있지 않거나\n오류가 발생했습니다.',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text('확인'),
+                                    child: Text(Language.En?'Ok':'확인'),
                                     onPressed: () {
                                       // 메인으로 이동
                                       Navigator.of(context).pop();
@@ -304,19 +304,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                                 backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
-                                title: Text('회원탈퇴 성공!',
+                                title: Text(Language.En?'Delete Account:(':'회원탈퇴:(',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
-                                content: Text('확인버튼을 눌러주세요!',
+                                content: Text(Language.En?'Even if you leave me and never come back,\n I will wait for you.':'그대 나를 떠나 돌아 오지 않는다 한들,\n나 그대만 바라보고 있겠소...',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text('확인'),
+                                    child: Text(Language.En?'Ok':'확인'),
                                     onPressed: () {
                                       // 메인으로 이동
                                       Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
@@ -331,19 +331,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                                 backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
-                                title: Text('회원탈퇴 실패!',
+                                title: Text(Language.En?'Failed Delete Account! :)':'회원탈퇴 실패! :)',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
-                                content: Text('로그인을 먼저 진행해주세요!',
+                                content: Text(Language.En?"I don't know why you couldn't Delete Account :)}":'저도 알수 없는 오류가 떠서 회원탈퇴가 왜? 안됐는지 잘 모르겠네요 ㅎㅎ',
                                   style:TextStyle(
                                     color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                   ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text('확인'),
+                                    child: Text(Language.En?'Ok':'확인'),
                                     onPressed: () {
                                       // 메인으로 이동
                                       Navigator.of(context).pop();
