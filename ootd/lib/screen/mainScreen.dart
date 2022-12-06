@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/screen/loading2.dart';
+import 'package:ootd/screen/searchlocation.dart';
 import 'package:ootd/screen/settingScreen.dart';
 import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
@@ -120,6 +121,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             color: Colors.white,
           ),
           onPressed: () {
+            //이동
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
             print(Model.datenow);
           },
         ),
