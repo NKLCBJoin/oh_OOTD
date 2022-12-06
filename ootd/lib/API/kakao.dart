@@ -6,20 +6,21 @@ import '../API/gsheets.dart';
 import 'package:flutter/services.dart';
 import 'package:ootd/model/model.dart';
 import 'package:ootd/screen/weekootdScreen.dart';
-
 import '../screen/startScreen.dart';
 
-//<-------------------토큰 확인하는 클래스 정의----------------------->
+//<-------------------토큰 확인하는 함수 정의----------------------->
 void KakaoToken(){
   Future<bool?> getT() async {
     if (await AuthApi.instance.hasToken()) {
+      AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
       KakaoData.Token = true;
       print('----------------------------------');
-      print('토큰 존재');
+      print('토큰이 이미 존재합니다'
+          '\n회원정보: ${tokenInfo.id}'
+          '\n만료시간: ${tokenInfo.expiresIn} 초');
       print('----------------------------------');
 
       var user = await UserApi.instance.me();//유저 정보 user에 담는다.
-
       KakaoData.userImage_URL = (user.kakaoAccount?.profile?.profileImageUrl).toString();
       KakaoData.user_gen = (user.kakaoAccount?.gender).toString();
       KakaoData.user_name = (user.kakaoAccount?.profile?.nickname).toString();
