@@ -725,29 +725,43 @@ class _AlarmState extends State<Alarm> {
             },
           ),
         ),
-      body: StreamBuilder<QuerySnapshot>(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  DarkMode.DarkOn? Color(0xff29323c) : Color(0xffa1c4fd), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                  DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
+                ]
+            )
+        ),
+        child: StreamBuilder<QuerySnapshot>(
 //todo 컬렉션에 있는 모든 문서를 스트림으로 획득
 //스트림은 자료가 변경되었을 때 반응하여 화면을 다시 그려줌.
-          stream: FirebaseFirestore.instance.collection('alarm').snapshots(),
-          builder: (context, snapshot) {
-            if(!snapshot.hasData){
-              return Scaffold(
-                backgroundColor:  DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
-                body: Center(
-                  child: SpinKitFadingFour(
-                    color: DarkMode.DarkOn? Colors.white:Color(0xff485563),
-                    size: 80,
+            stream: FirebaseFirestore.instance.collection('alarm').snapshots(),
+            builder: (context, snapshot) {
+              if(!snapshot.hasData){
+                return Scaffold(
+                  backgroundColor:  DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
+                  body: Center(
+                    child: SpinKitFadingFour(
+                      color: DarkMode.DarkOn? Colors.white:Color(0xff485563),
+                      size: 80,
+                    ),
                   ),
+                );
+              }
+              final documents = snapshot.data!.docs;
+              return Expanded(
+                child: ListView( //Todo: 할 일 목록 표시
+                  children: documents.map((doc) => _buildAlarmWidget(doc)).toList(),
                 ),
               );
             }
-            final documents = snapshot.data!.docs;
-            return Expanded(
-              child: ListView( //Todo: 할 일 목록 표시
-                children: documents.map((doc) => _buildAlarmWidget(doc)).toList(),
-              ),
-            );
-          }
+        ),
       ),
     );
   }
