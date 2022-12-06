@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -175,26 +176,6 @@ class _WeekootdPageState extends State<WeekootdPage> {
               KakaoShare();
             },
           ),
-            ElevatedButton.icon(
-              icon: Icon(Icons.share_sharp),
-              label: Text("공유하기",style: TextStyle(fontSize: 10, color: Colors.black87),),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                foregroundColor: MaterialStateProperty.all(Colors.black54),
-                shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-              ),
-              onPressed: () async {
-                if(await ShareClient.instance.isKakaoTalkSharingAvailable()) {
-                  try {
-                    Uri uri = await ShareClient.instance.shareDefault(template: defaultFeed);
-                    await ShareClient.instance.launchKakaoTalk(uri);
-                    print('카카오톡 공유 완료');
-                  } catch (error) {
-                    print('카카오톡 공유 실패 $error');
-                  }
-                }
-            },
-          )
         ],
         centerTitle: false,
       ),
@@ -297,6 +278,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                               ),
                                             ),
                                             icons[1]!,
+
                                           ],
                                         ),
                                       ],
@@ -313,7 +295,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   shadows: [
                                   ],
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                           Align(
+                             alignment: AlignmentDirectional(0,0.8),
+                             child:TextButton(
+                               onPressed: (){
+                                 setState(() {
+                                  if(RecommandCloth.choicePadding==false){
+                                    RecommandCloth.choicePadding=true;
+                                  }
+                                  else{
+                                    RecommandCloth.choicePadding=false;
+                                  }
+                                 });
+                               },
+                               child: Text("다른 스타일 보기"),
+                             ),
+                           ),
                             ],
                           ),
                         ),
@@ -405,7 +441,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,0.8),
+                                child:TextButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(RecommandCloth.choicePadding==false){
+                                        RecommandCloth.choicePadding=true;
+                                      }
+                                      else{
+                                        RecommandCloth.choicePadding=false;
+                                      }
+                                    });
+                                  },
+                                  child: Text("다른 스타일 보기"),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -496,7 +586,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,0.8),
+                                child:TextButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(RecommandCloth.choicePadding==false){
+                                        RecommandCloth.choicePadding=true;
+                                      }
+                                      else{
+                                        RecommandCloth.choicePadding=false;
+                                      }
+                                    });
+                                  },
+                                  child: Text("다른 스타일 보기"),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -587,7 +731,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,0.8),
+                                child:TextButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(RecommandCloth.choicePadding==false){
+                                        RecommandCloth.choicePadding=true;
+                                      }
+                                      else{
+                                        RecommandCloth.choicePadding=false;
+                                      }
+                                    });
+                                  },
+                                  child: Text("다른 스타일 보기"),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -679,7 +877,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,0.8),
+                                child:TextButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(RecommandCloth.choicePadding==false){
+                                        RecommandCloth.choicePadding=true;
+                                      }
+                                      else{
+                                        RecommandCloth.choicePadding=false;
+                                      }
+                                    });
+                                  },
+                                  child: Text("다른 스타일 보기"),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -771,7 +1023,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,0.8),
+                                child:TextButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(RecommandCloth.choicePadding==false){
+                                        RecommandCloth.choicePadding=true;
+                                      }
+                                      else{
+                                        RecommandCloth.choicePadding=false;
+                                      }
+                                    });
+                                  },
+                                  child: Text("다른 스타일 보기"),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -854,7 +1160,61 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   size: 40,
                                   color: DarkMode.DarkOn? Colors.white:Colors.black87,
                                 ),
-                              )
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,-0.25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),
+                                    ),
+                                    if(Language.En==false)...{
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    }else...
+                                    {
+                                      Text(
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        style: GoogleFonts.kanit(
+                                          fontSize: 12.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ),
+                                    },
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0,0.8),
+                                child:TextButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      if(RecommandCloth.choicePadding==false){
+                                        RecommandCloth.choicePadding=true;
+                                      }
+                                      else{
+                                        RecommandCloth.choicePadding=false;
+                                      }
+                                    });
+                                  },
+                                  child: Text("다른 스타일 보기"),
+                                ),
+                              ),
                             ],
                           ),
                         ),

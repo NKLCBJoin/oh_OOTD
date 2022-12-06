@@ -44,10 +44,31 @@ class _LocationSetState extends State<LocationSet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
-      body: SafeArea(
+      extendBodyBehindAppBar: true,
+      appBar:  AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+            },
+          ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  DarkMode.DarkOn? Color(0xff29323c) : Color(0xffa1c4fd), //DarkMode.DarkOn? Colors.grey[900] :Colors.blue[300],
+                  DarkMode.DarkOn? Color(0xff485563) :Color(0xffc2e9fb),
+                ]
+            )
+        ),
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: ListView(
@@ -62,7 +83,7 @@ class _LocationSetState extends State<LocationSet> {
 
                   Padding(padding: const EdgeInsets.all(30)),
 
-                  Text('주소', style: TextStyle(fontSize: 30, color: Colors.blueGrey)),
+                  Text(Language.En?'Address':'주소', style: TextStyle(fontSize: 30, color:  DarkMode.DarkOn?Colors.white:Colors.blueGrey)),
 
                   Padding(padding: const EdgeInsets.all(10)),
 
@@ -70,24 +91,62 @@ class _LocationSetState extends State<LocationSet> {
 
                   Padding(padding: const EdgeInsets.all(10)),
 
-                  SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child:TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.indigoAccent,),
-                      child: Text("위치 설정", style: TextStyle(fontSize: 17, color: Colors.white)),
-                      onPressed: () {
-                        //미완성 이동 코드
+                  InkWell(//위치 설정UI
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height*0.05,
+                      decoration: BoxDecoration(
+                        color: Colors.indigoAccent,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 7.0,
+                            offset: Offset(4, 6), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(Language.En?'set to search location':"위치 설정", style: TextStyle(fontSize: 17, color: Colors.white)),
+                      )
+                    ),
+                      onTap: (){
                         LoadingData.Lol = false;
                         Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
                       },
-                    ),
                   ),
 
                   Padding(padding: const EdgeInsets.all(10)),
-
-                  SizedBox(
+                  InkWell(//위치 설정UI
+                    child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height*0.05,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 7.0,
+                              offset: Offset(4, 6), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(Language.En?'set to current location':"현재 위치로 설정", style: TextStyle(fontSize: 17, color: Colors.white)),
+                        )
+                    ),
+                    onTap: ()async{
+                      print("현재 위치 주소");
+                      await location_class.Nowlocation(); //이 함수를 실행시켜 전역변수 x_pos와 y_pos와 gu, si를 현재 기준으로 변경한다.
+                      //미완성 이동 코드
+                      LoadingData.Lol = false;
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+                    },
+                  ),
+                 /* SizedBox(
                     height: 50,
                     width: double.infinity,
                     child:TextButton(
@@ -102,7 +161,7 @@ class _LocationSetState extends State<LocationSet> {
                         Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
                       },
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ],
@@ -126,11 +185,11 @@ class _LocationSetState extends State<LocationSet> {
             enabled: false,
             //decoration: InputDecoration(isDense: false,),
             autocorrect: true,
-            decoration: const InputDecoration(hintText: '주소 검색하기',),
+            decoration:  InputDecoration(hintText: Language.En?'Search address':'주소 검색하기',hintStyle:TextStyle(color: DarkMode.DarkOn?Colors.white70:Colors.blueGrey[200] ) ),
             maxLines: 2,
             minLines: 1,
-
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20
+            ,color:  DarkMode.DarkOn?Colors.white70:Colors.blueGrey[200]),
           ),
         ],
       ),

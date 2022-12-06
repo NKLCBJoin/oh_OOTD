@@ -20,6 +20,7 @@ import 'package:ootd/screen/weekootdScreen.dart';
 import 'package:ootd/screen/alarm.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/startScreen.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
@@ -484,167 +485,226 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                               width: 0,
                             ),
                           ),
-
-                          child: KakaoData.Token ?
-                          //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
-                          Column(
-                            children: [
-                              if(Language.En==false)...{
-                                Text(
-                                  "오늘 뭐 입지?!",
-                                  style: GoogleFonts.jua(
-                                    fontSize: 30.0,
-                                    color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                  ),
-                                ),
-                              }else...
-                              {
-                                Text(
-                                  "Today OOTD",
-                                  style: GoogleFonts.kanit(
-                                    fontSize: 30.0,
-                                    color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                  ),
-                                ),
-                              },
-                              SizedBox(
-                                height: 7,
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(-0.95, 0),
-                                child: Column(
-                                  mainAxisSize:MainAxisSize.min ,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          //---토큰넣기
+                        child: KakaoData.Token ?
+                        //<---------------------로그인 성공(토큰을 가지고 있음)------------------------>
+                        InkWell(
+                          onTap: (){
+                            print("ss");
+                            LoadingData.Lol = true;
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
+                          },
+                          child: Container(
+                            width: 350,
+                            height: 300,
+                            decoration: BoxDecoration(
+                                color: Colors.transparent
+                            ),
+                            child:  Stack(
+                              children: [
+                                Column(
                                   children: [
-                                    if(Language.En==false)...{
-                                      Text(
-                                        " 습도:",
-                                        style: GoogleFonts.jua(
-                                          fontSize: 15.0,
-                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                        ),
-                                      ),
-                                    }else...
-                                    {
-                                      Text(
-                                        " Humidity:",
-                                        style: GoogleFonts.kanit(
-                                          fontSize: 12.0,
-                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
-                                        ),
-                                      ),
-                                    },
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(-0.95, 0),
-
-                              ),
-                            ],
-                          )
-
-                              :
-                          //<---------------------로그인 필요(토큰 없음)------------------------>
-                          Stack(
-                            children: [
-                              Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-                              Flexible(flex: 1, fit: FlexFit.tight, child:
-                              InkWell(
-                                  onTap: ()async{
-                                    print('카톡로그인 클릭');
-                                    //[1] 카카오톡 설치 여부
-                                    if(await isKakaoTalkInstalled()){
-                                      try {
-                                        //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
-                                        AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
-                                        User user = await UserApi.instance.me();//유저 정보 user에 담는다.
-                                        print('토큰 정보 보기 성공'
-                                            '\n회원정보: ${tokenInfo.id}'
-                                            '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
-                                        //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
-                                        KakaoData.Token = true;
-                                        Navigator.push
-                                          (context,
-                                            MaterialPageRoute(builder: (context) => firstPage()));
-                                      } catch (error) {
-                                        print('토큰 정보 보기 실패 $error');
-                                        try {
-                                          //[2-1] 카카오톡 로그인 접속 시도
-                                          await UserApi.instance.loginWithKakaoTalk();
-                                          User user = await UserApi.instance.me();
-                                          print('카카오톡으로 로그인 성공');
-                                          //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
-                                          //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
-                                          KakaoData.Token = true;
-                                          Navigator.push
-                                            (context,
-                                            MaterialPageRoute(builder: (context) => firstPage()),);
-                                        } catch (error) {
-                                          print('카카오톡으로 로그인 실패 $error');
-                                        }
-                                      }
-                                    }
-                                    //[1-1 카카오톡 미설치
-                                    else{
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context){
-                                            return AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10.0)
+                                    Align(
+                                      alignment: AlignmentDirectional(1,-1),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          if(Language.En==false)...{
+                                            Text(
+                                              "오늘 뭐 입지?!",
+                                              style: GoogleFonts.jua(
+                                                fontSize: 30.0,
+                                                color: DarkMode.DarkOn? Colors.white70:Colors.black54,
                                               ),
-
-                                              title: new Text(Language.En?'Did not installed KaKaoTalk':"카카오톡 설치 후 실행해주세요!"),
-
-                                              actions: <Widget>[
-                                                new ElevatedButton(
-                                                  child: new Text("Close"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
+                                            ),
+                                          }else...
+                                          {
+                                            Text(
+                                              "Today OOTD",
+                                              style: GoogleFonts.kanit(
+                                                fontSize: 30.0,
+                                                color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                              ),
+                                            ),
+                                          },],),),
+                                    SizedBox(
+                                      height: 7,
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Row(
+                                        mainAxisSize:MainAxisSize.min ,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          if(Language.En==false)...{
+                                            Text(
+                                              "패딩,무스탕류의 아우터와 두꺼운 이너웨어",
+                                              style: GoogleFonts.jua(
+                                                fontSize: 15.0,
+                                                color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                              ),
+                                            ),
+                                          }else...
+                                          {
+                                            Text(
+                                              " Humidity:",
+                                              style: GoogleFonts.kanit(
+                                                fontSize: 12.0,
+                                                color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                              ),
+                                            ),
+                                          },
+                                        ],
+                                      ),
+                                    ),
+                                    Align(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 350,
+                                            height: 310,
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                            ),
+                                            child: Stack(
+                                              children: [
+                                                Align(
+                                                  child: Container(
+                                                    width: 250,
+                                                    height: 250,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.transparent,
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      image: DecorationImage(
+                                                          image: NetworkImage('https://lh3.googleusercontent.com/fife/AAbDypDQunrjKwGklCTp479CIIht2BPkT-7tPjFlTvSPE8uSDQjADx4dwJoE0uSK2n-MGCi7RBGmrRN0w0DVZ4IcXYVCRTy2aLWVMA4yXT47B_DzIHWHDNQ3Eg81SrhAv1JU8TZuJdSDECV6T-BQ4hh96TBYmuWaNh4stDT40lYcOVycb1Pctsww4V-zAFbSakt5ncT8-udteCuc-x9UAeZ9EH_r1u5S4sx12deeb1Tg_Z6pcOGmIVpBmpTFUQzG7jZLTRuC3ebN5hWEZ11QtEK9wR184-QvqjzLYtK1xuu4-NeJ1jZ6x0-bkbwKuQSSC-APdfH0KleHO0K2T9FGoC_4J_t6XfhpgIh6MZiK7cwqNII6PKyzUxcggAtFtnBYU0DCg6RKOBnt9EWhkYogLte-1yNo5xqDfTm10dMUvVulSdx4XMC3QZieQJx5Mad8aGFvXbKkXfOPCv8W3JU7o97B1K5c9d5V0Y-6CjFzc1S_6bfttyZRHHHdscGzO3gVwFL0p-i-5uorSCReEBeGKFJBXQgc2lSc0KipoVS91VUYbVxj56P_OSLZghLfbxSkqUFmA9t_Ph-CZxB0mI9uKDBDFaO2HlJIxcBGd9_BFw7YKbVV_nFaV-eFKS6NxJwq6IyDE-ZIdO5nntoaZi3jLVRmHhpR07XgmfXT3PXjBIfw9sAOnt7FB-uPU9K9GZBYVzP9rKVcDid2NYlk1EDbAeTVoMKsfe4drotHPWxvn_xZ-Dh-gpDvQGp21V0eNmI1oYrPiact398yDVUEYgSN3GY3-_upYnOIomz9iFLUknGx5j_V48bP4VWhTQG-kPs6mFtQPVd4s91j6eXnsFtZ_6WoIB1ONZ_BeHPitj6FhTaooXDYPIFyg-pb0YP9dGsFqJmUZHgV8BdYp18ZgEIIv5j-NF9SwnWsYTubicd34vhJmdKg1hbPZPRc_v8SFB7XMsckz3nxgK2v8NWy_uGTtvqLcm1STZFIJ3g5cRctP_6G827NX3jrU045ajO2Pl39OJb8gj-pqSTl855U9zmWK3Qh7fVIypPdYaWxIT7yZivtXlJx-p0XxT1Mk4EAWHpodLMrjw2MVEiR7rz5sZNL77W1T7Ntp4kLMBcExbyA20CkZvyLlfTaUFYfWGfDBHJfsEXL-wXZ5hhB76BN8DNB7mZck3WJ70X1sScVfI1GYWitsHFO2P5nZEC3abdtTgbJt-t2Nxqn4d3DzGe_ceFj6LwxC5lnHSYhQQn1J2mr1EQ7cHCUQIHFVhYzd9HYrJZFbmBu_3kbSD_Nmm0bkrzZ2Cpwq_fvOb2Q831Ps9YZvMiPL6ktJsylPvwUQlRgRsykM7ynWUEKQqoPHSjQouX5b4iW3Fta8l7obmej_ur2m5kNBNjmdqJAwrq2s2tJU862wfpTlkMscxZIsW3SKwy2E4Rmi-RPl1fYPmWq0QVGzNYh1gwloL84T_UBDZNOTXYPqgEGxjv3xofRTzyYy1n0Qwc=w1437-h937'),
+                                                          fit: BoxFit.cover
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: AlignmentDirectional(0, 1),
+                                                  child: Text('오늘 같이 추운날 패딩을 센스입게 입어보는 거 어때요?'),
                                                 ),
                                               ],
-                                            );
-                                          }
-                                      );
-                                    }
-                                  },
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Container(//카톡로그인 버튼
-                                      width: MediaQuery.of(context).size.width*0.6,
-                                      height: MediaQuery.of(context).size.height*0.08,
-                                      decoration: BoxDecoration(
-                                        color: Colors.yellow[400],
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 7.0,
-                                            offset: Offset(4, 6), // changes position of shadow
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset('assets/kakao.png'),
-                                            Text(Language.En?'Login with KaKao':'카카오톡 로그인',
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+
+                          ),
+                        )
+
+                            :
+                        //<---------------------로그인 필요(토큰 없음)------------------------>
+                        Stack(
+                          children: [
+                            Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
+                            Flexible(flex: 1, fit: FlexFit.tight, child:
+                            InkWell(
+                                onTap: ()async{
+                                  print('카톡로그인 클릭');
+                                  //[1] 카카오톡 설치 여부
+                                  if(await isKakaoTalkInstalled()){
+                                    try {
+                                      //[2] 이미 로그인 했나 토큰 유효성 확인 후 로그인 시도
+                                      AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
+                                      User user = await UserApi.instance.me();//유저 정보 user에 담는다.
+                                      print('토큰 정보 보기 성공'
+                                          '\n회원정보: ${tokenInfo.id}'
+                                          '\n토큰 만료시간: ${tokenInfo.expiresIn} 초');
+                                      //[3]정상적으로 토큰 성공을 한 경우 메인 페이지로 다시 돌아갑니다.
+                                      KakaoData.Token = true;
+                                      Navigator.push
+                                        (context,
+                                          MaterialPageRoute(builder: (context) => firstPage()));
+                                    } catch (error) {
+                                      print('토큰 정보 보기 실패 $error');
+                                      try {
+                                        //[2-1] 카카오톡 로그인 접속 시도
+                                        await UserApi.instance.loginWithKakaoTalk();
+                                        User user = await UserApi.instance.me();
+                                        print('카카오톡으로 로그인 성공');
+                                        //★★★★★★★★★다음 페이지 넘어가면서 user넘겨줌★★★★★★★★★
+                                        //model폴더의 temp.dart를 보면 user 사용 예시 찾기 가능
+                                        KakaoData.Token = true;
+                                        Navigator.push
+                                          (context,
+                                          MaterialPageRoute(builder: (context) => firstPage()),);
+                                      } catch (error) {
+                                        print('카카오톡으로 로그인 실패 $error');
+                                      }
+                                    }
+                                  }
+                                  //[1-1 카카오톡 미설치
+                                  else{
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context){
+                                          return AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10.0)
                                             ),
-                                          ],
+
+                                            title: new Text(Language.En?'Did not installed KaKaoTalk':"카카오톡 설치 후 실행해주세요!"),
+
+                                            actions: <Widget>[
+                                              new ElevatedButton(
+                                                child: new Text("Close"),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                    );
+                                  }
+                                },
+                                child: Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Container(//카톡로그인 버튼
+                                    width: MediaQuery.of(context).size.width*0.6,
+                                    height: MediaQuery.of(context).size.height*0.08,
+                                    decoration: BoxDecoration(
+                                      color: Colors.yellow[400],
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 7.0,
+                                          offset: Offset(4, 6), // changes position of shadow
                                         ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset('assets/kakao.png'),
+                                          Text(Language.En?'Login with KaKao':'카카오톡 로그인',
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  )
-                              ),
-                              ),
-                              Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
-                            ],
-                          )
+                                  ),
+                                )
+                            ),
+                            ),
+                            Flexible(flex: 1, fit: FlexFit.tight, child: Container()),
+                          ],
+                        ),
+
+                          //<---------------------로그인 필요(토큰 없음)------------------------>
+
                       ),
                     ),
                   Padding(//시간대별 날씨

@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  awesome_notifications:
+    dependency: "direct main"
+    description:
+      name: awesome_notifications
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.4+1"
   babstrap_settings_screen:
     dependency: "direct main"
     description:
@@ -569,13 +576,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  naver_map_plugin:
-    dependency: "direct main"
-    description:
-      name: naver_map_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.6"
   nested:
     dependency: transitive
     description:
