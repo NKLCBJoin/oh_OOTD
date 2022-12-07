@@ -1,7 +1,7 @@
 # oh_OOTD
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/114370871/201268381-918ed781-3eb1-476a-bc02-6e9715693348.gif)
 
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=anuraghazra&repo=github-readme-stats)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card]https://github.com/KakaoTakdae/oh_OOTD)](https://github.com/anuraghazra/github-readme-stats)
 
 ## 👨‍👦‍👦팀원
 1. 금오공과 대학교 최지철[팀장]
