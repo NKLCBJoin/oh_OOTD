@@ -26,10 +26,13 @@ void KakaoToken(){
       KakaoData.user_name = (user.kakaoAccount?.profile?.nickname).toString();
       KakaoData.user_email = (user.kakaoAccount?.email).toString();
 
+      //<-----------남여 구분하는 함수 부분--------------->
       if(KakaoData.user_gen == "Gender.male"){
         KakaoData.user_gen = "남성";
+        RecommandCloth.gender = true;
       } else {
         KakaoData.user_gen = "여성";
+        RecommandCloth.gender = false;
       }
       await Future.delayed(Duration(seconds: 1));//땡겨오는 시간 딜레이 대기
       return true;
