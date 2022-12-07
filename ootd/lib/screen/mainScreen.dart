@@ -146,12 +146,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             color: Model.Night?Colors.blue[300]:Colors.black54,
           ),
           onPressed: () async{
-            Get.put(NotificationController());
-            Get.find<NotificationController>().createBasicNotification();
+            // Get.put(NotificationController());
+            // Get.find<NotificationController>().createBasicNotification();
           //  CallNotification();
             //이동
-            //Navigator.push(context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
-           // print(Model.datenow);
+            Navigator.push(context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
+           print(Model.datenow);
           },
         ),
         actions: <Widget>[

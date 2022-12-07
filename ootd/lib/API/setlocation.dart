@@ -7,18 +7,17 @@ import 'package:ootd/model/model.dart';
 //--------------------------이용구 위지 정보 얻는 코드
 //이용구 주소 검색받아 전역변수 x_pos, y_pos(좌표값 지정), gu, si(주소 정보 구와 시) data 넣기
 
+
 class location_func { //이 함수를 실행하면 현재 위치를 기준으로 젼역변수 x_pos, y_pos에 좌표가 들어간다.
-
-
   Future Nowlocation() async {
     //현재 위치를 얻기 위한 작업
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     //현재위치를 position이라는 변수로 저장
-    location.x_pos = position.longitude.toString();
-    location.y_pos = position.latitude.toString();
+    location.x_pos = position.longitude;
+    location.y_pos = position.latitude;
 
-    print("현재 좌표들");
+    print("Nowlocation안, 현재 좌표들");
     print(location.x_pos);
     print(location.y_pos);
   }
@@ -35,6 +34,8 @@ class location_func { //이 함수를 실행하면 현재 위치를 기준으로
     print(jsonData_regeocode);// 확인한번하고
     location.gu = jsonDecode(jsonData_regeocode)["results"][1]['region']['area2']['name'];
     location.si = jsonDecode(jsonData_regeocode)["results"][1]['region']['area1']['name'];
+
+    print("Nowlocation안, 현재 주소");
     print(location.gu);
     print(location.si);
   }
@@ -44,14 +45,28 @@ class location_func { //이 함수를 실행하면 현재 위치를 기준으로
 
   Future<List> fetchData() async { //이 함수 실행 시 address값을 이용해 좌표를 x_pos, y_pos에 좌표 값을 넣어준다.
 
+    print("fetchData 시작");
+    print(location.address);
     //주소를 받아 좌표로 바꿔주는 작업
     Response response2 = await get(
         Uri.parse("https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=${location.address}"),headers: location.headerss);
+    print("fetchData uri.parse 종료");
     String jsonData_geocode = response2.body;
     print(jsonData_geocode);
-    location.x_pos = jsonDecode(jsonData_geocode)["addresses"][0]['x'];
-    location.y_pos = jsonDecode(jsonData_geocode)["addresses"][0]['y'];
-    print("좌표들");
+    String x_pos_s = jsonDecode(jsonData_geocode)["addresses"][0]['x'];
+    String y_pos_s = jsonDecode(jsonData_geocode)["addresses"][0]['y'];
+    //location.x_pos = jsonDecode(jsonData_geocode)["addresses"][0]['x'];
+    //location.y_pos = jsonDecode(jsonData_geocode)["addresses"][0]['y'];
+    print("fetchData 속, 좌표들");
+
+    print(x_pos_s);
+    print(y_pos_s);
+
+    location.x_pos = (double.parse(x_pos_s));
+    location.y_pos = (double.parse(y_pos_s));
+
+
+
     print(location.x_pos);
     print(location.y_pos);
 

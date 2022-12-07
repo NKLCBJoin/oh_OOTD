@@ -12,8 +12,8 @@ class location { //이용구 주소, 해시키, 텍스트컨트롤러
 
   static String address=''; //api를 통해(페이지의 _addressAPI() 실행하면 값 들어감) 주소 값이 들어간다.
 
-  static String x_pos=''; //현재 위도
-  static String y_pos=''; //현재 경도
+  static double? x_pos; //현재 위도
+  static double? y_pos; //현재 경도
 
   static String lat=''; //위도
   static String lon=''; //경도
