@@ -15,7 +15,6 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-
 import '../API/notification.dart';
 class Alarms{
   bool isAlarmed;
@@ -780,10 +779,12 @@ class _AlarmState extends State<Alarm> {
                 );
               }
               final documents = snapshot.data!.docs;
-              return Expanded(
-                child: ListView( //Todo: 할 일 목록 표시
-                  children: documents.map((doc) => _buildAlarmWidget(doc)).toList(),
-                ),
+              return Stack(
+                children: [
+                  ListView( //Todo: 할 일 목록 표시
+                    children: documents.map((doc) => _buildAlarmWidget(doc)).toList(),
+                  ),
+                ],
               );
             }
         ),
