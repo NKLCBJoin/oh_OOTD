@@ -146,29 +146,15 @@ class KakaoLogout extends StatelessWidget {
   }
 }
 
-//<-------------------공유 클래스 정의----------------------->
-class KakaoShare extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return  ElevatedButton.icon(
-      icon: Icon(Icons.share_sharp),
-      label: Text("공유하기",style: TextStyle(fontSize: 10, color: Colors.black87),),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.yellow),
-        foregroundColor: MaterialStateProperty.all(Colors.black54),
-        shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-      ),
-      onPressed: () async {
-        if(await ShareClient.instance.isKakaoTalkSharingAvailable()) {
-          try {
-            Uri uri = await ShareClient.instance.shareDefault(template: defaultFeed);
-            await ShareClient.instance.launchKakaoTalk(uri);
-            print('카카오톡 공유 완료');
-          } catch (error) {
-            print('카카오톡 공유 실패 $error');
-          }
-        }
-      },
-    );
+//<--------------------공유 함수 정의----------------------->
+void KakaoShare() async {
+  if(await ShareClient.instance.isKakaoTalkSharingAvailable()) {
+    try {
+      Uri uri = await ShareClient.instance.shareDefault(template: defaultFeed);
+      await ShareClient.instance.launchKakaoTalk(uri);
+      print('카카오톡 공유 완료');
+    } catch (error) {
+      print('카카오톡 공유 실패 $error');
+    }
   }
 }

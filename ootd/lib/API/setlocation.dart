@@ -7,7 +7,7 @@ import 'package:ootd/model/model.dart';
 //--------------------------이용구 위지 정보 얻는 코드
 //이용구 주소 검색받아 전역변수 x_pos, y_pos(좌표값 지정), gu, si(주소 정보 구와 시) data 넣기
 
-class location_func { //이 함수를 실행하면 현재 위치를 기준으로 젼역변수 lot, lon에 좌표가 들어가고 얻은 값으로 gu와 si에 주소가 들어간다.
+class location_func { //이 함수를 실행하면 현재 위치를 기준으로 젼역변수 x_pos, y_pos에 좌표가 들어간다.
 
 
   Future Nowlocation() async {
@@ -21,7 +21,11 @@ class location_func { //이 함수를 실행하면 현재 위치를 기준으로
     print("현재 좌표들");
     print(location.x_pos);
     print(location.y_pos);
+  }
 
+
+
+  Future geolocation_func() async { //젼역변수 x_pos, y_pos 좌표 기준으로 gu와 si에 주소가 들어간다.
     //좌표를 받아 주소로 바꿔주는 작업
     Response response = await get(
         Uri.parse("https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=${location.x_pos.toString()},${location.y_pos.toString()}&sourcecrs=epsg:4326&output=json"), headers: location.headerss);
@@ -34,6 +38,7 @@ class location_func { //이 함수를 실행하면 현재 위치를 기준으로
     print(location.gu);
     print(location.si);
   }
+
 
 
 
