@@ -3,7 +3,7 @@
 ![](https://velog.velcdn.com/images/shin75492/post/66168186-275b-419b-adbd-b5cbbf437e7f/image.gif)
 
 
-<div style="text-align: center">
+<div align="center">
   <h2>Introduce</h2>
     <p>최근 간절기에 일교차가 매우 심하기도 하고 옷을 입을 때 습도나 체감온도 같이 여러가지 고려해야할 사항이 많다. "오뭐입?" 어플은 날씨, 온도, 습도에 따라서 사용자에게 적절한 옷차림과 필요하다면 아우터까지 추천해줄 수 있는 어플을 만든다.</p>
 
