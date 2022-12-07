@@ -11,13 +11,3 @@ import Flutter
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
-
-if (CLLocationManager.locationServicesEnabled()) {
-    switch CLLocationManager.authorizationStatus() {
-    case .denied, .notDetermined, .restricted:
-        self.manager.requestAlwaysAuthorization()
-        break
-    default:
-        break
-    }
-}

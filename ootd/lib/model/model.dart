@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+
 class location { //이용구 주소, 해시키, 텍스트컨트롤러
 
   static Map<String,String> headerss = {

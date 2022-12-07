@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 class Alarms{
   bool isAlarmed;
   String time;
@@ -23,7 +24,15 @@ class Alarms{
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  Future<void> CallNotification(NotificationWeekandTime)async{
+    await AwesomeNotifications().createNotification(content:
+    NotificationContent(id:1 , channelKey: 'channelKey',
+      title: '${Emojis.smile_smirking_face}',
+      body: '오늘 같은날 뭘 입어야할지 모르겠죠?',
+    ),
 
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

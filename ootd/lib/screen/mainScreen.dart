@@ -22,6 +22,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/startScreen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
+
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution,this.parseHourData});
@@ -32,7 +33,6 @@ class HomePageWidget extends StatefulWidget {
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
-
 class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderStateMixin{
   Model model = Model();
   KakaoData kakaodata = KakaoData();
@@ -54,7 +54,14 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _menuController;
   late AnimationController _bellController;
-
+  Future<void> CallNotification()async{
+    await AwesomeNotifications().createNotification(content:
+    NotificationContent(id:1 , channelKey: 'channelKey',
+      title: '${Emojis.smile_smirking_face}',
+      body: '오늘 같은날 뭘 입어야할지 모르겠죠?',
+    ),
+    );
+  }
   void UpdateData(dynamic weatherData,dynamic airData, dynamic hourData){
     int condition = weatherData['weather'][0]['id'];
     List <int> conditions = [0,0,0,0,0,0,0,0];
@@ -100,6 +107,23 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
     _menuController = AnimationController(vsync: this , duration: const Duration(seconds: 1));
     _bellController= AnimationController(vsync: this , duration: const Duration(seconds: 1));
     UpdateData(widget.parseWeatherData,widget.parseAirPollution,widget.parseHourData);
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed){
+      if(!isAllowed){
+        showDialog(context: context, builder: (context)=>AlertDialog(title: Text('알림 설정을 하시겠습니까?'),
+        content: Text('알림 설정을 허용하지 않을 시, 알람 기능을 이용하실 수 없습니다 :('),
+          actions: [
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text('닫기')),
+            TextButton(onPressed: ()=>
+                AwesomeNotifications().requestPermissionToSendNotifications().then((value) =>Navigator.pop(context)), child:
+            Text('허용'))
+          ],
+        ),);
+      }
+
+    }
+    );
   }
   void dispose(){//메뉴바에 관한함수. 최지철
     _menuController.dispose();
@@ -121,11 +145,11 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             size: 30,
             color: Colors.white,
           ),
-          onPressed: () {
+          onPressed: () async{
+            CallNotification();
             //이동
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
-            print(Model.datenow);
+            //Navigator.push(context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
+           // print(Model.datenow);
           },
         ),
         actions: <Widget>[
