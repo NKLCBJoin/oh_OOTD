@@ -5,6 +5,16 @@
 
 ## 프로젝트 소개 
 
+ 
+## Skill Stack
+Property                 | Data
+-------------------------|------
+Language & Front		 | <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=Flutter&logoColor=white">
+DB                       | <img src="https://img.shields.io/badge/Google Sheets-white?style=for-the-badge&logo=Google Sheets&logoColor=34A853"> <img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28">
+OS		                 | <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=Android&logoColor=white"> <img src="https://img.shields.io/badge/IOS-000?style=for-the-badge&logo=IOS&logoColor=white">
+IDE        		    	 | <img src="https://img.shields.io/badge/Android Studio-blac?style=for-the-badge&logo=Android Studio&logoColor=white">
+Tool    				 | <img src="https://img.shields.io/badge/Adobe Photoshop-white?style=for-the-badge&logo=Adobe Photoshop&logoColor=31A8FF"> <img src="https://img.shields.io/badge/Adobe Illustrator-white?style=for-the-badge&logo=Adobe Illustrator&logoColor=FF9A00">
+
 ## 개발 기간
 
 ## 멤버구성
@@ -21,21 +31,6 @@
 - 다크 모드 지원
 - 언어 설정 변경 가능 (영어)
 
- 
- ## 참고자료
- 
  ## 테스트
- 
- 
- ---
- 
- ## Profile
-Property                 | 데이터
--------------------------|------
-Language & Front		 | <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=Flutter&logoColor=white">
-DB                       | <img src="https://img.shields.io/badge/Google Sheets-white?style=for-the-badge&logo=Google Sheets&logoColor=34A853"> <img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28">
-OS		                 | <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=Android&logoColor=white"> <img src="https://img.shields.io/badge/IOS-000?style=for-the-badge&logo=IOS&logoColor=white">
-IDE        		    	 | <img src="https://img.shields.io/badge/Android Studio-blac?style=for-the-badge&logo=Android Studio&logoColor=white">
-Tool    				 | <img src="https://img.shields.io/badge/Adobe Photoshop-white?style=for-the-badge&logo=Adobe Photoshop&logoColor=31A8FF"> <img src="https://img.shields.io/badge/Adobe Illustrator-white?style=for-the-badge&logo=Adobe Illustrator&logoColor=FF9A00">
-
-						 
+  
+ ## 참고자료
