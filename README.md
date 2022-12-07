@@ -1,4 +1,4 @@
-<h1 align="center">
+<h1>
   <b>오뭐입?</b>
 </h1>
 
