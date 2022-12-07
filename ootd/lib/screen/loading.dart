@@ -26,16 +26,14 @@ class _LoadingState extends State<Loading> {
 
     if(location.loding_value ==1){
       await location2.Nowlocation();
+      print("now location 끝나고 geolocation 앞");
       await location2.geolocation_func();
     }
     else if(location.loding_value==2){
       await location2.fetchData();
       location.loding_value=1;
     }
-
-
-
-
+    
     // MyLocation location = MyLocation();
     // await location.getMyCurrentLocation();
     // print(location.longtitude2);

@@ -427,7 +427,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   height: 3,
                                 ),
                                 Text(
-                                  location.si+' '+location.gu,
+                                 Language.En? location.address_en:location.si+' '+location.gu,
                                   style: GoogleFonts.lato(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,

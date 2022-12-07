@@ -4,7 +4,7 @@ import 'package:ootd/model/model.dart';
 
 Future<void> getTranslation_papago() async {
   String _client_id = "EwbOutIX3rGahw4pQMuV";
-  String _client_secret = "Client Secret : zQb1EjLsOi";
+  String _client_secret = "zQb1EjLsOi";
   String _content_type = "application/x-www-form-urlencoded; charset=UTF-8";
   String _url = "https://openapi.naver.com/v1/papago/n2mt";
 
@@ -19,7 +19,7 @@ Future<void> getTranslation_papago() async {
     body: {
       'source': "ko",//위에서 언어 판별 함수에서 사용한 language 변수
       'target': "en",//원하는 언어를 선택할 수 있다.
-      'text': location.si+" "+location.gu,
+      'text': location.gu,
     },
   );
   if (trans.statusCode == 200) {
