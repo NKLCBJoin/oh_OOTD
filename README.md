@@ -1,7 +1,7 @@
 # oh_OOTD
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/114370871/201268381-918ed781-3eb1-476a-bc02-6e9715693348.gif)
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=KakaoTakdae&langs_count=8)](https://github.com/KakaoTakdae/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Boknami&langs_count=8)](https://github.com/Boknami/github-readme-stats)
 
 ## 👨‍👦‍👦팀원
 1. 금오공과 대학교 최지철[팀장]
