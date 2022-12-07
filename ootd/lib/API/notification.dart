@@ -8,16 +8,14 @@ class NotificationController extends GetxController {
       NotificationChannel(
         channelKey: "basic_channel_key",
         channelName: "Basic Channel",
-        channelDescription: "Used to send the main notifications to our users",
+        channelDescription: "카카오 입사 예정자들",
         channelShowBadge: true,
         defaultColor: Colors.deepPurple,
         enableLights: true,
         enableVibration: true,
         //setting this to high or max will cause the notification to drop down from the top
         importance: NotificationImportance.Max,
-        playSound: true,
-        //Use the sound we added to the folders just now
-        soundSource: "resource://raw/res_mysound",
+        //Use the sound we added to the folders just now,
       )
     ]);
   }
@@ -29,8 +27,8 @@ class NotificationController extends GetxController {
           //The id should be unique
             id: 10,
             channelKey: 'basic_channel_key',
-            title: 'A Basic Notification ${Emojis.smile_winking_face}',
-            body: 'This is a simple notification'));
+            title: '오늘 뭐 입지?! ${Emojis.smile_smirking_face}',
+            body: '날씨가 많이 추워졌네요.\n 뭘 입어야 할지 모르시겠죠?'));
   }
 
   Future<void> createPictureNotification() async {
@@ -39,8 +37,8 @@ class NotificationController extends GetxController {
           //The id should be unique
             id: 12,
             channelKey: 'basic_channel_key',
-            title: 'A Picture Notification ${Emojis.art_framed_picture}',
-            body: 'This is a picture notification',
+            title: '오늘 뭐 입지?! ${Emojis.smile_smirking_face}',
+            body: '날씨가 많이 추워졌네요.\n 뭘 입어야 할지 모르시겠죠?',
             notificationLayout: NotificationLayout.BigPicture,
             bigPicture:
             "https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"));
@@ -52,9 +50,8 @@ class NotificationController extends GetxController {
         //The id should be unique
         id: 13,
         channelKey: 'basic_channel_key',
-        title:
-        'A Scheduled Notification ${Emojis.time_alarm_clock}. I will be back in 60 seconds',
-        body: 'This is a picture notification',
+        title: '오늘 뭐 입지?! 예약된 알림이에요. ${Emojis.smile_smirking_face}',
+        body: '날씨가 많이 추워졌네요.\n 뭘 입어야 할지 모르시겠죠?',
         notificationLayout: NotificationLayout.BigPicture,
         bigPicture:
         "https://images.pexels.com/photos/2058911/pexels-photo-2058911.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",

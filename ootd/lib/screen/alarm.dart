@@ -4,6 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:ootd/screen/loading.dart';
 import 'package:ootd/model/model.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -13,6 +15,8 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+
+import '../API/notification.dart';
 class Alarms{
   bool isAlarmed;
   String time;
@@ -733,6 +737,18 @@ class _AlarmState extends State<Alarm> {
               Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
             },
           ),
+            actions: <Widget>[
+              IconButton(
+                icon: FaIcon(
+                  FontAwesomeIcons.check,
+                  color: DarkMode.DarkOn?Colors.blue[100]:Colors.black54,
+                ),
+                onPressed: () async{
+                  Get.find<NotificationController>()
+                      .createScheduledNotification();
+                },
+              ),
+            ],
         ),
       body: Container(
         width: MediaQuery.of(context).size.width,

@@ -24,6 +24,7 @@ import 'package:ootd/screen/startScreen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:ootd/main.dart';
 import 'package:ootd/API/notification.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution,this.parseHourData});
@@ -51,7 +52,6 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
   List <String> hours = ['hour1', 'hour2', 'hour3', 'hour4', 'hour5','hour6','hour7','hour8' ];
   var hourly_weathers = List<double>.filled(8, 0.0);
   // List <double> hourly_weathers= [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late AnimationController _menuController;
   late AnimationController _bellController;
@@ -141,10 +141,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
-            Icons.location_pin,
-            size: 30,
-            color: Colors.white,
+          icon: FaIcon(
+            FontAwesomeIcons.mapLocationDot,
+            color: Model.Night?Colors.blue[300]:Colors.black54,
           ),
           onPressed: () async{
             Get.put(NotificationController());
@@ -159,12 +158,44 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
           IconButton(
             splashRadius: 50,
             iconSize: 100,
-            icon: Lottie.asset(Useanimations.menuV2,
+            icon:Model.Night? Lottie.asset(Useanimations.menuV3Blue,
+              controller: _menuController,
+              height: 60,
+              fit: BoxFit.fitHeight,
+            ):Lottie.asset(Useanimations.menuV2,
               controller: _menuController,
               height: 60,
               fit: BoxFit.fitHeight,
             ),
             onPressed: () async {
+                if(KakaoData.Token==false){
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false, // 바깥 터치해도 닫히는지
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                            backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                            title: Text(Language.En?'Failed to login':'로그인 실패',
+                              style:TextStyle(
+                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                              ),
+                            ),
+                            content: Text(Language.En?'Please login first':'로그인 먼저 해주십시오.',
+                              style:TextStyle(
+                                color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('확인'),
+                                onPressed: () {
+                                  // 다이얼로그 닫기
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ]);
+                      });
+                }
               if (_menuController.status ==
                   AnimationStatus.dismissed) {
                 _menuController.reset();
@@ -179,6 +210,19 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
         ],
       ),
       //---------------Drawer메뉴(메뉴 클릭시 나타나는 사이드페이지)-----------------------
+      onDrawerChanged: (isOpen){
+        if(isOpen==true){
+          setState(() {
+            _menuController.reset();
+            _menuController.animateTo(0.6);
+          });
+        }else{
+
+          _menuController.reverse();
+
+
+        }
+      },
       drawer: Drawer(
         child: Expanded(
           child: Container(
@@ -207,10 +251,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                           bottomRight: Radius.circular(30.0))),
                 ),
                 ListTile(
-                  leading: Icon(
-                    Icons.home,
+                  leading: FaIcon(
+                    FontAwesomeIcons.houseChimney,
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
-                    size: 30,
                   ),
                   title: Text(Language.En?'Home':"홈으로"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
@@ -226,15 +269,41 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                   },
                 ),
                 ListTile(
-                  leading: Icon(
-                    Icons.alarm_on_sharp,
+                  leading: FaIcon(
+                    FontAwesomeIcons.bell,
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
-                    size: 30,
                   ),
                   title: Text(Language.En?'Alarm':"알람 설정"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
                   onTap: (){ //알람 기능 선택시
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm()));
+                    KakaoData.Token?Navigator.push(context, MaterialPageRoute(builder: (_)=>Alarm())):
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false, // 바깥 터치해도 닫히는지
+                        builder: (BuildContext context) {
+                      return AlertDialog(
+                          backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                          title: Text(Language.En?'Failed to login':'로그인 실패',
+                            style:TextStyle(
+                              color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                            ),
+                          ),
+                          content: Text(Language.En?'Please login first':'로그인 먼저 해주십시오.',
+                            style:TextStyle(
+                              color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('확인'),
+                              onPressed: () {
+                                // 다이얼로그 닫기
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ]);
+                    });
+
                     scaffoldKey.currentState?.closeDrawer();
                     if (_menuController.status ==
                         AnimationStatus.dismissed) {
@@ -246,16 +315,35 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                   },
                 ),
                 ListTile(
-                  leading: Icon(
-                    Icons.checkroom_rounded,
+                  leading: FaIcon(
+                    FontAwesomeIcons.shirtsinbulk,
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
-                    size: 30,
                   ),
                   title: Text(Language.En?'Week OOTD':"주간OOTD"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
                   onTap: (){//메인화면으로 돌아가기
                     LoadingData.Lol = true;
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading())); // weather_screen에 정상적으로 화면이 나오는지 실험중
+                    KakaoData.Token?Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading())):AlertDialog(
+                        backgroundColor: DarkMode.DarkOn? Color(0xff29323c) : Colors.white.withOpacity(.94),
+                        title: Text(Language.En?'Failed to login':'로그인 실패',
+                          style:TextStyle(
+                            color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                          ),
+                        ),
+                        content: Text(Language.En?'Please login first':'로그인 먼저 해주십시오.',
+                          style:TextStyle(
+                            color: DarkMode.DarkOn? Colors.white:Colors.black87,
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('확인'),
+                            onPressed: () {
+                              // 다이얼로그 닫기
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ]); // weather_screen에 정상적으로 화면이 나오는지 실험중
                     scaffoldKey.currentState?.closeDrawer();
                     if (_menuController.status ==
                         AnimationStatus.dismissed) {
@@ -267,10 +355,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                   },
                 ),
                 ListTile(
-                  leading: Icon(
-                    Icons.settings_sharp,
+                  leading: FaIcon(
+                    FontAwesomeIcons.gears,
                     color: DarkMode.DarkOn? Colors.white:Colors.grey,
-                    size: 30,
                   ),
                   title: Text(Language.En?'Setting':"설정"),
                   textColor: DarkMode.DarkOn? Colors.white:Colors.black ,
@@ -566,7 +653,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                         children: [
                                           if(Language.En==false)...{
                                             Text(
-                                              "패딩,무스탕류의 아우터와 두꺼운 이너웨어",
+                                              "${RecommandCloth.ReCom[0]}",
                                               style: GoogleFonts.jua(
                                                 fontSize: 15.0,
                                                 color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -575,7 +662,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                           }else...
                                           {
                                             Text(
-                                              " Humidity:",
+                                              "${RecommandCloth.ReComEn[0]}",
                                               style: GoogleFonts.kanit(
                                                 fontSize: 12.0,
                                                 color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -613,7 +700,29 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                                 ),
                                                 Align(
                                                   alignment: AlignmentDirectional(0, 1),
-                                                  child: Text('오늘 같이 추운날 패딩을 센스입게 입어보는 거 어때요?'),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                   children: [
+                                                     if(Language.En==false)...{
+                                                       Text(
+                                                         "${RecommandCloth.paddingCom[0]}",
+                                                         style: GoogleFonts.jua(
+                                                           fontSize: 15.0,
+                                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                                         ),
+                                                       ),
+                                                     }else...
+                                                     {
+                                                       Text(
+                                                         "${RecommandCloth.paComEn[0]}",
+                                                         style: GoogleFonts.kanit(
+                                                           fontSize: 12.0,
+                                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                                         ),
+                                                       ),
+                                                     },
+                                                   ],
+                                                  ),
                                                 ),
                                               ],
                                             ),

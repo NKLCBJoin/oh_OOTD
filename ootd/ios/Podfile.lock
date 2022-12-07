@@ -596,9 +596,8 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - awesome_notifications (0.0.5):
+  - awesome_notifications (0.0.3):
     - Flutter
-    - IosAwnCore (= 0.7.3)
   - babstrap_settings_screen (0.0.1):
     - Flutter
   - BoringSSL-GRPC (0.0.24):
@@ -753,7 +752,6 @@ PODS:
     - Libuv-gRPC (= 0.0.10)
   - gRPC-Core/Interface (1.44.0)
   - GTMSessionFetcher/Core (3.0.0)
-  - IosAwnCore (0.7.3)
   - kakao_flutter_sdk_common (1.2.2):
     - Flutter
   - leveldb-library (1.22.1)
@@ -818,7 +816,6 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
-    - IosAwnCore
     - leveldb-library
     - Libuv-gRPC
     - nanopb
@@ -860,7 +857,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
-  awesome_notifications: d63d9a25f126860f9a600850d99772237895b3ba
+  awesome_notifications: 04530aafec8dac4635244ed4b4072f4aea6cc938
   babstrap_settings_screen: 535097da0fa521a47fef6f6678ff2b464ee15937
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: 14451f06cca99dbd56b069624621063150fef3e5
@@ -883,7 +880,6 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
-  IosAwnCore: 6494e0e174d49f04f513e8a002187be226889a37
   kakao_flutter_sdk_common: 2fcd2c17ef69300497b9369f390766dd9af0514c
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
