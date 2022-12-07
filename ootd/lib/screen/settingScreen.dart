@@ -253,6 +253,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     child: Text(Language.En?'Ok':'확인'),
                                     onPressed: () {
                                       // 메인으로 이동
+                                      KakaoData.Token=false;
                                       Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
                                     },
                                   ),
@@ -319,7 +320,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     child: Text(Language.En?'Ok':'확인'),
                                     onPressed: () {
                                       // 메인으로 이동
-                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>firstPage()));
+                                      KakaoData.Token=false;
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>Loading()));
                                     },
                                   ),
                                 ]);

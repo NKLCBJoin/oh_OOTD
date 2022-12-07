@@ -308,7 +308,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
                                         image:RecommandCloth.gender? DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[3]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
                                             image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
@@ -350,7 +350,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                   }
                                  });
                                },
-                               child: Text("다른 스타일 보기"),
+                               child: Language.En?Text("Other Style"):Text("다른 스타일 보기"),
                              ),
                            ),
                             ],
@@ -457,7 +457,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
                                         image:RecommandCloth.gender? DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[1]}':'${RecommandCloth.coat[0]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[1]}':'${RecommandCloth.coat[2]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
                                             image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[5]}':'${RecommandCloth.coat[6]}'),
@@ -466,8 +466,15 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       ),
                                     ),
                                     if(Language.En==false)...{
-                                      Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+
+                                      RecommandCloth.gender? Text(
+                                        RecommandCloth.choicePadding?"악어떼가 나왔다. 악어떼!":"편하지만 눈길 가는데?",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ):Text(
+                                        RecommandCloth.choicePadding?"편하지만 눈길 가는데?":"매력적인 숏코트죠?",
                                         style: GoogleFonts.jua(
                                           fontSize: 15.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -476,7 +483,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                     }else...
                                     {
                                       Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        RecommandCloth.choicePadding?"${RecommandCloth.ReComEn[2]}":"${RecommandCloth.paComEn[0]}",
                                         style: GoogleFonts.kanit(
                                           fontSize: 12.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -499,7 +506,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       }
                                     });
                                   },
-                                  child: Text("다른 스타일 보기"),
+                                  child: Language.En?Text("Other Style"):Text("다른 스타일 보기"),
                                 ),
                               ),
                             ],
@@ -604,8 +611,8 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image:RecommandCloth.gender? DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[2]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(   ///스트릿패딩
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[2]}':'${RecommandCloth.coat[4]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
                                             image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[7]}':'${RecommandCloth.etc[1]}'),
@@ -614,8 +621,14 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       ),
                                     ),
                                     if(Language.En==false)...{
-                                      Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                      RecommandCloth.gender? Text(
+                                        RecommandCloth.choicePadding?"스맨파룩":"시크릿한 시크룩",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ):Text(
+                                        RecommandCloth.choicePadding?"귀요미 꾸안꾸":"시크릿한 시크룩",
                                         style: GoogleFonts.jua(
                                           fontSize: 15.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -624,7 +637,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                     }else...
                                     {
                                       Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[3]}":"${RecommandCloth.coatComEn[1]}",
                                         style: GoogleFonts.kanit(
                                           fontSize: 12.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -647,7 +660,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       }
                                     });
                                   },
-                                  child: Text("다른 스타일 보기"),
+                                  child: Language.En?Text("Other Style"):Text("다른 스타일 보기"),
                                 ),
                               ),
                             ],
@@ -753,17 +766,23 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
                                         image:RecommandCloth.gender? DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[3]}':'${RecommandCloth.coat[2]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[3]}':'${RecommandCloth.coat[7]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[3]}':'${RecommandCloth.etc[2]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[3]}':'${RecommandCloth.etc[3]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
                                     ),
                                     if(Language.En==false)...{
-                                      Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                      RecommandCloth.gender? Text(
+                                        RecommandCloth.choicePadding?"꾸민듯 안꾸민듯 아시죠?":"롱깔깔이 탐나죠?",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ):Text(
+                                        RecommandCloth.choicePadding?"꾸민든 안꾸민듯 아시죠?":"패딩,무스탕류의 아우터와 두꺼운 이너웨어",
                                         style: GoogleFonts.jua(
                                           fontSize: 15.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -795,7 +814,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       }
                                     });
                                   },
-                                  child: Text("다른 스타일 보기"),
+                                  child: Language.En?Text("Other Style"):Text("다른 스타일 보기"),
                                 ),
                               ),
                             ],
@@ -902,17 +921,23 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
                                         image:RecommandCloth.gender? DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[4]}':'${RecommandCloth.coat[6]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[4]}':'${RecommandCloth.coat[8]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.coat[0]}':'${RecommandCloth.Wcoat[0]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
                                     ),
                                     if(Language.En==false)...{
-                                      Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                      RecommandCloth.gender? Text(
+                                        RecommandCloth.choicePadding?"아메아메아메카지룩~":"시크릿한 시크룩",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ):Text(
+                                        RecommandCloth.choicePadding?"우아~한 형제들 아니 우아한룩":"하루쯤은 힘좀 빼자구요~",
                                         style: GoogleFonts.jua(
                                           fontSize: 15.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -1054,14 +1079,20 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                             image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[5]}':'${RecommandCloth.coat[7]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.Wcoat[1]}':'${RecommandCloth.Wcoat[2]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
                                     ),
                                     if(Language.En==false)...{
-                                      Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                      RecommandCloth.gender? Text(
+                                        RecommandCloth.choicePadding?"학교가는 룩":"어? 그때 그 롱깔깔이?!",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ):Text(
+                                        RecommandCloth.choicePadding?"재벌집 막내아들 사모님룩":"이 숏코트 사고싶죠?",
                                         style: GoogleFonts.jua(
                                           fontSize: 15.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -1194,14 +1225,20 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                             image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[3]}'),
                                             fit: BoxFit.cover
                                         ):DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.etc[4]}':'${RecommandCloth.Wcoat[3]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
                                     ),
                                     if(Language.En==false)...{
-                                      Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paddingCom[0]}":"${RecommandCloth.coatCom[0]}",
+                                      RecommandCloth.gender? Text(
+                                        RecommandCloth.choicePadding?"스포티룩":"참하디 참한 남친룩",
+                                        style: GoogleFonts.jua(
+                                          fontSize: 15.0,
+                                          color: DarkMode.DarkOn? Colors.white70:Colors.black54,
+                                        ),
+                                      ):Text(
+                                        RecommandCloth.choicePadding?"꾸꾸꾸꾸꾸":"고3같은 떡볶이 코트 어때요?",
                                         style: GoogleFonts.jua(
                                           fontSize: 15.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
