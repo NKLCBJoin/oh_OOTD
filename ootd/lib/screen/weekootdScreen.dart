@@ -172,9 +172,9 @@ class _WeekootdPageState extends State<WeekootdPage> {
               Icons.share,
               size: 30,
             ),
-            onPressed: () {
+            onPressed: () async {
               KakaoShare();
-            },
+            }
           ),
         ],
         centerTitle: false,
