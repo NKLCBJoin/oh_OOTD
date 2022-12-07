@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:ootd/model/model.dart';
-
+import ' translation.dart';
 
 //--------------------------이용구 위지 정보 얻는 코드
 //이용구 주소 검색받아 전역변수 x_pos, y_pos(좌표값 지정), gu, si(주소 정보 구와 시) data 넣기

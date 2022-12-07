@@ -13,6 +13,7 @@ class location { //이용구 주소, 해시키, 텍스트컨트롤러
   static int loding_value=1; //1이면 현재위치, 2이면 지정한 주도 설정
 
   static String address=''; //api를 통해(페이지의 _addressAPI() 실행하면 값 들어감) 주소 값이 들어간다.
+  static String address_en='';
 
   static double? x_pos; //현재 위도
   static double? y_pos; //현재 경도
