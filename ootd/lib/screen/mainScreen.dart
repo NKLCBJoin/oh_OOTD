@@ -5,6 +5,7 @@ import 'package:flutter_animated_icons/flutter_animated_icons.dart';
 import 'package:flutter_animated_icons/icons8.dart';
 import 'package:flutter_animated_icons/lottiefiles.dart';
 import 'package:flutter_animated_icons/useanimations.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart';
@@ -21,8 +22,8 @@ import 'package:ootd/screen/alarm.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:ootd/screen/startScreen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-
-
+import 'package:ootd/main.dart';
+import 'package:ootd/API/notification.dart';
 class HomePageWidget extends StatefulWidget {
   // const HomePageWidget({Key? key}) : super(key: key);
   HomePageWidget({this.parseWeatherData,this.parseAirPollution,this.parseHourData});
@@ -146,7 +147,9 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             color: Colors.white,
           ),
           onPressed: () async{
-            CallNotification();
+            Get.put(NotificationController());
+            Get.find<NotificationController>().createBasicNotification();
+          //  CallNotification();
             //이동
             //Navigator.push(context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
            // print(Model.datenow);

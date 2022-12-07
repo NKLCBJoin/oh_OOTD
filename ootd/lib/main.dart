@@ -18,14 +18,13 @@ import 'package:ootd/screen/tempScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:ootd/API/notification.dart';
 //신근재
 void main() async
 {
-  AwesomeNotifications().initialize('assets://asstes/appicon.png', [
-    NotificationChannel(channelKey: 'channelKey', channelName: 'channelName', channelDescription: 'channelDescription'
-    ,defaultColor: Colors.cyan,importance: NotificationImportance.High,channelShowBadge: true,
-    )
-  ]);
+
+  WidgetsFlutterBinding.ensureInitialized();
+  NotificationController.initializeNotificationService();
   await GoogleSheestApi.init();//DB구글시트연결
   KakaoSdk.init(nativeAppKey: '5f71064329b935428862eb575059fe75');
   WidgetsFlutterBinding.ensureInitialized();
