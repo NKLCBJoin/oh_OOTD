@@ -45,6 +45,7 @@ class location_func { //이 함수를 실행하면 현재 위치를 기준으로
 
   Future<List> fetchData() async { //이 함수 실행 시 address값을 이용해 좌표를 x_pos, y_pos에 좌표 값을 넣어준다.
 
+    location.loding_value=2;
     print("fetchData 시작");
     print(location.address);
     //주소를 받아 좌표로 바꿔주는 작업

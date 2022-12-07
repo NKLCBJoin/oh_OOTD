@@ -23,8 +23,17 @@ class _LoadingState extends State<Loading> {
 
   void getLocation() async {
     location_func location2 =  location_func();
-    await location2.Nowlocation();
-    await location2.geolocation_func();
+
+    if(location.loding_value ==1){
+      await location2.Nowlocation();
+      await location2.geolocation_func();
+    }
+    else if(location.loding_value==2){
+      await location2.fetchData();
+      location.loding_value=1;
+    }
+
+
 
 
     // MyLocation location = MyLocation();

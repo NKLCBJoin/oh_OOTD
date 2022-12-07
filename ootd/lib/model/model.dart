@@ -10,6 +10,8 @@ class location { //이용구 주소, 해시키, 텍스트컨트롤러
     "X-NCP-APIGW-API-KEY": "gk2M9ll3WPkULJOsIZWdb7XDeBqhCQEwbITRGb43" // 개인 시크릿 키
   };
 
+  static int loding_value=1; //1이면 현재위치, 2이면 지정한 주도 설정
+
   static String address=''; //api를 통해(페이지의 _addressAPI() 실행하면 값 들어감) 주소 값이 들어간다.
 
   static double? x_pos; //현재 위도
