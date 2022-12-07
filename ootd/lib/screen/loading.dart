@@ -33,7 +33,7 @@ class _LoadingState extends State<Loading> {
       await location2.fetchData();
       location.loding_value=1;
     }
-    
+
     // MyLocation location = MyLocation();
     // await location.getMyCurrentLocation();
     // print(location.longtitude2);

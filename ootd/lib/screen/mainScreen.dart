@@ -480,7 +480,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      Language.En?'Low: $min_temp°':'최저: $min_temp°',
+                                      Language.En?'Low: $min_temp°  ':'최저: $min_temp°  ',
                                       style: GoogleFonts.lato(
                                           fontSize: 17.0,
                                           fontWeight: FontWeight.bold,
