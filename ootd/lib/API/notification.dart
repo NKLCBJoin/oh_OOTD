@@ -58,7 +58,7 @@ class NotificationController extends GetxController {
       ),
       schedule: NotificationInterval(
         interval: 60,
-        repeats: false,
+        repeats: true,
         timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(),
       ),
     );

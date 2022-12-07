@@ -206,12 +206,9 @@ class _LocationSetState extends State<LocationSet> {
     );
     _AddressController.text = '${model.address!} ${model.buildingName!}';
     //print(_AddressController.toString());
-    location.address = model.address.toString() + model.buildingName.toString();
+    api_return_adress = model.address.toString() + model.buildingName.toString();
 
-    print("searchlocation addressAPI속, 현재 주소");
-    print(location.address);
-    //api_return_adress = model.address.toString() + model.buildingName.toString();
-    //location.address = api_return_adress; //전역변수에 주소값 넣기.
+    location.address = api_return_adress; //전역변수에 주소값 넣기.
     location_class.fetchData(); //좌표 얻는 함수 실행 > x_pos, y_pos에 값 들어감
   }
 }

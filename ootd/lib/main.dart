@@ -22,7 +22,6 @@ import 'package:ootd/API/notification.dart';
 //신근재
 void main() async
 {
-
   WidgetsFlutterBinding.ensureInitialized();
   NotificationController.initializeNotificationService();
   await GoogleSheestApi.init();//DB구글시트연결

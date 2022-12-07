@@ -27,7 +27,7 @@ class  _firstPageState extends State<firstPage>{
   void initState() {
     SetNight();
     // TODO: implement initState
-   // KakaoToken();
+    KakaoToken();
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.push(

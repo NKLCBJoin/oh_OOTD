@@ -15,7 +15,8 @@ void KakaoToken(){
       AccessTokenInfo tokenInfo = await UserApi.instance.accessTokenInfo();
       KakaoData.Token = true;
       print('----------------------------------');
-      print('토큰이 이미 존재합니다'
+      print(
+          '토큰이 이미 존재합니다'
           '\n회원정보: ${tokenInfo.id}'
           '\n만료시간: ${tokenInfo.expiresIn} 초');
       print('----------------------------------');
@@ -124,6 +125,7 @@ class KakaoLogin extends StatelessWidget {
     );
   }
 }
+
 
 //<-------------------로그아웃 클래스 정의----------------------->
 class KakaoLogout extends StatelessWidget {
