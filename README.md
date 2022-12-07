@@ -39,13 +39,11 @@
 - **Softwares and Tools**:
 
     ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-    
 <br>
 
 - **Extras**:
     ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)   
-
-
+<br>
 </p>
 
 <br>
