@@ -8,6 +8,7 @@
 4. 금오공과 대학교 원준하
 5. 금오공과 대학교 이재민
 
+https://www.youtube.com/watch?v=ZArpFpfRKxE&ab_channel=%EB%9E%84%EB%A1%9C
 
 ## 📃개요
 <img width="742" alt="스크린샷 2022-11-19 오후 5 19 44" src="https://user-images.githubusercontent.com/114370871/202841775-920e3e6e-1d09-462e-896b-3d2ae2c68beb.png">
