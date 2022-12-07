@@ -307,8 +307,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[3]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -453,8 +456,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[1]}':'${RecommandCloth.coat[0]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[5]}':'${RecommandCloth.coat[6]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -598,8 +604,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[2]}':'${RecommandCloth.coat[1]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[7]}':'${RecommandCloth.etc[1]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -743,8 +752,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[3]}':'${RecommandCloth.coat[2]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[3]}':'${RecommandCloth.etc[2]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -889,8 +901,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[4]}':'${RecommandCloth.coat[6]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -1035,8 +1050,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[5]}':'${RecommandCloth.coat[7]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
@@ -1172,8 +1190,11 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[1]}'),
+                                        image:RecommandCloth.gender? DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[0]}':'${RecommandCloth.coat[3]}'),
+                                            fit: BoxFit.cover
+                                        ):DecorationImage(
+                                            image: NetworkImage(RecommandCloth.choicePadding?'${RecommandCloth.padding[6]}':'${RecommandCloth.coat[5]}'),
                                             fit: BoxFit.cover
                                         ),
                                       ),
