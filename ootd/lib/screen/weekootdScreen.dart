@@ -483,7 +483,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                     }else...
                                     {
                                       Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        RecommandCloth.choicePadding?"${RecommandCloth.ReComEn[2]}":"${RecommandCloth.paComEn[0]}",
                                         style: GoogleFonts.kanit(
                                           fontSize: 12.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
@@ -637,7 +637,7 @@ class _WeekootdPageState extends State<WeekootdPage> {
                                     }else...
                                     {
                                       Text(
-                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[0]}":"${RecommandCloth.coatComEn[0]}",
+                                        RecommandCloth.choicePadding?"${RecommandCloth.paComEn[3]}":"${RecommandCloth.coatComEn[1]}",
                                         style: GoogleFonts.kanit(
                                           fontSize: 12.0,
                                           color: DarkMode.DarkOn? Colors.white70:Colors.black54,
