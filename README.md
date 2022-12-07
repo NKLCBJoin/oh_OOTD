@@ -3,11 +3,13 @@
 ![](https://velog.velcdn.com/images/shin75492/post/66168186-275b-419b-adbd-b5cbbf437e7f/image.gif)
 
 
-## <center>Introduce 
+## <center>Introduce</center>
 최근 간절기에 일교차가 매우 심하기도 하고 옷을 입을 때 습도나 체감온도 같이 여러가지 고려해야할 사항이 많다. "오뭐입?" 어플은 날씨, 온도, 습도에 따라서 사용자에게 적절한 옷차림과 필요하다면 아우터까지 추천해줄 수 있는 어플을 만든다.
 
-## <center>📆 개발 기간
-  <center><p>2022년 09월 14일 ~ 2022년 12월 6일</p></center>
+  ## <center>📆 개발 기간</center>
+<div style="text-align: center">
+ 2022년 09월 14일 ~ 2022년 12월 6일
+</div>
 
   ---
  
@@ -25,22 +27,18 @@ Tool    				 | <img src="https://img.shields.io/badge/Adobe Photoshop-white?styl
 ### 👨‍💻 Programming Languages
 
 <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=Flutter&logoColor=white">
-<br/>
 
 ### 🗄️ Databases
 
 <img src="https://img.shields.io/badge/Google Sheets-white?style=for-the-badge&logo=Google Sheets&logoColor=34A853"><img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28">
-<br/>
 
 ### 💻 Software and Tools
 
 <img src="https://img.shields.io/badge/Adobe Photoshop-white?style=for-the-badge&logo=Adobe Photoshop&logoColor=31A8FF"><img src="https://img.shields.io/badge/Adobe Illustrator-white?style=for-the-badge&logo=Adobe Illustrator&logoColor=FF9A00"><img src="https://img.shields.io/badge/Android Studio-blac?style=for-the-badge&logo=Android Studio&logoColor=white">
-<br/>
 
 
 ### 👨🏽‍💻 Workspace
 <img alt="Macbook Air M1" src="https://img.shields.io/badge/Apple-MacBook_PRO_-999999?style=for-the-badge&logo=apple&logoColor=white"><img alt="Macbook Air M1" src="https://img.shields.io/badge/Windows-111111?style=for-the-badge&logo=Windows&logoColor=0078D6">
-<br/>
 
 ---
 
