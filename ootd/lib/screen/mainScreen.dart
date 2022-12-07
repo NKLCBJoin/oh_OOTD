@@ -146,12 +146,12 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
             color: Model.Night?Colors.blue[300]:Colors.black54,
           ),
           onPressed: () async{
-            Get.put(NotificationController());
-            Get.find<NotificationController>().createBasicNotification();
+            // Get.put(NotificationController());
+            // Get.find<NotificationController>().createBasicNotification();
           //  CallNotification();
             //이동
-            //Navigator.push(context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
-           // print(Model.datenow);
+            Navigator.push(context, MaterialPageRoute(builder: (_) => LocationSet(title: '',)));
+           print(Model.datenow);
           },
         ),
         actions: <Widget>[
@@ -427,7 +427,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   height: 3,
                                 ),
                                 Text(
-                                  Language.En? 'Gumi':'구미',
+                                 Language.En? location.address_en:location.si+' '+location.gu,
                                   style: GoogleFonts.lato(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
@@ -480,7 +480,7 @@ class _HomePageWidgetState extends State<HomePageWidget>with TickerProviderState
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      Language.En?'Low: $min_temp°':'최저: $min_temp°',
+                                      Language.En?'Low: $min_temp°  ':'최저: $min_temp°  ',
                                       style: GoogleFonts.lato(
                                           fontSize: 17.0,
                                           fontWeight: FontWeight.bold,

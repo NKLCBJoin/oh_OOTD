@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ootd/API/location.dart';
 import 'package:ootd/API/network.dart';
+import 'package:ootd/API/setlocation.dart';
 import 'package:ootd/screen/mainScreen.dart';
 import 'package:ootd/screen/weather_screen.dart';
 import 'package:ootd/model/model.dart';
@@ -21,23 +22,30 @@ enum RGB {red, green, blue }
 class _LoadingState extends State<Loading> {
 
   void getLocation() async {
-    MyLocation location = MyLocation();
-    await location.getMyCurrentLocation();
-    print(location.longtitude2);
-    print(location.latitude2);
+    location_func location2 =  location_func();
+
+    if(location.loding_value ==1){
+      await location2.Nowlocation();
+      print("now location 끝나고 geolocation 앞");
+      await location2.geolocation_func();
+    }
+    else if(location.loding_value==2){
+      await location2.fetchData();
+      location.loding_value=1;
+    }
+
+    // MyLocation location = MyLocation();
+    // await location.getMyCurrentLocation();
+    // print(location.longtitude2);
+    // print(location.latitude2);
 
     Network network = Network(
         Language.En ? 'https://api.openweathermap.org/data/2.5/weather?'
-            'lat=${location.latitude2}&lon=${location
-            .longtitude2}&appid=$apikey&lang=en&units=metric' :
+            'lat=${location.y_pos}&lon=${location.x_pos}&appid=$apikey&lang=en&units=metric' :
         'https://api.openweathermap.org/data/2.5/weather?'
-            'lat=${location.latitude2}&lon=${location
-            .longtitude2}&appid=$apikey&lang=kr&units=metric',
-        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location
-            .latitude2}&lon=${location.longtitude2}&appid=$apikey',
-        'https://api.openweathermap.org/data/2.5/forecast?lat=${location
-            .latitude2}&lon=${location
-            .longtitude2}&appid=$apikey&units=metric');
+            'lat=${location.y_pos}&lon=${location.x_pos}&appid=$apikey&lang=kr&units=metric',
+        'http://api.openweathermap.org/data/2.5/air_pollution?lat=${location.y_pos}&lon=${location.x_pos}&appid=$apikey',
+        'https://api.openweathermap.org/data/2.5/forecast?lat=${location.y_pos}&lon=${location.x_pos}&appid=$apikey&units=metric');
     var weatherData = await network.getJsonData();
     print(weatherData);
 
