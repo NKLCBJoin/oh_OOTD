@@ -1,11 +1,8 @@
 
 ##  오뭐입?!
-
+https://www.youtube.com/watch?v=hRqH1I6Y3WQ
 > 카카오 입사 예정자들, 오늘 뭐 입지..?
-> 
-![ic_launcher](https://user-images.githubusercontent.com/114370871/206489602-917711d7-afe4-4a96-a28c-6d53d94b042e.png)
-
-
+![ani](https://user-images.githubusercontent.com/114370871/206512735-3e20629d-8e1f-49fc-beb2-8b42a1e64d62.gif)
 
 
 ## 🤖 왜 오뭐입을 이용해야 하는가 ?
