@@ -103,7 +103,6 @@ flutter로 작업 하였지만, IOS,AOS 둘다 호환하기위해 각각의 네�
 | --- | --- |
 | [NAVER  MAP ](https://github.com/nhn/tui.editor/tree/master/apps/editor) | 좌표 정보를 입력으로 하여 주소정보 입력받거나, 주소정보로 좌표를 가져옴|
 | [KaKaoTalk ](https://github.com/nhn/tui.editor/tree/master/apps/editor) | 정보를 읽고 사용자 성별에 맞게 옷차림을 추천해줄 수 있기 위해 카카오톡 로그인을 사용하였고, OOTD 내용 공유를 위하여 카카오톡 공유 기능을 사용|
-| [NAVER  MAP ](https://github.com/nhn/tui.editor/tree/master/apps/editor) | 좌표 정보를 입력으로 하여 주소정보 입력받거나, 주소정보로 좌표를 가져옴|
 | [Current weather data](https://openweathermap.org/current) |현재 날씨 정보를 가져오는 API|
 [GoogleSheets](https://developers.google.com/sheets/api) |구글스프레드 시트API로 DB구성|
 
@@ -128,9 +127,13 @@ flutter로 작업 하였지만, IOS,AOS 둘다 호환하기위해 각각의 네�
 ## 🍞 Our Team
 
 [카카오 입사 예정자 팀장] 최지철
+
 [카카오 입사 예정자] 신근재
+
 [카카오 입사 예정자] 이용구
+
 [카카오 입사 예정자] 이재민
+
 [카카오 입사 예정자] 원준하
 
 ## 🚀 Used By
