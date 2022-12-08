@@ -1,5 +1,6 @@
 
-##  오뭐입?!
+##  오뭐입?!![오뭐](https://user-images.githubusercontent.com/114370871/206513329-09939f73-9038-4d57-88f3-8dfc5c0c355c.png)
+
 https://www.youtube.com/watch?v=hRqH1I6Y3WQ
 > 카카오 입사 예정자들, 오늘 뭐 입지..?
 >
