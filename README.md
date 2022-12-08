@@ -35,20 +35,22 @@
 * **타지 날씨** : 타 지역 시,구,동 단위로 검색 가능하며, 그에 따른 날씨 정보를 갖고올 수 있다.
 
 **알림 알람 기능**
-그대 나를 잊지말아요...
+
 ![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/114370871/206486887-8dfb68e5-d9fe-4a9d-8de2-d45e2083db11.gif)
 ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/114370871/206487064-77762e66-60e4-4207-ba03-b7ae02d31b48.gif)
 
+그대 나를 잊지말아요...
 맞춰놓은 시간으로 알림이 슈우웅~
 
 
 ### UI
-* **아이콘 애니메이션** : 메뉴바 애니메이션
-* **다크모드** : 전 페이지 눈이 편한 커스텀 다크모드 색상 적용
+
 ![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/114370871/206485630-1b8ce7b5-8cc5-469b-82dd-d03bc54509b5.gif)
 ![ezgif com-gif-maker (13)](https://user-images.githubusercontent.com/114370871/206485874-4aeba639-6d46-4d2f-b314-7f3d1a019606.gif)
 
-
+* **아이콘 애니메이션** : 메뉴바 애니메이션
+* **다크모드** : 전 페이지 눈이 편한 커스텀 다크모드 색상 적용
+* 
 ## 🎨 도움말
 
 1.  첫 시작 : 카카오톡 어플이 깔려있다면 로그인을 사용하여 개인 정보를 불러올 수 있다. 만약 깔려있지 않다면 날씨 정보만 알 수 있다. 카카오톡 정보를 통해 남성, 여성 데이터를 얻어올 수 있게 되며 이에 따른 옷 추천을 하게 된다.
