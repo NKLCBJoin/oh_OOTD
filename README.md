@@ -6,19 +6,6 @@
 ![ic_launcher](https://user-images.githubusercontent.com/114370871/206489602-917711d7-afe4-4a96-a28c-6d53d94b042e.png)
 
 
-## 🚩 Table of Contents
-
-- [Packages](#-packages)
-- [Why TOAST UI Editor?](#-why-toast-ui-editor)
-- [Features](#-features)
-- [Examples](#-examples)
-- [Browser Support](#-browser-support)
-- [Pull Request Steps](#-pull-request-steps)
-- [Contributing](#-contributing)
-- [TOAST UI Family](#-toast-ui-family)
-- [Used By](#-used-by)
-- [License](#-license)
-
 
 
 ## 🤖 왜 오뭐입을 이용해야 하는가 ?
