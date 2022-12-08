@@ -37,18 +37,15 @@
 **알림 알람 기능**
 그대 나를 잊지말아요...
 ![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/114370871/206486887-8dfb68e5-d9fe-4a9d-8de2-d45e2083db11.gif)
-맞춰놓은 시간으로
 ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/114370871/206487064-77762e66-60e4-4207-ba03-b7ae02d31b48.gif)
 
-알림이 슈우웅~
+맞춰놓은 시간으로 알림이 슈우웅~
 
 
 ### UI
 * **아이콘 애니메이션** : 메뉴바 애니메이션
-* ![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/114370871/206485630-1b8ce7b5-8cc5-469b-82dd-d03bc54509b5.gif)
-
-
 * **다크모드** : 전 페이지 눈이 편한 커스텀 다크모드 색상 적용
+![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/114370871/206485630-1b8ce7b5-8cc5-469b-82dd-d03bc54509b5.gif)
 ![ezgif com-gif-maker (13)](https://user-images.githubusercontent.com/114370871/206485874-4aeba639-6d46-4d2f-b314-7f3d1a019606.gif)
 
 
