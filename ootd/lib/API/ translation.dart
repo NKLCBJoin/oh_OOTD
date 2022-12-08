@@ -8,7 +8,6 @@ Future<void> getTranslation_papago() async {
   String _content_type = "application/x-www-form-urlencoded; charset=UTF-8";
   String _url = "https://openapi.naver.com/v1/papago/n2mt";
 
-
   http.Response trans = await http.post(
     Uri.parse(_url),
     headers: {

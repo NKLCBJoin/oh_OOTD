@@ -26,7 +26,7 @@ class location_func { //이 함수를 실행하면 현재 위치를 기준으로
 
 
   Future geolocation_func() async { //젼역변수 x_pos, y_pos 좌표 기준으로 gu와 si에 주소가 들어간다.
-    //좌표를 받아 주소로 바꿔주는 작업
+    //좌표를 받아 주소로 바꿔주는 작업z
     Response response = await get(
         Uri.parse("https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=${location.x_pos.toString()},${location.y_pos.toString()}&sourcecrs=epsg:4326&output=json"), headers: location.headerss);
     // 미리 만들어둔 headers map을 헤더에 넣어준다.
