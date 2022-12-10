@@ -155,4 +155,4 @@ flutter로 작업 하였지만, IOS,AOS 둘다 호환하기위해 각각의 네�
 
 ## 📜 License
 
-This software is licensed under the [MIT](https://github.com/nhn/tui.editor/blob/master/LICENSE) © [NHN Cloud](https://github.com/nhn).
+This software is licensed under the [MIT](https://github.com/nhn/tui.editor/blob/master/LICENSE) © [입사 예정자들](https://github.com/KakaoTakdae).
